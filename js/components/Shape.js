@@ -25,6 +25,9 @@ export class Shape{
         else{
             this.context.fill(this.path);
         }
-        
+    }
+
+    getPath(){
+        return this.path;
     }
 }
