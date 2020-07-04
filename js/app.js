@@ -1,25 +1,46 @@
 import {Rectangle} from './components/Rectangle.js';
-
-let canvas = document.querySelector('canvas');
-canvas.width = 300;
-canvas.height = 300;
-
-let ctx = canvas.getContext('2d');
+import {Circle} from './components/Circle.js';
 
 
-let rect = new Rectangle({context: ctx});
-rect.draw();
+class Canvas{
+    constructor(selector){
+        this.canvas = document.querySelector(selector);
+        this.canvas.width = 300;
+        this.canvas.height = 300;
+        this.canvas.style.background = '#EBEBEB';
 
-// let rect = new Path2D();
+        this.context = this.canvas.getContext('2d');
+        this.shapeList = []; // List to store Shapes  
+    
+        
+        this.shapesClasses = [Rectangle, Circle]; 
+    }
 
-// rect.scale(2, 2);
-// rect.moveTo(0, 0);
-// rect.lineTo(100, 0);
-// rect.lineTo(100, 100);
-// rect.lineTo(0, 100);
-// rect.lineTo(0, 0);
+    createShape(id){
+        let shape = new this.shapesClasses[id]({context: this.context});
+        shape.draw();
+        this.shapeList.push(shape);
+    }
 
-// ctx.stroke(rect)
+    getShape(id){
+        return this.shapeList[id];
+    }
+    
+}
+
+let canvas = new Canvas('canvas');
+
+
+// Get all buttons in DOM that creates different shapes
+let allShapesBtn = document.querySelectorAll('.btn-shapes');
+
+// Add event handler for each button
+allShapesBtn.forEach((button, index)=>{
+    button.addEventListener('click', ()=>{
+        let shape = canvas.createShape(index);
+        console.log("You have " + canvas.shapeList.length + " shapes.");
+    });
+});
 
 
 // // Listen for mouse moves
