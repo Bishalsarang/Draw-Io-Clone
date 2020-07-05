@@ -1,17 +1,18 @@
 import { Rectangle } from './components/Rectangle.js';
 import { Circle } from './components/Circle.js';
+import { Cloud } from './components/Cloud.js';
 
 class Canvas {
 	constructor(selector) {
 		this.canvas = document.querySelector(selector);
-		this.canvas.width = 300;
-		this.canvas.height = 300;
+		this.canvas.width = 900;
+		this.canvas.height = 900;
 		this.canvas.style.background = '#EBEBEB';
 
 		this.context = this.canvas.getContext('2d');
 		this.shapeList = []; // List to store Shapes
 
-        this.shapesClasses = [Rectangle, Circle];
+        this.shapesClasses = [Rectangle, Circle, Cloud];
         
         this.eventListener();
 	}
@@ -31,7 +32,6 @@ class Canvas {
         let that = this;
 		this.canvas.addEventListener('click', function (event) {
             that.shapeList.forEach((shape, index) =>{
-               
                 if(that.context.isPointInPath(shape.getPath(), event.offsetX, event.offsetY)){
                     console.log("Clicked shape: " + index);
                     that.context.fillStyle = 'red';
@@ -41,16 +41,6 @@ class Canvas {
                 }
                 shape.draw();
             })
-			// // Check whether point is inside shape
-			// if (ctx.isPointInPath(rect, event.offsetX, event.offsetY)) {
-			// 	ctx.fillStyle = 'red';
-			// } else {
-			// 	ctx.fillStyle = 'blue';
-			// }
-
-			// // Draw shape
-			// ctx.clearRect(0, 0, canvas.width, canvas.height);
-			// ctx.fill(rect);
 		});
 	}
 }
