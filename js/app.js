@@ -27,12 +27,16 @@ class Canvas {
 		return this.shapeList[id];
 	}
 
+
 	eventListener() {
         // Listen for mouse moves
         let that = this;
 		this.canvas.addEventListener('click', function (event) {
+            
             that.shapeList.forEach((shape, index) =>{
-                if(that.context.isPointInPath(shape.getPath(), event.offsetX, event.offsetY)){
+                let rect = that.canvas.getBoundingClientRect(); 
+                if(that.context.isPointInPath(shape.getPath(), event.clientX - rect.left, event.clientY - rect.top)){
+                    console.log("hshshsh");
                     console.log("Clicked shape: " + index);
                     that.context.fillStyle = 'red';
                 }

@@ -1,0 +1,15 @@
+header {
+	background: #0049b0;
+	color: white;
+}
+
+.logo-wrapper,
+nav {
+	display: inline-block;
+}
+
+.menu-item {
+	list-style: none;
+	display: inline-block;
+	margin: 10px;
+}

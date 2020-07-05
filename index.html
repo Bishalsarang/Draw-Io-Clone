@@ -5,28 +5,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Draw IO</title>
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
     <div class="main-wrapper">
-        <div class="sidebar-left">
-            <form class="search-form">
-                <input type="search" name="" id="" placeholder="Search Shapes">
-            </form>
-            <h2>General</h2>
-            <ul>
-                <li><button class="btn-shapes" name="rectangle">Rectangle</button></li>
-                <li><button class="btn-shapes" name="circle">Circle</button></li>
-                <li><button class="btn-shapes" name="cloud">Cloud</button></li>
-            </ul>
-        </div>
-        <canvas></canvas>
-        <div class="sidebar-right">
+        <header>
+            <div class="logo-wrapper">
+                <img src="images/logo-flat-logo.png" alt="" srcset="">
+            </div>
+            <nav>
+                <ul class="menu-items">
+                    <li class="menu-item">File</li>
+                    <li class="menu-item">Edit</li>
+                    <li class="menu-item">View</li>
+                    <li class="menu-item">Arrange</li>
+                    <li class="menu-item">Extras</li>
+                    <li class="menu-item">Help</li>
+                </ul>
+            </nav>
+        </header>
+        <main class="clearfix">
+            <div class="sidebar-left left">
+                <form class="search-form">
+                    <input type="search" name="" id="" placeholder="Search Shapes">
+                </form>
+                <h2>General</h2>
+                <ul>
+                    <li><button class="btn-shapes" name="rectangle">Rectangle</button></li>
+                    <li><button class="btn-shapes" name="circle">Circle</button></li>
+                    <li><button class="btn-shapes" name="cloud">Cloud</button></li>
+                </ul>
+            </div>
+            <canvas class="left"></canvas>
+            <div class="sidebar-right left">
 
-        </div>
+            </div>
+        </main>
     </div>
     <script src="js/app.js" type="module" defer></script>
-    <!-- <script src="js/components/Rectangle.js"></script> -->
 </body>
 
 

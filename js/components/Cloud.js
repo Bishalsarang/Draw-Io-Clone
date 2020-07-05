@@ -2,9 +2,7 @@ import {Shape} from './Shape.js';
 
 export class Cloud extends Shape{
     constructor(props){
-        super(props);  
-       
-
+        super(props); 
         this.makePath();
     }
 
