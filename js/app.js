@@ -46,6 +46,12 @@ class Canvas {
                 shape.draw();
             })
 		});
+
+		var button = document.querySelector('.btn-save');
+		button.addEventListener('click', function (e) {
+			var dataURL = that.canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
+    		button.setAttribute('href', dataURL);
+	});
 	}
 }
 
@@ -61,3 +67,8 @@ allShapesBtn.forEach((button, index) => {
 		console.log('You have ' + canvas.shapeList.length + ' shapes.');
 	});
 });
+
+
+
+
+
