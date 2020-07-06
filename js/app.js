@@ -49,16 +49,11 @@ class Canvas {
                 let rect = that.canvas.getBoundingClientRect(); 
                 if(that.context.isPointInPath(shape.getPath(), event.clientX - rect.left - shape.tx, event.clientY - rect.top - shape.ty)){
 					console.log("Clicked shape: " + index);
-					console.log(that.context);
-					that.context.save();
+					
 
 					shape.tx += 10;
 					shape.ty += 100;
-					that.context.translate(shape.tx, shape.ty);
-					
-					// that.drawAll();
-					shape.draw();
-					that.context.restore();
+					that.drawAll();
 					console.log(that.context);
                     that.context.fillStyle = 'red';
                 }

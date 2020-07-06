@@ -17,17 +17,21 @@ export class Shape{
         this.context = context;
         this.context.fillStyle = fillStyle;
 
-        this.tx = 0;
-        this.ty = 0;
+        this.tx = x;
+        this.ty = y;
     }
     
     draw(){
+        this.context.save();
+        this.context.translate(this.tx, this.ty);
         if(this.stroke){
             this.context.stroke(this.path);
         }
         else{
             this.context.fill(this.path);
         }
+
+        this.context.restore();
     }
 
     getPath(){
