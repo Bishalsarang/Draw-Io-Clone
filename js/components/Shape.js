@@ -10,12 +10,15 @@ export class Shape{
 
         this.zIndex = zIndex; // Track shape layers
 
-        this.stroke = false;
-        this.fill = true;
+        this.stroke = true;
+        this.fill = false;
       
 
         this.context = context;
         this.context.fillStyle = fillStyle;
+
+        this.tx = 0;
+        this.ty = 0;
     }
     
     draw(){

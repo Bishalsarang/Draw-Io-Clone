@@ -6,7 +6,7 @@ class Canvas {
 	constructor(selector) {
 		this.canvas = document.querySelector(selector);
 		this.canvas.width = 900;
-		this.canvas.height = 900;
+		this.canvas.height = 1800;
 		this.canvas.style.background = '#EBEBEB';
 
 		this.context = this.canvas.getContext('2d');
@@ -27,26 +27,51 @@ class Canvas {
 		return this.shapeList[id];
 	}
 
+	// clear the canvas
+	clear() {
+    	this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+	}
+
+	drawAll(){
+		this.clear();
+		this.shapeList.forEach((shape, index) =>{
+			shape.draw();
+		});
+	}
 
 	eventListener() {
         // Listen for mouse moves
         let that = this;
 		this.canvas.addEventListener('click', function (event) {
-            
+            // that.clear();
             that.shapeList.forEach((shape, index) =>{
+
                 let rect = that.canvas.getBoundingClientRect(); 
-                if(that.context.isPointInPath(shape.getPath(), event.clientX - rect.left, event.clientY - rect.top)){
-                    console.log("hshshsh");
-                    console.log("Clicked shape: " + index);
+                if(that.context.isPointInPath(shape.getPath(), event.clientX - rect.left - shape.tx, event.clientY - rect.top - shape.ty)){
+					console.log("Clicked shape: " + index);
+					console.log(that.context);
+					that.context.save();
+
+					shape.tx += 10;
+					shape.ty += 100;
+					that.context.translate(shape.tx, shape.ty);
+					
+					// that.drawAll();
+					shape.draw();
+					that.context.restore();
+					console.log(that.context);
                     that.context.fillStyle = 'red';
                 }
                 else{
                     that.context.fillStyle = 'blue';
-                }
-                shape.draw();
+				}
+				// that.context.restore();
+				
+                // shape.draw();
             })
 		});
 
+		// Exporting Image as PNG
 		var button = document.querySelector('.btn-save');
 		button.addEventListener('click', function (e) {
 			var dataURL = that.canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
