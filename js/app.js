@@ -7,7 +7,7 @@ class Canvas {
 		this.canvas = document.querySelector(selector);
 		this.canvas.width = 900;
 		this.canvas.height = 1800;
-		this.canvas.style.background = '#EBEBEB';
+		// this.canvas.style.background = '#EBEBEB';
 
 		this.context = this.canvas.getContext('2d');
 		this.shapeList = []; // List to store Shapes
@@ -32,6 +32,35 @@ class Canvas {
     	this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 	}
 
+	drawGrid(gridPixelSize, color)
+{
+this.context.save();
+this.context.lineWidth = 1;
+this.context.strokeStyle = color;
+
+// horizontal grid lines
+for(var i = 0; i <= this.canvas.height; i = i + gridPixelSize)
+{
+	this.context.beginPath();
+	this.context.moveTo(0, i);
+	this.context.lineTo(this.canvas.width, i);
+	this.context.closePath();
+	this.context.stroke();
+}
+
+// vertical grid lines
+for(var j = 0; j <= this.canvas.width; j = j + gridPixelSize)
+{
+	this.context.beginPath();
+	this.context.moveTo(j, 0);
+	this.context.lineTo(j, this.canvas.height);
+	this.context.closePath();
+	this.context.stroke();
+}
+
+this.context.restore();
+
+}
 	drawAll(){
 		this.clear();
 		this.shapeList.forEach((shape, index) =>{
@@ -46,14 +75,17 @@ class Canvas {
             // that.clear();
             that.shapeList.forEach((shape, index) =>{
 
-                let rect = that.canvas.getBoundingClientRect(); 
-                if(that.context.isPointInPath(shape.getPath(), event.clientX - rect.left - shape.tx, event.clientY - rect.top - shape.ty)){
+				let rect = that.canvas.getBoundingClientRect(); 
+				console.log(rect);
+				console.log((event.clientX - rect.left) / shape.sx - shape.tx, (event.clientY - rect.top) / shape.sy - shape.ty);
+				console.log(shape);
+                if(that.context.isPointInPath(shape.getPath(), (event.clientX - rect.left) / shape.sx - shape.tx, (event.clientY - rect.top) / shape.sy - shape.ty)){
 					console.log("Clicked shape: " + index);
 					
 
-					shape.tx += 10;
-					shape.ty += 100;
-					that.drawAll();
+					// shape.tx += 10;
+					// shape.ty += 100;
+					// shape.drawAll();
 					console.log(that.context);
                     that.context.fillStyle = 'red';
                 }
@@ -75,7 +107,10 @@ class Canvas {
 	}
 }
 
-let canvas = new Canvas('canvas');
+
+window.onload = function(){
+	let canvas = new Canvas('canvas');
+	canvas.drawGrid(10, 'grey');
 
 // Get all buttons in DOM that creates different shapes
 let allShapesBtn = document.querySelectorAll('.btn-shapes');
@@ -87,6 +122,9 @@ allShapesBtn.forEach((button, index) => {
 		console.log('You have ' + canvas.shapeList.length + ' shapes.');
 	});
 });
+
+}
+
 
 
 

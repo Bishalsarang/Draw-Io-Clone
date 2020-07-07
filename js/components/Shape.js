@@ -1,3 +1,4 @@
+
 export class Shape{
     constructor(props){
         let {width=120, height=60, x=100, y=100, angle=0, zIndex=0, fillStyle='blue', context} = props;
@@ -17,13 +18,20 @@ export class Shape{
         this.context = context;
         this.context.fillStyle = fillStyle;
 
+        // Applied transformations
+        // Translation
         this.tx = x;
         this.ty = y;
+
+        // Scaling
+        this.sx = 2;
+        this.sy = 2;
     }
     
     draw(){
         this.context.save();
         this.context.translate(this.tx, this.ty);
+        this.context.scale(this.sx, this.sy);
         if(this.stroke){
             this.context.stroke(this.path);
         }
