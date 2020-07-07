@@ -5,9 +5,9 @@ import { Cloud } from './components/Cloud.js';
 class Canvas {
 	constructor(selector) {
 		this.canvas = document.querySelector(selector);
-		this.canvas.width = 900;
-		this.canvas.height = 1800;
-		// this.canvas.style.background = '#EBEBEB';
+		this.canvas.width = 500;
+		this.canvas.height = 500;
+		this.canvas.style.background = '#EBEBEB';
 
 		this.context = this.canvas.getContext('2d');
 		this.shapeList = []; // List to store Shapes
@@ -18,7 +18,7 @@ class Canvas {
 	}
 
 	createShape(id) {
-		let shape = new this.shapesClasses[id]({ context: this.context, zIndex: this.shapeList.length});
+		let shape = new this.shapesClasses[id]({ x: 100, y: 100, width: 20, height: 20, context: this.context, zIndex: this.shapeList.length});
 		shape.draw();
 		this.shapeList.push(shape);
 	}
@@ -63,6 +63,7 @@ this.context.restore();
 }
 	drawAll(){
 		this.clear();
+		this.drawGrid(10, 'gray')
 		this.shapeList.forEach((shape, index) =>{
 			shape.draw();
 		});
@@ -72,21 +73,23 @@ this.context.restore();
         // Listen for mouse moves
         let that = this;
 		this.canvas.addEventListener('click', function (event) {
-            // that.clear();
+			let rect = that.canvas.getBoundingClientRect(); 
+			// that.clear();
+			console.log(event);
+			// that.drawAll();
+			console.log("bahira");
+			// console.log(event.clientX - rect.left);
             that.shapeList.forEach((shape, index) =>{
 
-				let rect = that.canvas.getBoundingClientRect(); 
-				console.log(rect);
-				console.log((event.clientX - rect.left) / shape.sx - shape.tx, (event.clientY - rect.top) / shape.sy - shape.ty);
-				console.log(shape);
-                if(that.context.isPointInPath(shape.getPath(), (event.clientX - rect.left) / shape.sx - shape.tx, (event.clientY - rect.top) / shape.sy - shape.ty)){
+				
+				console.log(event.clientX - rect.left);
+				console.log(event.offsetX);
+				 console.log((event.clientX - rect.left) / shape.sx - shape.tx, (event.clientY - rect.top) / shape.sy - shape.ty);
+				// console.log(shape);
+                if(that.context.isPointInPath(shape.getPath(), ((event.clientX - rect.left) - shape.tx) / shape.sx, ((event.clientY - rect.top) - shape.ty)) / shape.sy){
 					console.log("Clicked shape: " + index);
 					
-
-					// shape.tx += 10;
-					// shape.ty += 100;
-					// shape.drawAll();
-					console.log(that.context);
+					shape.draw();
                     that.context.fillStyle = 'red';
                 }
                 else{
@@ -108,23 +111,16 @@ this.context.restore();
 }
 
 
+let canvas;
 window.onload = function(){
-	let canvas = new Canvas('canvas');
-	canvas.drawGrid(10, 'grey');
-
-// Get all buttons in DOM that creates different shapes
-let allShapesBtn = document.querySelectorAll('.btn-shapes');
-
-// Add event handler for each button
-allShapesBtn.forEach((button, index) => {
-	button.addEventListener('click', () => {
-		let shape = canvas.createShape(index);
-		console.log('You have ' + canvas.shapeList.length + ' shapes.');
-	});
-});
-
+	// let canvas;
+canvas = new Canvas('canvas');
+canvas.drawGrid(10, 'gray');
+console.log("hhaa");
+	
 }
 
+export {canvas}; // Export created canvas so that other UI sections can interact
 
 
 

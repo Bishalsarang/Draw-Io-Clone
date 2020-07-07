@@ -9,7 +9,7 @@ export class Rectangle extends Shape{
     }
 
     makePath(){
-        this.path.rect(this.x, this.y, this.width, this.height);
+        this.path.rect(0, 0, this.width, this.height);
     }
  
 }
