@@ -1,0 +1,1 @@
+const BACKGROUND_COLOR = '#EBEBEB';

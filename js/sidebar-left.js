@@ -1,5 +1,5 @@
-import {canvas} from './app.js'
- 
+import { canvas } from './app.js';
+console.log(canvas);
 // Get all buttons in DOM that creates different shapes
 let allShapesBtn = document.querySelectorAll('.btn-shapes');
 
