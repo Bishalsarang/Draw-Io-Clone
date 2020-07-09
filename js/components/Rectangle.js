@@ -1,16 +1,63 @@
-import {Shape} from './Shape.js';
+export class Rectangle {
+	constructor(props={}) {
+		const {
+			x = 10,
+			y = 10,
+			width = 58.8,
+			height = 68.4,
+			stroke = '#000000',
+			fill = '#ffffff',
+        } = props;
+        
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.stroke = stroke;
+        this.fill = fill;
+        
+        this.g = document.createElementNS(SVGNS, 'g');
+        this.boundingBox = document.createElementNS(SVGNS, 'rect');
+        this.rect = document.createElementNS(SVGNS, 'rect');
 
-export class Rectangle extends Shape{
-    constructor(props){
-        super(props);  
-        this.path = new Path2D();
+        this.setAttributes();
+	}
 
-        this.makePath();
+    setAttribute(elem, key, value){
+        elem.setAttributeNS(null, key, value);
     }
 
-    makePath(){
-        this.path.rect(0, 0, this.width, this.height);
+    setAttributes(){
+        // Rectangle Attributes
+        this.rect.setAttributeNS(null, 'x', this.x);
+		this.rect.setAttributeNS(null, 'y', this.y);
+		this.rect.setAttributeNS(null, 'width', this.width);
+        this.rect.setAttributeNS(null, 'height', this.height);
+	
+        // Group attributes
+        this.g.setAttributeNS(null, 'fill', this.fill);
+        this.g.setAttributeNS(null, 'stroke', this.stroke);
+        // Custom attributes to ease dragging
+        this.g.setAttributeNS(null, 'dragX', this.x);
+        this.g.setAttributeNS(null, 'dragY', this.y);
+
+        this.g.setAttributeNS(null, 'class', 'draggable-group');
+        this.g.style.pointerEvents = 'all';
+        this.g.style.cursor = 'move';
+
+        // Bounding box attributes
+        this.boundingBox.setAttributeNS(null, 'fill', 'none');
+        this.boundingBox.setAttributeNS(null, 'stroke', 'blue');
+        this.boundingBox.setAttributeNS(null, 'stroke-dasharray', '4');
+        this.boundingBox.setAttributeNS(null, 'stroke-width', '4');
     }
- 
+
+	create() {
+        this.g.appendChild(this.boundingBox);
+		this.g.appendChild(this.rect);
+    }
+    
+    getElement(){
+        return this.g;
+    }
 }
-
