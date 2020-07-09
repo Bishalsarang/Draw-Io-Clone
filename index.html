@@ -37,18 +37,18 @@
 
 
                 <svg class="shape">
-                    <a href='#' title="Rectangle">
-                        <g transform="translate(0.5,0.5)" style="visibility: visible;">
+                    <a class='sidebar-shape' href='#' title="Rectangle">
+                        <g>
                             <rect x="1.44" y="7.68" width="28.8" height="14.4" fill="#ffffff" stroke="#000000"
                                 stroke-width="1.3"></rect>
                         </g>
                     </a>
                 </svg>
                 <svg class="shape">
-                    <a href='#' title="Round Rectangle">
-                        <g transform="translate(0.5,0.5)" style="visibility: visible;">
+                    <a href='#' class='sidebar-shape' title="RoundRectangle">
+                        <g>
                             <rect x="1.44" y="7.68" width="28.8" height="14.4" rx="2.16" ry="2.16" fill="#ffffff"
-                                stroke="#000000" stroke-width="1.3" pointer-events="all"></rect>
+                                stroke="#000000" stroke-width="1.3"></rect>
                         </g>
                     </a>
                 </svg>
@@ -192,21 +192,19 @@
                         <g transform="translate(0.5,0.5)" style="visibility: visible;">
                             <path
                                 d="M 1.44 7.68 Q 8.64 16.32 15.84 7.68 Q 23.04 -0.96 30.24 7.68 L 30.24 22.08 Q 23.04 13.44 15.84 22.08 Q 8.64 30.72 1.44 22.08 L 1.44 7.68 Z"
-                                fill="#ffffff" stroke="#000000" stroke-width="1.3" stroke-miterlimit="10"
-                                pointer-events="all"></path>
+                                fill="#ffffff" stroke="#000000" stroke-width="1.3" stroke-miterlimit="10"></path>
                         </g>
                     </a>
                 </svg>
             </div>
             <canvas class="left hide"></canvas>
-            <svg id='mysvg' height="800" width="800" class="left">
-                <rect id="Box" fill="none" stroke="red" stroke-width="4" />
+            <svg id='drawing-area' class="left" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+                <!-- <rect id="Box" fill="none" stroke="red" stroke-width="4" />
                 <path id='mypath' fill="#4444ff" stroke="#000000" d="M100,300L400,300L100,0Z" transform=""></path>
 
-
-
-
-                <!-- <path id='mypath2' fill="#4444ff" stroke="#000000" d="M100,300L400,300L100,0Z" transform=""></path> -->
+                <path id='mypath2' fill="#4444ff" stroke="#000000" d="M100,300L400,300L100,0Z" transform=""></path>
+            -->
             </svg>
             <div class="sidebar-right left">
                 <div class="property-buttons-wrapper">
@@ -214,12 +212,40 @@
                     <button id="btn-text">Text</button>
                     <button id="btn-arrange">Arrange</button>
                 </div>
-                <p>Fill</p>
-                <input type="color" name="fill-color" id="fill-color">
+                <div>
+                    <input type="checkbox" checked="false" style="margin: 0px 6px 0px 0px;" id="fill-status">
+                    <span>Fill</span>
+                    <input type="color" name="color-picker" id="color-picker">
+                </div>
+                <div>
+                    <input type="checkbox" checked="false" style="margin: 0px 6px 0px 0px;" id="gradient-status">
+                    <label for="gradient-direction">Gradient: </label>
+                    <select name="gradient-direction" id="gradient-direction">
+                        <option value="north">North</option>
+                        <option value="east">East</option>
+                        <option value="south">South</option>
+                        <option value="west">West</option>
+                    </select>
+                    <input type="color" name="gradient-color-picker" id="gradient-color-picker">
+                </div>
+                <div>
+                    <input type="checkbox" checked="false" style="margin: 0px 6px 0px 0px;" id="line-status">
+                    <label for="gradient-direction">Line: </label>
+                    <select name="line-type" id="line-type">
+                        <option value="north">-------</option>
+                        <option value="east">Continuos</option>
+                    </select>
+                    <input type="number" id="line-width" name="line-width" min="1" value="1">
+                </div>
+                <div>
+                    <label for="opacity">Opacity</label>
+                    <input type="number" id="opacity" name="opacity" min="0" max="100" value="100">
+                </div>
+
             </div>
         </main>
     </div>
-    <script>
+    <!-- <script>
         let sv = document.getElementById('mysvg');
         let el = document.getElementById('mypath');
         let boundingBox = el.getBBox();
@@ -265,12 +291,12 @@
             buildBox(boundingBox)
             flag = false
         };
-    </script>
+    </script> -->
     <script src="js/constants.js"></script>
     <script src="js/app.js" type="module" defer></script>
     <!-- <script src="js/eventListener.js" type="module" defer></script> -->
-    <script src="js/sidebar-left.js" type="module" defer></script>
-    <script src="js/sidebar-right.js" type="module" defer></script>
+    <!-- <script src="js/sidebar-left.js" type="module" defer></script> -->
+    <!-- <script src="js/sidebar-right.js" type="module" defer></script> -->
 </body>
 
 
