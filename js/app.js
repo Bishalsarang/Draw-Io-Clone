@@ -1,5 +1,5 @@
-import { Rectangle } from './Components/Rectangle.js';
-import { RoundRectangle } from './Components/RoundRectangle.js';
+import { Rectangle } from './components/Rectangle.js';
+import { RoundRectangle } from './components/RoundRectangle.js';
 
 
 class SV {
