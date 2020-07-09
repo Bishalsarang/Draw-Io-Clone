@@ -50,11 +50,14 @@ export function makeDraggable() {
       if (selectedElement) {
         evt.preventDefault();
         var coord = getMousePosition(evt);
+
+        
         transform.setTranslate(coord.x - offset.x, coord.y - offset.y);
       }
     }
 
     function endDrag(evt) {
+        
       selectedElement = false;
     }
   }

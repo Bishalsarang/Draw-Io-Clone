@@ -37,13 +37,18 @@ export class Rectangle {
         // Group attributes
         this.g.setAttributeNS(null, 'fill', this.fill);
         this.g.setAttributeNS(null, 'stroke', this.stroke);
-        // Custom attributes to ease dragging
+        // Custom attributes to ease transformations
         this.g.setAttributeNS(null, 'dragX', this.x);
         this.g.setAttributeNS(null, 'dragY', this.y);
+        this.g.setAttributeNS(null, 'rotate', '0');
+        this.g.setAttributeNS(null, 'scale', '1 1');
+        this.g.setAttributeNS(null, 'rotate', '0');
+        this.g.setAttributeNS(null, 'translate', '0 0');
 
         this.g.setAttributeNS(null, 'class', 'draggable-group');
         this.g.style.pointerEvents = 'all';
         this.g.style.cursor = 'move';
+        this.g.setAttributeNS(null, 'transform', 'scale(1, 1) rotate(0)')
 
         // Bounding box attributes
         this.boundingBox.setAttributeNS(null, 'fill', 'none');

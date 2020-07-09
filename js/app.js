@@ -45,19 +45,18 @@ function makeDraggable() {
     sv.sv.addEventListener('mousemove', drag);
     sv.sv.addEventListener('mouseup', endDrag);
     sv.sv.addEventListener('mouseleave', endDrag);
-    sv.sv.addEventListener('touchstart', startDrag);
+  
 
 
     function getMousePosition(evt) {
-      var CTM = sv.sv.getScreenCTM();
-      if (evt.touches) { evt = evt.touches[0]; }
+      let CTM = sv.sv.getScreenCTM();
       return {
         x: (evt.clientX - CTM.e) / CTM.a,
         y: (evt.clientY - CTM.f) / CTM.d
       };
     }
 
-    var selectedElement, offset, transform;
+    let selectedElement, offset, transform;
 
     function initialiseDragging(evt) {
         offset = getMousePosition(evt);
@@ -79,10 +78,9 @@ function makeDraggable() {
     }
 
     function startDrag(evt) {
-      if (evt.target.classList.contains('draggable')) {
-        selectedElement = evt.target;
-        initialiseDragging(evt);
-      } else if (evt.target.parentNode.classList.contains('draggable-group')) {
+		// FOr group <g></g> tag, the mouse selects the child node.
+		// SO we find the parent
+      if (evt.target.parentNode.classList.contains('draggable-group')) {
         selectedElement = evt.target.parentNode;
         initialiseDragging(evt);
       }
@@ -91,12 +89,26 @@ function makeDraggable() {
     function drag(evt) {
       if (selectedElement) {
         evt.preventDefault();
-        var coord = getMousePosition(evt);
-        transform.setTranslate(coord.x - offset.x, coord.y - offset.y);
+		let coord = getMousePosition(evt);
+		transform.setTranslate(coord.x - offset.x, coord.y - offset.y);
+
+		selectedElement.setAttributeNS(null, 'translate', (coord.x - offset.x) + ' ' + (coord.y - offset.y));
       }
     }
 
     function endDrag(evt) {
+		if(selectedElement){
+			console.log( selectedElement.getAttributeNS(null, 'transform'));
+			let newTransformation = selectedElement.getAttributeNS(null, 'transform');
+	
+			selectedElement.removeAttributeNS(null, 'transform');
+			
+			selectedElement.setAttribute('transform',  newTransformation);
+		
+			
+		}
+	// console.log(selectedElement);
+	// 
       selectedElement = false;
     }
   }
@@ -184,5 +196,23 @@ opacity.addEventListener('change', (e) => {
 			'fill-opacity',
 			parseInt(opacity.value) / 100
 		);
+	}
+});
+
+
+let rotation = document.getElementById('rotate');
+rotation.addEventListener('change', (e) => {
+	if (selectedShape) {
+		let translate = selectedShape.getAttributeNS(null, 'translate');
+		let scale = selectedShape.getAttributeNS(null, 'scale');
+		let rotate = rotation.value;
+		
+		let newTransformation = `translate(${translate}) scale(${scale}) rotate(${rotate})`;
+		
+		selectedShape.setAttributeNS(null, 'translate', translate);
+		selectedShape.setAttributeNS(null, 'scale', scale);
+		selectedShape.setAttributeNS(null, 'rotate', rotate);
+		
+		selectedShape.setAttributeNS(null, 'transform', newTransformation);
 	}
 });
