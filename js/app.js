@@ -1,4 +1,8 @@
+import { Circle } from './components/Circle.js';
+import { Square } from './components/Square.js';
+import { Ellipse } from './components/Ellipse.js';
 import { Rectangle } from './components/Rectangle.js';
+import { Diamond } from './components/Diamond.js';
 import { RoundRectangle } from './components/RoundRectangle.js';
 
 
@@ -12,6 +16,10 @@ class SV {
 		this.ShapesConstruct = {
 			Rectangle: Rectangle,
 			RoundRectangle: RoundRectangle,
+			Ellipse: Ellipse,
+			Square: Square,
+			Circle: Circle,
+			Diamond: Diamond,
 		};
 
 		this.eventHandler();
