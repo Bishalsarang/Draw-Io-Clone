@@ -5,9 +5,9 @@ export class Diamond extends Shape{
       
       console.log("hhaha");
       super(props);
-      const {d='M 15.98 1.36 L 29.58 14.96 L 15.98 28.56 L 2.38 14.96 Z', scale='2'} = props;
+      const {d='M 15.98 1.36 L 29.58 14.96 L 15.98 28.56 L 2.38 14.96 Z', scale='2 2'} = props;
       this.d = d;
-      this.scale = '2 2';
+      this.scale = scale;
       this.g.setAttributeNS(
 			null,
 			'transform',

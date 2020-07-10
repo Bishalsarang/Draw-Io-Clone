@@ -10,7 +10,7 @@ export class Ellipse extends Shape {
 		this.rx = rx;
 		this.ry = ry;
 
-        this.ellipse = document.createElementNS(SVGNS, 'ellipse');
+      this.ellipse = document.createElementNS(SVGNS, 'ellipse');
 		this.setShapeSpecificProperties();
 	}
 
