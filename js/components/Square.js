@@ -8,7 +8,7 @@ export class Square extends Rectangle{
         this.width = width;
         this.height = width;
 
-        this.setAttribute(this.rect, 'width', this.width);
-        this.setAttribute(this.rect, 'height', this.height);
+        this.setAttribute(this.path, 'width', this.width);
+        this.setAttribute(this.path, 'height', this.height);
     }
 }

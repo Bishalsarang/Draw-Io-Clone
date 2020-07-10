@@ -9,7 +9,7 @@ export class Circle extends Ellipse{
         this.rx = rx;
         this.ry = rx;
         
-        this.ellipse.setAttributeNS(null, 'rx', this.rx);
-		this.ellipse.setAttributeNS(null, 'ry', this.ry);
+        this.path.setAttributeNS(null, 'rx', this.rx);
+		    this.path.setAttributeNS(null, 'ry', this.ry);
     } 
 }

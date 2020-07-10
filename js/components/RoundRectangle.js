@@ -8,7 +8,7 @@ export class RoundRectangle extends Rectangle{
         this.rx = rx;
         this.ry = ry;
 
-        this.setAttribute(this.rect, 'rx', this.rx);
-        this.setAttribute(this.rect, 'ry', this.ry);
+        this.setAttribute(this.path, 'rx', this.rx);
+        this.setAttribute(this.path, 'ry', this.ry);
     }
 }

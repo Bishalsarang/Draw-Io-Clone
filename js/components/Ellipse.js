@@ -10,19 +10,14 @@ export class Ellipse extends Shape {
 		this.rx = rx;
 		this.ry = ry;
 
-      this.ellipse = document.createElementNS(SVGNS, 'ellipse');
+      this.path = document.createElementNS(SVGNS, 'ellipse');
 		this.setShapeSpecificProperties();
 	}
 
 	setShapeSpecificProperties() {
-		this.ellipse.setAttributeNS(null, 'cx', this.cx);
-		this.ellipse.setAttributeNS(null, 'cy', this.cy);
-		this.ellipse.setAttributeNS(null, 'rx', this.rx);
-		this.ellipse.setAttributeNS(null, 'ry', this.ry);
-	}
-
-	create() {
-		this.g.appendChild(this.boundingBox);
-		this.g.appendChild(this.ellipse);
+		this.path.setAttributeNS(null, 'cx', this.cx);
+		this.path.setAttributeNS(null, 'cy', this.cy);
+		this.path.setAttributeNS(null, 'rx', this.rx);
+		this.path.setAttributeNS(null, 'ry', this.ry);
 	}
 }

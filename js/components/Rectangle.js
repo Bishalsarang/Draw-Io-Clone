@@ -23,21 +23,16 @@ export class Rectangle extends Shape{
         this.g.setAttributeNS(null, 'dragY', this.y);
         
        
-        this.rect = document.createElementNS(SVGNS, 'rect');
+        this.path = document.createElementNS(SVGNS, 'rect');
 
         this.setShapeSpecificProperties();
 	}
    
     setShapeSpecificProperties(){
         // Rectangle Attributes
-        this.rect.setAttributeNS(null, 'x', this.x);
-		this.rect.setAttributeNS(null, 'y', this.y);
-		this.rect.setAttributeNS(null, 'width', this.width);
-        this.rect.setAttributeNS(null, 'height', this.height);
-    }
-
-	create() {
-        this.g.appendChild(this.boundingBox);
-		this.g.appendChild(this.rect);
+        this.path.setAttributeNS(null, 'x', this.x);
+		this.path.setAttributeNS(null, 'y', this.y);
+		this.path.setAttributeNS(null, 'width', this.width);
+        this.path.setAttributeNS(null, 'height', this.height);
     }
 }

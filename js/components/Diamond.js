@@ -21,9 +21,4 @@ export class Diamond extends Shape{
    setShapeSpecificProperties() {
 		this.path.setAttributeNS(null, 'd', this.d);
    }
-   
-   create() {
-      this.g.appendChild(this.boundingBox);
-      this.g.appendChild(this.path);
-  }
 }

@@ -125,4 +125,9 @@ export class Shape {
 	getElement() {
 		return this.g;
 	}
+
+	create() {
+		this.g.appendChild(this.boundingBox);
+		this.g.appendChild(this.path);
+	}
 }
