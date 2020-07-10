@@ -142,7 +142,27 @@ function makeDraggable() {
 	}
 }
 
+
+
 let selectedShape = null;
+function drawControls(points){
+	// Draw controls
+	let controlButtons = selectedShape.querySelectorAll('.handle-button');
+	for(let i = 0; i < 8; i++){
+		let controlButton = controlButtons[i];
+		let [x, y] = points[i];
+		controlButton.setAttributeNS(null, 'cx', x);
+		controlButton.setAttributeNS(null, 'cy', y);
+		controlButton.setAttributeNS(null, 'rx', '5');
+		controlButton.setAttributeNS(null, 'ry', '5');
+
+	}	
+}
+
+function resetControls(){
+
+}
+
 // Kunai shape select garey vaney RIGHT sidebar ma tesko property aunu paryo
 function shapeEventListener(shape) {
 	shape.addEventListener('click', () => {
@@ -165,6 +185,20 @@ function shapeEventListener(shape) {
 		boundingBox.setAttributeNS(null, 'y', y);
 		boundingBox.setAttributeNS(null, 'width', width);
 		boundingBox.setAttributeNS(null, 'height', height);
+
+		let points = [[x,y], // NW
+                     [x + width / 2, y], // N
+                     [x + width, y], // NE
+
+                     [x, y + height / 2], // W
+                     [x + width, y + height / 2], // E
+
+                     [x, y + height], // SW
+                     [x + width / 2, y + height], // S
+                     [x + width, y + height] // SE
+                  ]
+		drawControls(points);
+
 		// Populate RIGHT ko sidebar
 		let filledCheck = document.getElementById('fill-status');
 		let pickedColor = document.getElementById('color-picker');

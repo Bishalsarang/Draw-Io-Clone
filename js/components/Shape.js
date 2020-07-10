@@ -1,4 +1,5 @@
 import {BoundingBox} from './BoundingBox.js'
+import { Handle } from './handle.js';
 
 export class Shape {
 	/**
@@ -69,8 +70,10 @@ export class Shape {
 		this.fontVariant = fontVariant;
 
 		// Bounding box
-		this.boundingBox = new BoundingBox().getBoundingBox();
+		this.boundingBox = new BoundingBox({translate: this.translate, scale: this.scale, rotate: this.rotate}).getBoundingBox();
+		this.handle = new Handle().getHandles();
 
+		
 		// Set Shape Attributes
 		this.g = document.createElementNS(SVGNS, 'g');
 		this.setAttributes();
@@ -100,12 +103,12 @@ export class Shape {
 	setTransformationAttributes() {
 		this.g.setAttributeNS(null, 'rotate', this.rotate);
 		this.g.setAttributeNS(null, 'scale', this.scale);
-		this.g.setAttributeNS(null, 'translate', '0 0');
+		this.g.setAttributeNS(null, 'translate', this.translate);
 
 		this.g.setAttributeNS(
 			null,
 			'transform',
-			'translate(0 0) scale(1 1) rotate(0)'
+			`translate(${this.translate}) scale(${this.scale}) rotate(${this.rotate})`,
 		);
 	}
 
@@ -127,7 +130,11 @@ export class Shape {
 	}
 
 	create() {
-		this.g.appendChild(this.boundingBox);
-		this.g.appendChild(this.path);
+		let that = this;
+		this.g.appendChild(this.boundingBox); // Append the bounding path
+		this.handle.forEach((button, index) => {
+			that.g.appendChild(button);
+		})
+		this.g.appendChild(this.path); // Append the shape path
 	}
 }
