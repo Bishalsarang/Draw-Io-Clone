@@ -21,8 +21,7 @@ export class Rectangle extends Shape{
         // Custom attributes to ease transformations
 		this.g.setAttributeNS(null, 'dragX', this.x);
         this.g.setAttributeNS(null, 'dragY', this.y);
-        
-       
+
         this.path = document.createElementNS(SVGNS, 'rect');
 
         this.setShapeSpecificProperties();

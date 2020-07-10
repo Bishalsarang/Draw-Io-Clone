@@ -14,7 +14,7 @@ class SV {
 		this.sv.setAttributeNS(
 			null,
 			'viewBox',
-			'0 0 ' + SVG_WIDTH + ' ' + SVG_HEIGHT
+			'0 0 ' + SVG_WIDTH  + ' ' + SVG_HEIGHT 
 		);
 		this.shapeList = [];
 		this.ShapesConstruct = {

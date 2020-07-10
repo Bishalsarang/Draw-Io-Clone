@@ -7,7 +7,7 @@ export class BoundingBox{
     * @param {STring} strokeWidth 
     */
    constructor(props={}){
-      const {fill='none', stroke='blue', strokeDashArray='4', strokeWidth='4', translate, scale, rotate} = props;
+      const {fill='none', stroke='blue', strokeDashArray='7', strokeWidth='4', translate, scale, rotate} = props;
 
       this.fill = fill;
       this.stroke = stroke;

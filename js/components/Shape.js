@@ -1,5 +1,6 @@
-import {BoundingBox} from './BoundingBox.js'
 import { Handle } from './handle.js';
+import { TextArea } from './TextArea.js';
+import { BoundingBox } from './BoundingBox.js';
 
 export class Shape {
 	/**
@@ -70,19 +71,37 @@ export class Shape {
 		this.fontVariant = fontVariant;
 
 		// Bounding box
-		this.boundingBox = new BoundingBox({translate: this.translate, scale: this.scale, rotate: this.rotate}).getBoundingBox();
+		this.boundingBox = new BoundingBox({
+			translate: this.translate,
+			scale: this.scale,
+			rotate: this.rotate,
+		}).getBoundingBox();
 		this.handle = new Handle().getHandles();
+		// Text
 
-		
 		// Set Shape Attributes
 		this.g = document.createElementNS(SVGNS, 'g');
 		this.setAttributes();
 	}
 
-	setAttribute(elem, key, value){
-		elem.setAttributeNS(null, key, value);
-  }
+	/**
+	 * Apply nonScalingStrokes so that the width remains same
+	 */
+	setNonScalingStrokes() {
+		this.handle.forEach((button, index) => {
+			button.setAttributeNS(null, 'vector-effect', 'non-scaling-stroke');
+		});
+		this.path.setAttributeNS(null, 'vector-effect', 'non-scaling-stroke');
+		this.boundingBox.setAttributeNS(
+			null,
+			'vector-effect',
+			'non-scaling-stroke'
+		);
+	}
 
+	setAttribute(elem, key, value) {
+		elem.setAttributeNS(null, key, value);
+	}
 
 	setStrokeAttributes() {
 		this.g.setAttributeNS(null, 'stroke', this.stroke);
@@ -108,7 +127,7 @@ export class Shape {
 		this.g.setAttributeNS(
 			null,
 			'transform',
-			`translate(${this.translate}) scale(${this.scale}) rotate(${this.rotate})`,
+			`translate(${this.translate}) scale(${this.scale}) rotate(${this.rotate})`
 		);
 	}
 
@@ -130,12 +149,13 @@ export class Shape {
 	}
 
 	create() {
+		this.setNonScalingStrokes();
 		let that = this;
 		this.g.appendChild(this.boundingBox); // Append the bounding path
-		
+
 		this.g.appendChild(this.path); // Append the shape path
 		this.handle.forEach((button, index) => {
 			that.g.appendChild(button);
-		})
+		});
 	}
 }

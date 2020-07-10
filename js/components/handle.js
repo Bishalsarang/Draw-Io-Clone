@@ -31,9 +31,11 @@ export class Handle{
       // el.setAttributeNS(null, 'rx', this.r);
       // el.setAttributeNS(null, 'ry', this.r);
       el.setAttributeNS(null, 'fill', '#29b6f2');
-      el.setAttributeNS(null, 'stroke', '#fff');
+      el.setAttributeNS(null, 'stroke', '#29b6f2');
       el.setAttributeNS(null, 'stroke-width', '1');
       el.setAttributeNS(null, 'class', 'handle-button');
+      // el.setAttributeNS(null, 'vector-effect', 'non-scaling-size');
+      el.setAttributeNS(null, 'transformation', 'scale(1, 1)');
       // Add Handles button
       this.buttonList.push(el);
      }

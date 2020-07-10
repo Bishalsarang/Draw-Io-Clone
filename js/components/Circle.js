@@ -4,7 +4,7 @@ export class Circle extends Ellipse{
      constructor(props={}){
         super(props);
 
-        const {rx = 20} = props;
+        const {rx = 30} = props;
         // Set  x-radius and y-radius equal
         this.rx = rx;
         this.ry = rx;
