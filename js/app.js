@@ -145,7 +145,18 @@ function makeDraggable() {
 
 
 let selectedShape = null;
-function drawControls(points){
+function drawControls(x, y, width, height){
+	let points = [[x + 5 , y + 5], // NW
+                     [x + width / 2, y + 5], // N
+                     [x + width - 5, y + 5], // NE
+
+                     [x + 5, y + height / 2], // W
+                     [x + width - 5, y + height / 2], // E
+
+                     [x + 5, y + height - 5], // SW
+                     [x + width / 2, y + height - 5], // S
+                     [x + width - 5, y + height - 5] // SE
+                  ]
 	// Draw controls
 	let controlButtons = selectedShape.querySelectorAll('.handle-button');
 	for(let i = 0; i < 8; i++){
@@ -160,6 +171,15 @@ function drawControls(points){
 }
 
 function resetControls(){
+	// Draw controls
+	let controlButtons = selectedShape.querySelectorAll('.handle-button');
+	for(let i = 0; i < 8; i++){
+		let controlButton = controlButtons[i];
+		controlButton.removeAttributeNS(null, 'cx');
+		controlButton.removeAttributeNS(null, 'cy');
+		controlButton.removeAttributeNS(null, 'rx');
+		controlButton.removeAttributeNS(null, 'ry');
+	}
 
 }
 
@@ -174,11 +194,14 @@ function shapeEventListener(shape) {
 			boundingBox.setAttributeNS(null, 'y', 0);
 			boundingBox.setAttributeNS(null, 'width', 0);
 			boundingBox.setAttributeNS(null, 'height', 0);
+
+			resetControls();
 		}
 
 		selectedShape = shape;
 		let { x, y, width, height } = selectedShape.getBBox();
 
+		// console.log(x, y, width, height);
 		// Draw Bounding box
 		let boundingBox = selectedShape.firstChild;
 		boundingBox.setAttributeNS(null, 'x', x);
@@ -186,18 +209,8 @@ function shapeEventListener(shape) {
 		boundingBox.setAttributeNS(null, 'width', width);
 		boundingBox.setAttributeNS(null, 'height', height);
 
-		let points = [[x,y], // NW
-                     [x + width / 2, y], // N
-                     [x + width, y], // NE
-
-                     [x, y + height / 2], // W
-                     [x + width, y + height / 2], // E
-
-                     [x, y + height], // SW
-                     [x + width / 2, y + height], // S
-                     [x + width, y + height] // SE
-                  ]
-		drawControls(points);
+		
+		drawControls(x, y, width, height);
 
 		// Populate RIGHT ko sidebar
 		let filledCheck = document.getElementById('fill-status');

@@ -132,9 +132,10 @@ export class Shape {
 	create() {
 		let that = this;
 		this.g.appendChild(this.boundingBox); // Append the bounding path
+		
+		this.g.appendChild(this.path); // Append the shape path
 		this.handle.forEach((button, index) => {
 			that.g.appendChild(button);
 		})
-		this.g.appendChild(this.path); // Append the shape path
 	}
 }
