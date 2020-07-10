@@ -44,6 +44,8 @@ allShapesBtn.forEach((button, index) => {
 		let elem = new sv.ShapesConstruct[clickedShape]();
 		elem.create();
 
+		// Add event listener to shape to change property by and on right sidebar
+		shapeEventListener(elem.getElement());
 		sv.shapeList.push(elem.getElement());
 		sv.sv.appendChild(elem.getElement());
 	});
@@ -107,7 +109,6 @@ function makeDraggable() {
 
     function endDrag(evt) {
 		if(selectedElement){
-			console.log( selectedElement.getAttributeNS(null, 'transform'));
 			let newTransformation = selectedElement.getAttributeNS(null, 'transform');
 	
 			selectedElement.removeAttributeNS(null, 'transform');
@@ -120,47 +121,43 @@ function makeDraggable() {
 	// 
       selectedElement = false;
     }
-  }
+}
 
 
 let selectedShape = null;
-// Kunai shape select agrey vaney RIGHT sidebar ma tesko property aunu paryo
-function listenDrawingArea() {
-	document.querySelectorAll('#drawing-area > g').forEach((shape, index) => {
-		shape.addEventListener('click', () => {
-			// Uncheck if previously selected shapes if any
-			if (selectedShape) {
-				// Draw Bounding box
-				let boundingBox = selectedShape.firstChild;
-				boundingBox.setAttributeNS(null, 'x', 0);
-				boundingBox.setAttributeNS(null, 'y', 0);
-				boundingBox.setAttributeNS(null, 'width', 0);
-				boundingBox.setAttributeNS(null, 'height', 0);
-				
-			}
-
-			selectedShape = shape;
-			let { x, y, width, height } = selectedShape.getBBox();
-
+// Kunai shape select garey vaney RIGHT sidebar ma tesko property aunu paryo
+function shapeEventListener(shape){
+	shape.addEventListener('click', () => {
+		// Uncheck if previously selected shapes if any
+		if (selectedShape) {
 			// Draw Bounding box
 			let boundingBox = selectedShape.firstChild;
-			boundingBox.setAttributeNS(null, 'x', x);
-			boundingBox.setAttributeNS(null, 'y', y);
-			boundingBox.setAttributeNS(null, 'width', width);
-			boundingBox.setAttributeNS(null, 'height', height);
-			// Populate RIGHT ko sidebar
-			let filledCheck = document.getElementById('fill-status');
-			let pickedColor = document.getElementById('color-picker');
+			boundingBox.setAttributeNS(null, 'x', 0);
+			boundingBox.setAttributeNS(null, 'y', 0);
+			boundingBox.setAttributeNS(null, 'width', 0);
+			boundingBox.setAttributeNS(null, 'height', 0);
+			
+		}
 
-			// Change fill check box and color picker color
-			filledCheck.checked = shape.getAttributeNS(null, 'fill');
-			pickedColor.value = shape.getAttributeNS(null, 'fill');
-		});
+		selectedShape = shape;
+		let { x, y, width, height } = selectedShape.getBBox();
+
+		// Draw Bounding box
+		let boundingBox = selectedShape.firstChild;
+		boundingBox.setAttributeNS(null, 'x', x);
+		boundingBox.setAttributeNS(null, 'y', y);
+		boundingBox.setAttributeNS(null, 'width', width);
+		boundingBox.setAttributeNS(null, 'height', height);
+		// Populate RIGHT ko sidebar
+		let filledCheck = document.getElementById('fill-status');
+		let pickedColor = document.getElementById('color-picker');
+
+		// Change fill check box and color picker color
+		filledCheck.checked = shape.getAttributeNS(null, 'fill');
+		pickedColor.value = shape.getAttributeNS(null, 'fill');
 	});
 }
 
-// Listen to chaanges on drawing area every 100ms
-setInterval(listenDrawingArea, 100);
 
 // Right Side ko kunai property ma click garera chnage garey left side ko selected object ma change hunu paryo
 let pickedColor = document.getElementById('color-picker');
@@ -176,9 +173,7 @@ filledCheck.addEventListener('change', (e) => {
 	if (selectedShape) {
 		if (filledCheck.checked) {
 			selectedShape.setAttributeNS(null, 'fill', pickedColor.value);
-			console.log('checked');
 		} else {
-			console.log('none');
 			selectedShape.setAttributeNS(null, 'fill', 'none');
 		}
 	}
