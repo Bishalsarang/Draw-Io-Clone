@@ -298,10 +298,9 @@ rotation.addEventListener('change', (e) => {
 		let scale = selectedShape.getAttributeNS(null, 'scale');
 		let rotate = rotation.value;
 
-		let newTransformation = `translate(${translate}) scale(${scale}) rotate(${rotate})`;
+		let newTransformation = `translate(${translate}) rotate(${rotate})`;
 
 		selectedShape.setAttributeNS(null, 'translate', translate);
-		selectedShape.setAttributeNS(null, 'scale', scale);
 		selectedShape.setAttributeNS(null, 'rotate', rotate);
 
 		selectedShape.setAttributeNS(null, 'transform', newTransformation);
