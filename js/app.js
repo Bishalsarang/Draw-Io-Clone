@@ -49,13 +49,15 @@ function addEventListenerLeftSideBar() {
 		button.addEventListener('click', () => {
 			let clickedShape = button.getAttribute('title');
 
-			let elem = new sv.ShapesConstruct[clickedShape]();
+			let elem = new sv.ShapesConstruct[clickedShape]({sv: sv.sv});
+			// console.log("create", elem.getElement().getBBox());
 			elem.create();
 
 			// Add event listener to shape to change property by and on right sidebar
 			shapeEventListener(elem.getElement());
 			sv.shapeList.push(elem.getElement());
-			sv.sv.appendChild(elem.getElement());
+			// sv.sv.appendChild(elem.getElement());
+
 		});
 	});
 }
@@ -146,16 +148,28 @@ function makeDraggable() {
 
 let selectedShape = null;
 function drawControls(x, y, width, height){
-	let points = [[x + 5 , y + 5], // NW
-                     [x + width / 2, y + 5], // N
-                     [x + width - 5, y + 5], // NE
+	// let points = [[x + 5 , y + 5], // NW
+   //                   [x + width / 2, y + 5], // N
+   //                   [x + width - 5, y + 5], // NE
 
-                     [x + 5, y + height / 2], // W
-                     [x + width - 5, y + height / 2], // E
+   //                   [x + 5, y + height / 2], // W
+   //                   [x + width - 5, y + height / 2], // E
 
-                     [x + 5, y + height - 5], // SW
-                     [x + width / 2, y + height - 5], // S
-                     [x + width - 5, y + height - 5] // SE
+   //                   [x + 5, y + height - 5], // SW
+   //                   [x + width / 2, y + height - 5], // S
+   //                   [x + width - 5, y + height - 5] // SE
+	//                ]
+	
+	let points = [[x - 10, y - 10], // NW
+                     [x + width / 2, y - 10], // N
+                     [x + width + 10, y - 10], // NE
+
+                     [x - 10, y + height / 2], // W
+                     [x + width + 10, y + height / 2], // E
+
+                     [x - 10, y + height + 10], // SW
+                     [x + width / 2, y + height + 10], // S
+                     [x + width + 10, y + height + 10] // SE
                   ]
 	// Draw controls
 	let controlButtons = selectedShape.querySelectorAll('.handle-button');
@@ -200,7 +214,7 @@ function shapeEventListener(shape) {
 
 		selectedShape = shape;
 		let { x, y, width, height } = selectedShape.getBBox();
-
+		console.log(selectedShape);
 		// console.log(x, y, width, height);
 		// Draw Bounding box
 		let boundingBox = selectedShape.firstChild;

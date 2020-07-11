@@ -38,6 +38,9 @@ export class Shape {
 			fontWeight = 'normal',
 			fontVariant = 'normal',
 			fontFamily = 'Arial, Helvetica, sans-serif, monospace',
+
+			/* SVG drawing area properties */
+			sv 
 		} = props;
 
 		/* Stroke Properties */
@@ -69,6 +72,19 @@ export class Shape {
 		this.fontFamily = fontFamily;
 		this.fontWeight = fontWeight;
 		this.fontVariant = fontVariant;
+	
+		// SVG Drawing Area
+		this.sv  = sv;
+
+
+		
+		// Main group holder which holds du0plicate btn, rotate btn, handle btn plus bounding box and main shape paths
+		this.g = document.createElementNS(SVGNS, 'g');
+		this.setAttributes();
+
+		// NOTE: SCALING property only applies to path, so our buttons remains the same on resize
+		// Group tag which holds boundign box and shape
+		this.g_ = document.createElementNS(SVGNS, 'g');
 
 		// Bounding box
 		this.boundingBox = new BoundingBox({
@@ -76,12 +92,12 @@ export class Shape {
 			scale: this.scale,
 			rotate: this.rotate,
 		}).getBoundingBox();
-		this.handle = new Handle().getHandles();
-		// Text
 
-		// Set Shape Attributes
-		this.g = document.createElementNS(SVGNS, 'g');
-		this.setAttributes();
+		this.handle = new Handle().getHandles();
+
+		// Text
+		this.textBox = null; // The dimension of bounding box is not known before adding to DOM
+
 	}
 
 	/**
@@ -121,13 +137,16 @@ export class Shape {
 
 	setTransformationAttributes() {
 		this.g.setAttributeNS(null, 'rotate', this.rotate);
-		this.g.setAttributeNS(null, 'scale', this.scale);
+
+		// This line is commented because we don't want to apply scaling to every elements including buttons
+		// We want only our path to scale
+		// this.g.setAttributeNS(null, 'scale', this.scale);
 		this.g.setAttributeNS(null, 'translate', this.translate);
 
 		this.g.setAttributeNS(
 			null,
 			'transform',
-			`translate(${this.translate}) scale(${this.scale}) rotate(${this.rotate})`
+			`translate(${this.translate})  rotate(${this.rotate})`
 		);
 	}
 
@@ -148,14 +167,36 @@ export class Shape {
 		return this.g;
 	}
 
+	applyScalePath(){
+		// APply scaling to path only.
+		this.path.setAttributeNS(null, 'transform', `scale(${this.scale})`);
+	}
+
 	create() {
 		this.setNonScalingStrokes();
+		this.applyScalePath();
+
 		let that = this;
+		// FOr  shape holder g
+		
+		this.g_.appendChild(this.path); // Append the shape path
+
+		// For main holder g
 		this.g.appendChild(this.boundingBox); // Append the bounding path
 
-		this.g.appendChild(this.path); // Append the shape path
 		this.handle.forEach((button, index) => {
 			that.g.appendChild(button);
 		});
+
+		this.addToDOM();
+		
+		this.g.append(this.g_);
+		this.textBox = new TextArea(this.g.getBBox());
+
+		this.g.appendChild(this.textBox.getForeignObject());
+	}
+
+	addToDOM(){
+		this.sv.appendChild(this.getElement());
 	}
 }

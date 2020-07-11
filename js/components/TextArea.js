@@ -20,8 +20,11 @@ export class TextArea{
       this.setForeignObjectAttributes();
 
       // TODO: Change to div depending on the requirement
-      this.inputBox  = document.createElementNS(SVGNS, 'input');
+      this.inputBox  = document.createElementNS(SVGNS, 'div');
+      this.inputBox.innerHTML = "hshshs";
       this.setTextBoxAttributes();
+
+      this.foreignObject.appendChild(this.inputBox);
    }
 
    setForeignObjectAttributes(){
@@ -34,20 +37,20 @@ export class TextArea{
    setTextBoxAttributes(){
 
       // Common Properties
-      this.inputBox.setAttributeNS(null, 'xmlns', 'http://www.w3.org/1999/xhtml');
-      this.inputBox.setAttributeNS(null, 'type', 'text');
-      this.inputBox.setAttributeNS(null, 'name', 'text');
-      this.inputBox.setAttributeNS(null, 'class', 'shape-text');
+      this.inputBox.setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
+      // this.inputBox.setAttributeNS(null, 'type', 'text');
+      // this.inputBox.setAttributeNS(null, 'name', 'text');
+      // this.inputBox.setAttributeNS(null, 'class', 'shape-text');
 
 
-      this.inputBox.setAttributeNS(null, 'value', this.value);
-      this.inputBox.setAttributeNS(null, 'placeholder', this.placholder);
+      // this.inputBox.setAttributeNS(null, 'value', this.value);
+      // this.inputBox.setAttributeNS(null, 'placeholder', this.placholder);
 
-      // CSS attributes
-      this.inputBox.style.border = this.border;
-      this.inputBox.style.outline = this.outline;
-      this.inputBox.style.color = this.color;
-      this.inputBox.style.background = this.background;
+      // // CSS attributes
+      // this.inputBox.style.border = this.border;
+      // this.inputBox.style.outline = this.outline;
+      // this.inputBox.style.color = this.color;
+      // this.inputBox.style.background = this.background;
    }
 
    getForeignObject(){
