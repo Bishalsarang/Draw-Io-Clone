@@ -7,7 +7,7 @@ export class BoundingBox{
     * @param {STring} strokeWidth 
     */
    constructor(props={}){
-      const {fill='none', stroke='blue', strokeDashArray='7', strokeWidth='4', translate, scale, rotate} = props;
+      const {fill='none', stroke='blue', strokeDashArray='4', strokeWidth='2', translate, scale, rotate} = props;
 
       this.fill = fill;
       this.stroke = stroke;
@@ -26,23 +26,9 @@ export class BoundingBox{
       this.box.setAttributeNS(null, 'stroke-dasharray', strokeDashArray);
       this.box.setAttributeNS(null, 'stroke-width', strokeWidth);
 
-      // this.overRideGlobalTransformationAttributes();
    }
 
-   /**
-    * 
-    */
-   // overRideGlobalTransformationAttributes() {
-   //    // Since the box is going to import default transformation property we don't
-	// 	this.box.setAttributeNS(null, 'scale', '1 1');
-		
-
-	// 	this.box.setAttributeNS(
-	// 		null,
-	// 		'transform',
-	// 		'scale(1 1)'
-	// 	);
-	// }
+   
    /**
     * Returns bounding box HTML element
     */

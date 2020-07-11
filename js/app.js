@@ -106,9 +106,15 @@ function makeDraggable() {
 
 	function startDrag(evt) {
 		// FOr group <g></g> tag, the mouse selects the child node.
-		// SO we find the parent
+		// SO we find the parents
 		if (evt.target.parentNode.classList.contains('draggable-group')) {
 			selectedElement = evt.target.parentNode;
+			initialiseDragging(evt);
+		}
+		// Sometimes we may select the actual path or shape of svg.
+		// In that case we check for grandparent 
+		if (evt.target.parentNode.parentNode.classList.contains('draggable-group')) {
+			selectedElement = evt.target.parentNode.parentNode;
 			initialiseDragging(evt);
 		}
 	}
@@ -133,12 +139,12 @@ function makeDraggable() {
 				null,
 				'transform'
 			);
-
+			console.log(selectedElement);
 			selectedElement.removeAttributeNS(null, 'transform');
 
 			selectedElement.setAttribute('transform', newTransformation);
 		}
-		// console.log(selectedElement);
+		
 		//
 		selectedElement = false;
 	}
