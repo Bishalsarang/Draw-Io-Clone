@@ -163,18 +163,24 @@ export class Shape {
 		this.setTransformationAttributes();
 	}
 
+	setPathAttributes(){
+		this.applyScalePath();
+		this.path.setAttributeNS(null, 'class', 'svg-shape');
+	}
+
 	getElement() {
 		return this.g;
 	}
 
 	applyScalePath(){
 		// APply scaling to path only.
+		this.path.setAttributeNS(null, 'scale', `${this.scale}`);
 		this.path.setAttributeNS(null, 'transform', `scale(${this.scale})`);
 	}
 
 	create() {
 		this.setNonScalingStrokes();
-		this.applyScalePath();
+		this.setPathAttributes();
 
 		let that = this;
 		// FOr  shape holder g

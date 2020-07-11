@@ -153,19 +153,8 @@ function makeDraggable() {
 
 
 let selectedShape = null;
-function drawControls(x, y, width, height){
-	// let points = [[x + 5 , y + 5], // NW
-   //                   [x + width / 2, y + 5], // N
-   //                   [x + width - 5, y + 5], // NE
+function drawControls(x, y, width, height){	
 
-   //                   [x + 5, y + height / 2], // W
-   //                   [x + width - 5, y + height / 2], // E
-
-   //                   [x + 5, y + height - 5], // SW
-   //                   [x + width / 2, y + height - 5], // S
-   //                   [x + width - 5, y + height - 5] // SE
-	//                ]
-	
 	let points = [[x - 10, y - 10], // NW
                      [x + width / 2, y - 10], // N
                      [x + width + 10, y - 10], // NE
@@ -178,7 +167,13 @@ function drawControls(x, y, width, height){
                      [x + width + 10, y + height + 10] // SE
                   ]
 	// Draw controls
-	let controlButtons = selectedShape.querySelectorAll('.handle-button');
+
+	// let rotateButton = selectedShape.querySelector('.rotate-button');
+	// console.log(selectedShape);
+	// rotateButton.setAttributeNS(null, 'style', 'visibility: visible;');
+	// rotateButton.setAttributeNS(null, 'transform', `translate(${x} ${y})`)
+
+	let controlButtons = selectedShape.querySelectorAll('.resize-button');
 	for(let i = 0; i < 8; i++){
 		let controlButton = controlButtons[i];
 		let [x, y] = points[i];
@@ -192,7 +187,7 @@ function drawControls(x, y, width, height){
 
 function resetControls(){
 	// Draw controls
-	let controlButtons = selectedShape.querySelectorAll('.handle-button');
+	let controlButtons = selectedShape.querySelectorAll('.resize-button');
 	for(let i = 0; i < 8; i++){
 		let controlButton = controlButtons[i];
 		controlButton.removeAttributeNS(null, 'cx');
@@ -235,10 +230,14 @@ function shapeEventListener(shape) {
 		// Populate RIGHT ko sidebar
 		let filledCheck = document.getElementById('fill-status');
 		let pickedColor = document.getElementById('color-picker');
+		let rotation = document.getElementById('rotate');
+		// let width = document.getElementById('width');
 
 		// Change fill check box and color picker color
 		filledCheck.checked = shape.getAttributeNS(null, 'fill');
 		pickedColor.value = shape.getAttributeNS(null, 'fill');
+		rotation.value = shape.getAttributeNS(null, 'rotate');
+		// width.value = shape.getAttributeNS(null, )
 	});
 }
 
@@ -301,7 +300,6 @@ let rotation = document.getElementById('rotate');
 rotation.addEventListener('change', (e) => {
 	if (selectedShape) {
 		let translate = selectedShape.getAttributeNS(null, 'translate');
-		let scale = selectedShape.getAttributeNS(null, 'scale');
 		let rotate = rotation.value;
 
 		let newTransformation = `translate(${translate}) rotate(${rotate})`;
@@ -310,5 +308,34 @@ rotation.addEventListener('change', (e) => {
 		selectedShape.setAttributeNS(null, 'rotate', rotate);
 
 		selectedShape.setAttributeNS(null, 'transform', newTransformation);
+	}
+});
+
+
+// Width Increased
+width.addEventListener('change', (e) => {
+	if(selectedShape){
+		// Scaling applies to actual paths only
+		let w = document.getElementById('width');
+		let widthValue = w.value;
+		
+		selectedShape.querySelectorAll('.svg-shape').forEach((path, index) => {
+			let [_, heightValue] = path.getAttributeNS(null, 'scale').split(' ');
+			path.setAttributeNS(null, 'scale', `${widthValue} ${heightValue}`);
+			path.setAttributeNS(null, 'transform', `scale(${widthValue} ${heightValue})`);
+		});
+	}
+});
+
+// Width Increased
+height.addEventListener('change', (e) => {
+	if(selectedShape){
+		// Scaling applies to actual paths only
+		let h = document.getElementById('height');
+		let heightValue = h.value;
+		selectedShape.querySelectorAll('.svg-shape').forEach((path, index) => {
+			path.setAttributeNS(null, 'scale', `${heightValue} 4`);
+			path.setAttributeNS(null, 'transform', `scale(${heightValue} 4)`);
+		});
 	}
 });
