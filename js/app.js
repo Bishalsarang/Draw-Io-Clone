@@ -129,13 +129,16 @@ width.addEventListener('change', (e) => {
 
 		selectedShape.querySelectorAll('.svg-shape').forEach((path, index) => {
 			let [_, heightValue] = path.getAttributeNS(null, 'scale').split(' ');
+			console.log("new box", path.getBBox());
+			let {x, y} = path.getBBox();
 			path.setAttributeNS(null, 'scale', `${widthValue} ${heightValue}`);
 			path.setAttributeNS(
 				null,
 				'transform',
-				`scale(${widthValue} ${heightValue})`
+				`scale(${widthValue} ${heightValue}) translate(${-x} ${-y})`
 			);
 		});
+		resetControls();
 	}
 });
 
@@ -147,8 +150,10 @@ height.addEventListener('change', (e) => {
 		let heightValue = h.value;
 		selectedShape.querySelectorAll('.svg-shape').forEach((path, index) => {
 			let [widthValue, _] = path.getAttributeNS(null, 'scale').split(' ');
+			let {x, y} = path.getBBox();
 			path.setAttributeNS(null, 'scale', `${widthValue} ${heightValue}`);
-			path.setAttributeNS(null, 'transform', `scale(${widthValue} ${heightValue})`);
+			path.setAttributeNS(null, 'transform', `scale(${widthValue} ${heightValue}) translate(${-x} ${-y})`);
 		});
+		resetControls();
 	}
 });

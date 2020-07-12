@@ -25,19 +25,14 @@ function shapeEventListener(shape) {
 	shape.addEventListener('click', () => {
 		// Uncheck if previously selected shapes if any
 		if (selectedShape) {
-			// Draw Bounding box
-         let boundingBox = selectedShape.firstChild;
-			boundingBox.setAttributeNS(null, 'x', 0);
-			boundingBox.setAttributeNS(null, 'y', 0);
-			boundingBox.setAttributeNS(null, 'width', 0);
-			boundingBox.setAttributeNS(null, 'height', 0);
-
 			resetControls();
 		}
 
 		selectedShape = shape;
 		let { x, y, width, height } = selectedShape.getBBox();
-    
+	  
+		// let actualShape = selectedShape.querySelector('.svg-shape');
+		// console.log("Actual", actualShape.getBBox());
 		// Draw Bounding box
 		let boundingBox = selectedShape.firstChild;
 		boundingBox.setAttributeNS(null, 'x', x);
@@ -101,7 +96,15 @@ function drawControls(x, y, width, height) {
 }
 
 function resetControls() {
-	// Draw controls
+	
+		// Draw Bounding box
+		let boundingBox = selectedShape.firstChild;
+		
+		boundingBox.removeAttributeNS(null, 'x');
+		boundingBox.removeAttributeNS(null, 'y');
+		boundingBox.removeAttributeNS(null, 'width');
+		boundingBox.removeAttributeNS(null, 'height');
+	// Reset controls
 	let controlButtons = selectedShape.querySelectorAll('.resize-button');
 	for (let i = 0; i < 8; i++) {
 		let controlButton = controlButtons[i];
@@ -110,6 +113,9 @@ function resetControls() {
 		controlButton.removeAttributeNS(null, 'rx');
 		controlButton.removeAttributeNS(null, 'ry');
 	}
+
+
+	// selectedShape = null;
 }
 
 let selectedShape = null;

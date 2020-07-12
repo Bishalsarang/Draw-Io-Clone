@@ -42,7 +42,7 @@ function makeDraggable(sv) {
 	}
 
 	function startDrag(evt) {
-    console.log("Mouse down")
+		console.log('Mouse down');
 		// FOr group <g></g> tag, the mouse selects the child node.
 		// SO we find the parents
 		if (evt.target.parentNode.classList.contains('draggable-group')) {
@@ -51,14 +51,15 @@ function makeDraggable(sv) {
 		}
 		// Sometimes we may select the actual path or shape of svg.
 		// In that case we check for grandparent
-		if (
+		else if (
 			evt.target.parentNode.parentNode.classList.contains('draggable-group')
 		) {
 			selectedElement = evt.target.parentNode.parentNode;
 			initialiseDragging(evt);
-    }
-    
-    
+		} else {
+			console.log('CLicked bahira', selectedElement, selectedShape);
+			//  if(selectedShape){ resetControls()};
+		}
 	}
 
 	function drag(evt) {
@@ -84,10 +85,7 @@ function makeDraggable(sv) {
 			selectedElement.removeAttributeNS(null, 'transform');
 
 			selectedElement.setAttribute('transform', newTransformation);
-			
 		}
 		selectedElement = false;
-
-		
 	}
 }

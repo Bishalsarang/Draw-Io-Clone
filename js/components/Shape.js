@@ -93,7 +93,8 @@ export class Shape {
 			rotate: this.rotate,
 		}).getBoundingBox();
 
-		this.handle = new Handle().getHandles();
+		// Handle scales thhe actual path but not the whole group holder
+		this.handle = new Handle({g_: this.g_}).getHandles();
 
 		// Text
 		this.textBox = null; // The dimension of bounding box is not known before adding to DOM
@@ -101,7 +102,7 @@ export class Shape {
 	}
 
 	/**
-	 * Apply nonScalingStrokes so that the width remains same
+	 * Apply nonScalingStrokes so that the width remains same while scaling
 	 */
 	setNonScalingStrokes() {
 		this.handle.forEach((button, index) => {
