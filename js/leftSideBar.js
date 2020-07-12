@@ -30,9 +30,7 @@ function shapeEventListener(shape) {
 
 		selectedShape = shape;
 		let { x, y, width, height } = selectedShape.getBBox();
-	  
-		// let actualShape = selectedShape.querySelector('.svg-shape');
-		// console.log("Actual", actualShape.getBBox());
+
 		// Draw Bounding box
 		let boundingBox = selectedShape.firstChild;
 		boundingBox.setAttributeNS(null, 'x', x);
@@ -41,27 +39,34 @@ function shapeEventListener(shape) {
 		boundingBox.setAttributeNS(null, 'height', height);
 
 		drawControls(x, y, width, height);
-
-		// Populate RIGHT ko sidebar
-		let filledCheck = document.getElementById('fill-status');
-		let pickedColor = document.getElementById('color-picker');
-		let rotation = document.getElementById('rotate');
-      let width_ = document.getElementById('width');
-      let height_ = document.getElementById('height');
-
-		// Change fill check box and color picker color
-		filledCheck.checked = shape.getAttributeNS(null, 'fill');
-		pickedColor.value = shape.getAttributeNS(null, 'fill');
-      rotation.value = shape.getAttributeNS(null, 'rotate');
-      
-      let path = shape.querySelector('.svg-shape');
-      let [w, h] = path.getAttributeNS(null, 'scale').split(' ');
-
-      console.log(h);
-      width_.value = w;
-      height_.value = h;
-      
+		populateRightSideBar(shape);
 	});
+}
+
+function populateRightSideBar(shape) {
+	// Populate RIGHT ko sidebar
+	let filledCheck = document.getElementById('fill-status');
+	let pickedColor = document.getElementById('color-picker');
+	let rotation = document.getElementById('rotate');
+	let width_ = document.getElementById('width');
+	let height_ = document.getElementById('height');
+	let left = document.getElementById('left');
+	let top = document.getElementById('top');
+
+	// Change fill check box and color picker color
+	filledCheck.checked = shape.getAttributeNS(null, 'fill');
+	pickedColor.value = shape.getAttributeNS(null, 'fill');
+	
+
+	let path = shape.querySelector('.svg-shape');
+	let [w, h] = path.getAttributeNS(null, 'scale').split(' ');
+	let [x, y] = shape.getAttributeNS(null, 'translate').split(' ');
+
+	width_.value = w;
+	height_.value = h;
+	left.value = parseFloat(x).toFixed(2);
+	top.value = parseFloat(y).toFixed(2);
+	rotation.value = shape.getAttributeNS(null, 'rotate');
 }
 
 function drawControls(x, y, width, height) {
@@ -96,14 +101,13 @@ function drawControls(x, y, width, height) {
 }
 
 function resetControls() {
-	
-		// Draw Bounding box
-		let boundingBox = selectedShape.firstChild;
-		
-		boundingBox.removeAttributeNS(null, 'x');
-		boundingBox.removeAttributeNS(null, 'y');
-		boundingBox.removeAttributeNS(null, 'width');
-		boundingBox.removeAttributeNS(null, 'height');
+	// Draw Bounding box
+	let boundingBox = selectedShape.firstChild;
+
+	boundingBox.removeAttributeNS(null, 'x');
+	boundingBox.removeAttributeNS(null, 'y');
+	boundingBox.removeAttributeNS(null, 'width');
+	boundingBox.removeAttributeNS(null, 'height');
 	// Reset controls
 	let controlButtons = selectedShape.querySelectorAll('.resize-button');
 	for (let i = 0; i < 8; i++) {
@@ -113,7 +117,6 @@ function resetControls() {
 		controlButton.removeAttributeNS(null, 'rx');
 		controlButton.removeAttributeNS(null, 'ry');
 	}
-
 
 	// selectedShape = null;
 }
