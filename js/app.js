@@ -14,7 +14,7 @@ class SV {
 		this.sv.setAttributeNS(
 			null,
 			'viewBox',
-			'0 0 ' + SVG_WIDTH  + ' ' + SVG_HEIGHT 
+			'0 0 ' + SVG_WIDTH + ' ' + SVG_HEIGHT
 		);
 		this.shapeList = [];
 		this.ShapesConstruct = {
@@ -27,231 +27,26 @@ class SV {
 			Line: Line,
 		};
 	}
-
 }
 
 let sv;
 window.onload = function () {
 	sv = new SV('#drawing-area');
-	addEventListenerLeftSideBar();
-	makeDraggable();
+	addEventListenerLeftSideBar(sv);
+	makeDraggable(sv);
 	shapeDeleteEventListener();
 };
 
-/**
- * addEventListenerLeftSideBar
- * Add Event Lsitener to left sidebar buttons used to create shape
- */
-function addEventListenerLeftSideBar() {
-	let allShapesBtn = document.querySelectorAll('.sidebar-shape');
-	// Add event handler for each button
-	allShapesBtn.forEach((button, index) => {
-		button.addEventListener('click', () => {
-			let clickedShape = button.getAttribute('title');
-
-			let elem = new sv.ShapesConstruct[clickedShape]({sv: sv.sv});
-			// console.log("create", elem.getElement().getBBox());
-			elem.create();
-
-			// Add event listener to shape to change property by and on right sidebar
-			shapeEventListener(elem.getElement());
-			sv.shapeList.push(elem.getElement());
-			// sv.sv.appendChild(elem.getElement());
-
-		});
-	});
-}
-
-/**
- * makeDraggable
- * Add draggable property to shapes drawn
- */
-function makeDraggable() {
-	sv.sv.addEventListener('mousedown', startDrag);
-	sv.sv.addEventListener('mousemove', drag);
-	sv.sv.addEventListener('mouseup', endDrag);
-	sv.sv.addEventListener('mouseleave', endDrag);
-
-	function getMousePosition(evt) {
-		let CTM = sv.sv.getScreenCTM();
-		return {
-			x: (evt.clientX - CTM.e) / CTM.a,
-			y: (evt.clientY - CTM.f) / CTM.d,
-		};
-	}
-
-	let selectedElement, offset, transform;
-
-	function initialiseDragging(evt) {
-		offset = getMousePosition(evt);
-
-		// Make sure the first transform on the element is a translate transform
-		var transforms = selectedElement.transform.baseVal;
-
-		if (
-			transforms.length === 0 ||
-			transforms.getItem(0).type !== SVGTransform.SVG_TRANSFORM_TRANSLATE
-		) {
-			// Create an transform that translates by (0, 0)
-			var translate = sv.sv.createSVGTransform();
-			translate.setTranslate(0, 0);
-			selectedElement.transform.baseVal.insertItemBefore(translate, 0);
-		}
-
-		// Get initial translation
-		transform = transforms.getItem(0);
-		offset.x -= transform.matrix.e;
-		offset.y -= transform.matrix.f;
-	}
-
-	function startDrag(evt) {
-		// FOr group <g></g> tag, the mouse selects the child node.
-		// SO we find the parents
-		if (evt.target.parentNode.classList.contains('draggable-group')) {
-			selectedElement = evt.target.parentNode;
-			initialiseDragging(evt);
-		}
-		// Sometimes we may select the actual path or shape of svg.
-		// In that case we check for grandparent 
-		if (evt.target.parentNode.parentNode.classList.contains('draggable-group')) {
-			selectedElement = evt.target.parentNode.parentNode;
-			initialiseDragging(evt);
-		}
-	}
-
-	function drag(evt) {
-		if (selectedElement) {
-			evt.preventDefault();
-			let coord = getMousePosition(evt);
-			transform.setTranslate(coord.x - offset.x, coord.y - offset.y);
-
-			selectedElement.setAttributeNS(
-				null,
-				'translate',
-				coord.x - offset.x + ' ' + (coord.y - offset.y)
-			);
-		}
-	}
-
-	function endDrag(evt) {
-		if (selectedElement) {
-			let newTransformation = selectedElement.getAttributeNS(
-				null,
-				'transform'
-			);
-			console.log(selectedElement);
-			selectedElement.removeAttributeNS(null, 'transform');
-
-			selectedElement.setAttribute('transform', newTransformation);
-		}
-		
-		//
-		selectedElement = false;
-	}
-}
-
-
-
-let selectedShape = null;
-function drawControls(x, y, width, height){	
-
-	let points = [[x - 10, y - 10], // NW
-                     [x + width / 2, y - 10], // N
-                     [x + width + 10, y - 10], // NE
-
-                     [x - 10, y + height / 2], // W
-                     [x + width + 10, y + height / 2], // E
-
-                     [x - 10, y + height + 10], // SW
-                     [x + width / 2, y + height + 10], // S
-                     [x + width + 10, y + height + 10] // SE
-                  ]
-	// Draw controls
-
-	// let rotateButton = selectedShape.querySelector('.rotate-button');
-	// console.log(selectedShape);
-	// rotateButton.setAttributeNS(null, 'style', 'visibility: visible;');
-	// rotateButton.setAttributeNS(null, 'transform', `translate(${x} ${y})`)
-
-	let controlButtons = selectedShape.querySelectorAll('.resize-button');
-	for(let i = 0; i < 8; i++){
-		let controlButton = controlButtons[i];
-		let [x, y] = points[i];
-		controlButton.setAttributeNS(null, 'cx', x);
-		controlButton.setAttributeNS(null, 'cy', y);
-		controlButton.setAttributeNS(null, 'rx', '5');
-		controlButton.setAttributeNS(null, 'ry', '5');
-
-	}	
-}
-
-function resetControls(){
-	// Draw controls
-	let controlButtons = selectedShape.querySelectorAll('.resize-button');
-	for(let i = 0; i < 8; i++){
-		let controlButton = controlButtons[i];
-		controlButton.removeAttributeNS(null, 'cx');
-		controlButton.removeAttributeNS(null, 'cy');
-		controlButton.removeAttributeNS(null, 'rx');
-		controlButton.removeAttributeNS(null, 'ry');
-	}
-
-}
-
-// Kunai shape select garey vaney RIGHT sidebar ma tesko property aunu paryo
-function shapeEventListener(shape) {
-	shape.addEventListener('click', () => {
-		// Uncheck if previously selected shapes if any
+function shapeDeleteEventListener() {
+	window.addEventListener('keydown', (e) => {
 		if (selectedShape) {
-			// Draw Bounding box
-			let boundingBox = selectedShape.firstChild;
-			boundingBox.setAttributeNS(null, 'x', 0);
-			boundingBox.setAttributeNS(null, 'y', 0);
-			boundingBox.setAttributeNS(null, 'width', 0);
-			boundingBox.setAttributeNS(null, 'height', 0);
-
-			resetControls();
-		}
-
-		selectedShape = shape;
-		let { x, y, width, height } = selectedShape.getBBox();
-		console.log(selectedShape);
-		// console.log(x, y, width, height);
-		// Draw Bounding box
-		let boundingBox = selectedShape.firstChild;
-		boundingBox.setAttributeNS(null, 'x', x);
-		boundingBox.setAttributeNS(null, 'y', y);
-		boundingBox.setAttributeNS(null, 'width', width);
-		boundingBox.setAttributeNS(null, 'height', height);
-
-		
-		drawControls(x, y, width, height);
-
-		// Populate RIGHT ko sidebar
-		let filledCheck = document.getElementById('fill-status');
-		let pickedColor = document.getElementById('color-picker');
-		let rotation = document.getElementById('rotate');
-		// let width = document.getElementById('width');
-
-		// Change fill check box and color picker color
-		filledCheck.checked = shape.getAttributeNS(null, 'fill');
-		pickedColor.value = shape.getAttributeNS(null, 'fill');
-		rotation.value = shape.getAttributeNS(null, 'rotate');
-		// width.value = shape.getAttributeNS(null, )
-	});
-}
-
-
-function shapeDeleteEventListener(){
-	
-	window.addEventListener('keydown', (e) =>{
-		if(selectedShape){
-			if(e.code == 'Delete' || e.code == 'Backspace'){
+			if (e.code == 'Delete' || e.code == 'Backspace') {
 				sv.sv.removeChild(selectedShape);
 			}
 		}
 	});
 }
+
 // Right Side ko kunai property ma click garera chnage garey left side ko selected object ma change hunu paryo
 let pickedColor = document.getElementById('color-picker');
 pickedColor.addEventListener('change', (e) => {
@@ -272,13 +67,27 @@ filledCheck.addEventListener('change', (e) => {
 	}
 });
 
-let gradientStatus = document.getElementById('gradient-status');
-let gradientDirection = document.getElementById('gradient-direction');
-let gradientColorPicker = document.getElementById('gradient-color-picker');
+let lineColor = document.getElementById('stroke-color-picker');
+lineColor.addEventListener('change', (e) => {
+	if (selectedShape) {
+		selectedShape.setAttributeNS(null, 'stroke', lineColor.value);
+	}
+});
 
 let lineStatus = document.getElementById('line-status');
+lineStatus.addEventListener('change', (e) => {
+	if (selectedShape) {
+		if (lineStatus.checked) {
+			selectedShape.setAttributeNS(null, 'stroke', lineColor.value);
+		} else {
+			selectedShape.setAttributeNS(null, 'stroke', 'none');
+		}
+	}
+});
+
 let lineType = document.getElementById('line-type');
 let lineWidth = document.getElementById('line-width');
+
 lineWidth.addEventListener('change', (e) => {
 	if (selectedShape) {
 		selectedShape.setAttributeNS(null, 'stroke-width', lineWidth.value);
@@ -311,31 +120,35 @@ rotation.addEventListener('change', (e) => {
 	}
 });
 
-
 // Width Increased
 width.addEventListener('change', (e) => {
-	if(selectedShape){
+	if (selectedShape) {
 		// Scaling applies to actual paths only
 		let w = document.getElementById('width');
 		let widthValue = w.value;
-		
+
 		selectedShape.querySelectorAll('.svg-shape').forEach((path, index) => {
 			let [_, heightValue] = path.getAttributeNS(null, 'scale').split(' ');
 			path.setAttributeNS(null, 'scale', `${widthValue} ${heightValue}`);
-			path.setAttributeNS(null, 'transform', `scale(${widthValue} ${heightValue})`);
+			path.setAttributeNS(
+				null,
+				'transform',
+				`scale(${widthValue} ${heightValue})`
+			);
 		});
 	}
 });
 
-// Width Increased
+// Height Increased
 height.addEventListener('change', (e) => {
-	if(selectedShape){
+	if (selectedShape) {
 		// Scaling applies to actual paths only
 		let h = document.getElementById('height');
 		let heightValue = h.value;
 		selectedShape.querySelectorAll('.svg-shape').forEach((path, index) => {
-			path.setAttributeNS(null, 'scale', `${heightValue} 4`);
-			path.setAttributeNS(null, 'transform', `scale(${heightValue} 4)`);
+			let [widthValue, _] = path.getAttributeNS(null, 'scale').split(' ');
+			path.setAttributeNS(null, 'scale', `${widthValue} ${heightValue}`);
+			path.setAttributeNS(null, 'transform', `scale(${widthValue} ${heightValue})`);
 		});
 	}
 });

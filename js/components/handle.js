@@ -47,6 +47,7 @@ export class Handle {
 			el.setAttributeNS(null, 'stroke-width', '1');
 			el.setAttributeNS(null, 'class', 'resize-button');
 			el.setAttributeNS(null, 'cursor', this.resizeCursor[i]);
+			el.setAttributeNS(null, 'id', this.resizeCursor[i].split('-')[0]);
 			// Add Handles button
 			this.buttonList.push(el);
 		}
