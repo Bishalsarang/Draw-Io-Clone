@@ -52,7 +52,7 @@ class SV {
 		img.onload = function(){
 			ctx.drawImage(img, 0, 0);
 			if(type == "png"){
-				imgsrc = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+				imgsrc = canvas.toDataURL("image/png", 1).replace("image/png", "image/octet-stream");
 				el.setAttribute('download', "image.png");
 			}
 			el.href = imgsrc;
@@ -74,8 +74,16 @@ window.onload = function () {
 
 let downloadButton = document.querySelector('.btn-save');
 let downloadLink = document.querySelector('.download-link');
+
+
 downloadButton.addEventListener('click', (e) =>{
-	sv.svg2img(downloadLink, "svg");
+	let exportFileType = '';
+	document.getElementsByName('export-extension').forEach((option) => {
+	if(option.checked){
+		exportFileType = option.value;
+	}
+	});
+	sv.svg2img(downloadLink, exportFileType);
 });
 
 /**

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Draw IO</title>
+    <link rel="Draw IO icon" type="image/png" href="images/logo-flat-logo.png" />
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
@@ -12,15 +13,28 @@
 
 <body>
     <div class="main-wrapper">
-        <header>
-            <div class="logo-wrapper">
+        <header class="clearfix">
+
+            <div class="logo-wrapper left">
                 <img src="images/logo-flat-logo.png" alt="" srcset="">
+                <a href="#" title="Draw IO Clone">
+                    <h1 style="display: inline-block">DRAW IO CLONE</h1>
+                </a>
             </div>
-            <nav>
-                <h1>DRAW IO CLONE</h1>
-            </nav>
-            <button class="btn-save">Export as </button>
-            <a class="download-link" href="#" download="">Click here</a>
+
+
+
+            <div class="export-wrapper right">
+                <button class="btn-save">Export as </button>
+                <input type="radio" name="export-extension" value="svg" id="export-svg">
+                <label for="svg">SVG</label>
+
+                <input type="radio" name="export-extension" value="png" id="export-png">
+                <label for="svg">PNG</label>
+
+                <a class="download-link" href="#" download=""></a>
+            </div>
+
         </header>
         <main class="clearfix">
             <div class="sidebar-left left">
