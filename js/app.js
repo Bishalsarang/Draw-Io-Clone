@@ -27,6 +27,39 @@ class SV {
 			Line: Line,
 		};
 	}
+
+	svg2img(el, type){
+		var svg = document.getElementById('drawing-area');
+		var xml = new XMLSerializer().serializeToString(svg);
+		var svg64 = btoa(xml); //for utf8: btoa(unescape(encodeURIComponent(xml)))
+
+		var b64start = 'data:image/svg+xml;base64,';
+		var image64 = b64start + svg64;
+		
+		// Create temporary img tag
+		var img = document.createElement('img');
+		img.setAttribute("src", image64);
+
+		// Convert to canvas and draw image on canvas
+		var canvas = document.createElement("canvas");
+		canvas.width = SVG_WIDTH;
+		canvas.height = SVG_HEIGHT;
+		var ctx = canvas.getContext('2d');
+		
+
+		var imgsrc = image64.replace("image/svg", "image/octet-stream");
+		el.setAttribute('download', "image.svg");
+		img.onload = function(){
+			ctx.drawImage(img, 0, 0);
+			if(type == "png"){
+				imgsrc = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+				el.setAttribute('download', "image.png");
+			}
+			el.href = imgsrc;
+			el.click();
+		}
+
+	}
 }
 
 let sv;
@@ -38,6 +71,12 @@ window.onload = function () {
 	shapeDeleteEventListener();
 
 };
+
+let downloadButton = document.querySelector('.btn-save');
+let downloadLink = document.querySelector('.download-link');
+downloadButton.addEventListener('click', (e) =>{
+	sv.svg2img(downloadLink, "svg");
+});
 
 /**
  * shapeDeleteEventListener
