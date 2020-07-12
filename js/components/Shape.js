@@ -86,6 +86,9 @@ export class Shape {
 		// Group tag which holds boundign box and shape
 		this.g_ = document.createElementNS(SVGNS, 'g');
 
+
+		this.foreignG = document.createElementNS(SVGNS, 'g');
+
 		// Bounding box
 		this.boundingBox = new BoundingBox({
 			translate: this.translate,
@@ -197,10 +200,15 @@ export class Shape {
 
 		this.addToDOM();
 		
+		
 		this.g.append(this.g_);
 		this.textBox = new TextArea(this.g.getBBox());
 
-		this.g.appendChild(this.textBox.getForeignObject());
+		this.foreignG.appendChild(this.textBox.getForeignObject());
+		this.g.append(this.foreignG);
+
+		
+		
 	}
 
 	addToDOM(){

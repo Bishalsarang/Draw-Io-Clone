@@ -40,7 +40,7 @@ window.onload = function () {
 function shapeDeleteEventListener() {
 	window.addEventListener('keydown', (e) => {
 		if (selectedShape) {
-			if (e.code == 'Delete' || e.code == 'Backspace') {
+			if (e.code == 'Delete') {
 				sv.sv.removeChild(selectedShape);
 			}
 		}

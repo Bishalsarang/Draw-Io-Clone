@@ -46,9 +46,10 @@ export class Handle {
 
 			let id = this.resizeCursor[i].split('-')[0];
 			el.setAttributeNS(null, 'id', id);
+			
 			el.addEventListener('click', (e) => {
 				console.log('clicked resize ' + id);
-				this.handleDrag(id);
+				this.handleDrag(el, id);
 				// this.g_.setAttributeNS(null, 'scale', '2 2');
 				// this.g_.setAttributeNS(null, 'transform', 'scale(2 2)');
 			});
@@ -57,7 +58,26 @@ export class Handle {
 		}
 	}
 
-	handleDrag(id) {}
+	handleDrag(el, id) {
+		el.addEventListener('mousedown', startResize);
+		el.addEventListener('mousemove', resize);
+		el.addEventListener('mouseup', stopResize);
+		el.addEventListener('mouseleave', stopResize);
+
+		function startResize(){
+			console.log("here");
+
+		}
+
+		function resize(){
+
+		}
+
+		function stopResize(){
+
+		}
+	}
+
 	getHandles() {
 		return this.buttonList;
 	}

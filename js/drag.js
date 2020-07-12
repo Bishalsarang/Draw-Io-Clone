@@ -42,7 +42,11 @@ function makeDraggable(sv) {
 	}
 
 	function startDrag(evt) {
-		console.log('Mouse down');
+		
+		// IF we are clicking control buttons don't trigger drag. Separately handle the event inside handle.js
+		if(evt.target.classList.contains('resize-button')){
+			return;
+		}
 		// FOr group <g></g> tag, the mouse selects the child node.
 		// SO we find the parents
 		if (evt.target.parentNode.classList.contains('draggable-group')) {
@@ -63,6 +67,8 @@ function makeDraggable(sv) {
 	}
 
 	function drag(evt) {
+		// let coord = getMousePosition(evt);
+		// 	console.log("Move", coord.x - offset.x, coord.y - offset.y);
 		if (selectedElement) {
 			evt.preventDefault();
 			let coord = getMousePosition(evt);
