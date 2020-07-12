@@ -51,7 +51,7 @@ function makeDraggable(sv) {
 		}
 		// Sometimes we may select the actual path or shape of svg.
 		// In that case we check for grandparent
-		else if (
+		if (
 			evt.target.parentNode.parentNode.classList.contains('draggable-group')
 		) {
 			selectedElement = evt.target.parentNode.parentNode;
@@ -66,7 +66,6 @@ function makeDraggable(sv) {
 			evt.preventDefault();
 			let coord = getMousePosition(evt);
 			transform.setTranslate(coord.x - offset.x, coord.y - offset.y);
-
 			selectedElement.setAttributeNS(
 				null,
 				'translate',
@@ -76,20 +75,19 @@ function makeDraggable(sv) {
 	}
 
 	function endDrag(evt) {
+		console.log(selectedElement);
 		if (selectedElement) {
-			// let newTransformation = selectedElement.getAttributeNS(
-			// 	null,
-			// 	'transform'
-			// );
-			let translate = selectedShape.getAttributeNS(null, 'translate');
-			let rotate = selectedShape.getAttributeNS(null, 'rotate');
-			let newTransformation = `translate(${translate}) rotate(${rotate})`;
-			console.log(newTransformation);
-			console.log(selectedElement.getAttributeNS(null, 'translate'));
+			let newTransformation = selectedElement.getAttributeNS(
+				null,
+				'transform'
+			);
 			selectedElement.removeAttributeNS(null, 'transform');
 
 			selectedElement.setAttribute('transform', newTransformation);
+			
 		}
-		selectedElement = null;
+		selectedElement = false;
+
+		
 	}
 }
