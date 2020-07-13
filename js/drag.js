@@ -9,6 +9,8 @@ function makeDraggable(sv) {
 	sv.sv.addEventListener('mouseup', endDrag);
 	sv.sv.addEventListener('mouseleave', endDrag);
 
+	let selectedElement, offset, transform;
+
 	function getMousePosition(evt) {
 		let CTM = sv.sv.getScreenCTM();
 		return {
@@ -16,8 +18,6 @@ function makeDraggable(sv) {
 			y: (evt.clientY - CTM.f) / CTM.d,
 		};
 	}
-
-	let selectedElement, offset, transform;
 
 	function initialiseDragging(evt) {
 		offset = getMousePosition(evt);
@@ -60,19 +60,16 @@ function makeDraggable(sv) {
 		) {
 			selectedElement = evt.target.parentNode.parentNode;
 			initialiseDragging(evt);
-		} else {
-			
-			//  if(selectedShape){ resetControls()};
 		}
 	}
 
 	function drag(evt) {
-		// let coord = getMousePosition(evt);
-		// 	
 		if (selectedElement) {
 			evt.preventDefault();
 			let coord = getMousePosition(evt);
 			transform.setTranslate(coord.x - offset.x, coord.y - offset.y);
+console.log(coord.x - offset.x, coord.y - offset.y);
+			// Apply translation on dragging
 			selectedElement.setAttributeNS(
 				null,
 				'translate',
@@ -82,14 +79,13 @@ function makeDraggable(sv) {
 	}
 
 	function endDrag(evt) {
-		
 		if (selectedElement) {
 			let newTransformation = selectedElement.getAttributeNS(
 				null,
 				'transform'
 			);
-			selectedElement.removeAttributeNS(null, 'transform');
 
+			selectedElement.removeAttributeNS(null, 'transform');
 			selectedElement.setAttribute('transform', newTransformation);
 		}
 		selectedElement = false;

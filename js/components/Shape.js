@@ -85,7 +85,7 @@ export class Shape {
 		// NOTE: SCALING property only applies to path, so our buttons remains the same on resize
 		// Group tag which holds boundign box and shape
 		this.g_ = document.createElementNS(SVGNS, 'g');
-
+		this.g_.setAttributeNS(null, 'class','actual-shape');
 
 		this.foreignG = document.createElementNS(SVGNS, 'g');
 
@@ -97,7 +97,7 @@ export class Shape {
 		}).getBoundingBox();
 
 		// Handle scales thhe actual path but not the whole group holder
-		this.handle = new Handle({g_: this.g_}).getHandles();
+		this.handle = new Handle({g_: this.g_, sv: this.sv}).getHandles();
 
 		// Text
 		this.textBox = null; // The dimension of bounding box is not known before adding to DOM

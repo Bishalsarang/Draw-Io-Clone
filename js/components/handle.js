@@ -1,8 +1,9 @@
 export class Handle {
 	constructor(props = {}) {
-		const { g_ } = props;
+		const { g_ , sv} = props;
 		this.r = '5';
 		this.g_ = g_;
+		this.sv = sv;
 
 		this.buttonList = [];
 		// Cursor for resize
@@ -48,34 +49,44 @@ export class Handle {
 			el.setAttributeNS(null, 'id', id);
 			
 			el.addEventListener('click', (e) => {
-				
 				this.handleDrag(el, id);
-				// this.g_.setAttributeNS(null, 'scale', '2 2');
-				// this.g_.setAttributeNS(null, 'transform', 'scale(2 2)');
+				
 			});
 			// Add Handles button
 			this.buttonList.push(el);
 		}
 	}
 
+	/**
+	 * 
+	 * @param {} el Resize button element
+	 * Returns parent element of button
+	 */
+	getParentShape(el){
+		return el.parentNode;
+	}
+
 	handleDrag(el, id) {
+		
 		el.addEventListener('mousedown', startResize);
 		el.addEventListener('mousemove', resize);
 		el.addEventListener('mouseup', stopResize);
 		el.addEventListener('mouseleave', stopResize);
 
-		function startResize(){
-			
+		
+		function startResize(evt){
+			console.log(el.parentNode);
 
 		}
 
-		function resize(){
+		function resize(evt){
 
 		}
 
-		function stopResize(){
+		function stopResize(evt){
 
 		}
+	
 	}
 
 	getHandles() {
