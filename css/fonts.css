@@ -1,0 +1,66 @@
+/* Open Sans */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap');
+
+/* Lato */
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+/* Vollkorn */
+@import url('https://fonts.googleapis.com/css2?family=Vollkorn:ital,wght@0,400;0,500;0,600;0,669;0,700;0,800;0,900;1,400;1,500;1,600;1,669;1,700;1,800;1,900&display=swap');
+
+/*  Chivo */
+@import url('https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+
+/* Roboto */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+/* Source Sans Pro */
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap');
+
+/* Montserrat */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* Lora */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,562;0,600;0,700;1,400;1,500;1,562;1,600;1,700&display=swap');
+
+/* Prompt */
+@import url('https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.font-open-sans {
+	font-family: 'Open Sans', sans-serif;
+}
+
+.font-lato {
+	font-family: 'Lato', sans-serif;
+}
+
+.font-times-new-roman {
+	font-family: 'Times New Roman', sans-serif;
+}
+
+.font-vollkorn {
+	font-family: 'Vollkorn', serif;
+}
+
+.font-chivo {
+	font-family: 'Chivo', sans-serif;
+}
+
+.font-roboto {
+	font-family: 'Roboto', sans-serif;
+}
+
+.font-source-sans-pro {
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+.font-montserrat {
+	font-family: 'Montserrat', sans-serif;
+}
+
+.font-lora {
+	font-family: 'Lora', serif;
+}
+
+.font-prompt {
+	font-family: 'Prompt', sans-serif;
+}

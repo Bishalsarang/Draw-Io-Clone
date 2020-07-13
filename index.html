@@ -8,6 +8,7 @@
     <link rel="Draw IO icon" type="image/png" href="images/logo-flat-logo.png" />
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -16,7 +17,7 @@
         <header class="clearfix">
 
             <div class="logo-wrapper left">
-                <img src="images/logo-flat-logo.png" alt="" srcset="">
+                <img src="images/logo-flat-logo.png" alt="Draw IO Logo">
                 <a href="#" title="Draw IO Clone">
                     <h1 style="display: inline-block">DRAW IO CLONE</h1>
                 </a>
@@ -210,10 +211,6 @@
 
             </svg>
             <div class="sidebar-right left">
-                <div class="property-buttons-wrapper">
-                    <button id="btn-style">Style</button>
-                    <button id="btn-text">Text</button>
-                </div>
                 <div>
                     <input type="checkbox" checked="false" style="margin: 0px 6px 0px 0px;" id="fill-status">
                     <span>Fill</span>
@@ -254,9 +251,29 @@
 
                 <div>
                     <span> Font</span>
-                    <select name="" id="">
-                        <option value="Helvetica">Helvetica</option>
+                    <select name="fonts" id="fonts">
+                        <option value="Open Sans" class="font-open-sans">Open Sans</option>
+                        <option value="Lato" class="font-lato">Lato</option>
+                        <option value="Times New Roman" class="font-times-new-roman">Times New Roman</option>
+                        <option value="Vollkorn" class="font-vollkorn">Vollkorn</option>
+                        <option value="Chivo" class="font-chivo">Chivo</option>
+                        <option value="Roboto" class="font-roboto"> Roboto </option>
+                        <option value="Source Sans Pro" class="font-source-sans-pro">Source Sans Pro</option>
+                        <option value="Montserrat" class="font-montserrat">Montserrat</option>
+                        <option value="Lora" class="font-lora">Lora</option>
+                        <option value="Prompt" class="font-prompt">Prompt</option>
                     </select>
+                    <button class="btn">
+                        <span class="text-bold">B</span>
+                    </button>
+                    <button class="btn">
+                        <span class="text-italics">I</span>
+                    </button>
+                    <button class="btn">
+                        <span class="text-underline">U</span>
+                    </button>
+
+                    <input type="number" name="font-size" id="font-size">
                 </div>
             </div>
         </main>
