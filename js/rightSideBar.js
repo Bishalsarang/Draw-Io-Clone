@@ -168,4 +168,13 @@ function addEventListenerRightSideBar() {
 			textArea.classList.add(selectedClass);
 		}
 	});
+
+	let boldButton = document.getElementById('bold-btn');
+	boldButton.addEventListener('click', (e) => {
+		if(selectedShape){
+			let textArea = selectedShape.querySelector('.shape-text');
+			textArea.classList.toggle('text-bold');
+
+		}
+	});
 }
