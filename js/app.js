@@ -75,7 +75,9 @@ window.onload = function () {
 let downloadButton = document.querySelector('.btn-save');
 let downloadLink = document.querySelector('.download-link');
 
-
+/**
+ * downloadButton onClick
+ */
 downloadButton.addEventListener('click', (e) =>{
 	let exportFileType = '';
 	document.getElementsByName('export-extension').forEach((option) => {

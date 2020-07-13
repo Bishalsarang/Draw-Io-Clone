@@ -81,7 +81,7 @@ function addEventListenerRightSideBar() {
 				let [_, heightValue] = path
 					.getAttributeNS(null, 'scale')
 					.split(' ');
-				console.log('new box', path.getBBox());
+				
 				let { x, y } = path.getBBox();
 				path.setAttributeNS(null, 'scale', `${widthValue} ${heightValue}`);
 				path.setAttributeNS(
@@ -117,12 +117,12 @@ function addEventListenerRightSideBar() {
 	// Left Changed
 	let left = document.getElementById('left');
 	left.addEventListener('change', (e) => {
-		console.log('left ');
+		
 		if (selectedShape) {
 			let [x, y] = selectedShape
 				.getAttributeNS(null, 'translate')
 				.split(' ');
-			console.log('y ' + y);
+			
 			let translate = `${left.value} ${y}`;
 			let rotate = rotation.value;
 
@@ -151,6 +151,21 @@ function addEventListenerRightSideBar() {
 			selectedShape.setAttributeNS(null, 'rotate', rotate);
 
 			selectedShape.setAttributeNS(null, 'transform', newTransformation);
+		}
+	});
+
+
+	// Font Changed
+	let font = document.getElementById('fonts');
+	font.addEventListener('change', (e) =>{
+		if(selectedShape){
+			let textArea = selectedShape.querySelector('.shape-text');
+			// Remove previously selected class
+			let fontClass = textArea.classList[1];
+			textArea.classList.remove(fontClass);
+			// Add selected class
+			let selectedClass = font.options[font.selectedIndex].getAttributeNS(null, 'class');
+			textArea.classList.add(selectedClass);
 		}
 	});
 }

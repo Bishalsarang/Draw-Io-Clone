@@ -10,7 +10,7 @@ function addEventListenerLeftSideBar(sv) {
 			let clickedShape = button.getAttribute('title');
 
 			let elem = new sv.ShapesConstruct[clickedShape]({ sv: sv.sv });
-			// console.log("create", elem.getElement().getBBox());
+			// 
 			elem.create();
 
 			// Add event listener to shape to change property by and on right sidebar
@@ -47,11 +47,15 @@ function populateRightSideBar(shape) {
 	// Populate RIGHT ko sidebar
 	let filledCheck = document.getElementById('fill-status');
 	let pickedColor = document.getElementById('color-picker');
-	let rotation = document.getElementById('rotate');
+
+	// Scale Value
 	let width_ = document.getElementById('width');
 	let height_ = document.getElementById('height');
+	// Translate Value
 	let left = document.getElementById('left');
 	let top = document.getElementById('top');
+	// Rotate Value
+	let rotation = document.getElementById('rotate');
 
 	// Change fill check box and color picker color
 	filledCheck.checked = shape.getAttributeNS(null, 'fill');
@@ -67,6 +71,21 @@ function populateRightSideBar(shape) {
 	left.value = parseFloat(x).toFixed(2);
 	top.value = parseFloat(y).toFixed(2);
 	rotation.value = shape.getAttributeNS(null, 'rotate');
+
+	// Selected Font 
+	let selectedFont = document.getElementById('fonts');
+	let currentFont = shape.querySelector('.shape-text').classList[1].split("-").slice(-1)[0];
+	let fontIndex = 0;
+
+	for(let i = 0; i < selectedFont.length; i++){
+		if(selectedFont.options[i].value == currentFont){
+			fontIndex = i;
+			break;
+		};
+	}
+	// Change selected index in right side bar
+	selectedFont.selectedIndex = fontIndex;
+
 }
 
 function drawControls(x, y, width, height) {
@@ -85,7 +104,7 @@ function drawControls(x, y, width, height) {
 	// Draw controls
 
 	// let rotateButton = selectedShape.querySelector('.rotate-button');
-	// console.log(selectedShape);
+	// 
 	// rotateButton.setAttributeNS(null, 'style', 'visibility: visible;');
 	// rotateButton.setAttributeNS(null, 'transform', `translate(${x} ${y})`)
 

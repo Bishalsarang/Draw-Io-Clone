@@ -13,7 +13,7 @@ function resizeEventHandler(){
    buttons.forEach((button, index) => {
       let el = document.getElementById(button);
       el.addEventListener('click'){
-         console.log("cliccc");
+         
       }
    });
 }

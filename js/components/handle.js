@@ -48,7 +48,7 @@ export class Handle {
 			el.setAttributeNS(null, 'id', id);
 			
 			el.addEventListener('click', (e) => {
-				console.log('clicked resize ' + id);
+				
 				this.handleDrag(el, id);
 				// this.g_.setAttributeNS(null, 'scale', '2 2');
 				// this.g_.setAttributeNS(null, 'transform', 'scale(2 2)');
@@ -65,7 +65,7 @@ export class Handle {
 		el.addEventListener('mouseleave', stopResize);
 
 		function startResize(){
-			console.log("here");
+			
 
 		}
 

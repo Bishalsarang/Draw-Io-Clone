@@ -41,7 +41,8 @@ export class TextArea{
       this.inputBox.setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
       this.inputBox.setAttributeNS(null, 'type', 'text');
       this.inputBox.setAttributeNS(null, 'name', 'text');
-      this.inputBox.setAttributeNS(null, 'class', 'shape-text');
+      // Add default font css class
+      this.inputBox.setAttributeNS(null, 'class', 'shape-text font-default');
 
 
       this.inputBox.setAttributeNS(null, 'value', this.value);

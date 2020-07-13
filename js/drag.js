@@ -61,14 +61,14 @@ function makeDraggable(sv) {
 			selectedElement = evt.target.parentNode.parentNode;
 			initialiseDragging(evt);
 		} else {
-			console.log('CLicked bahira', selectedElement, selectedShape);
+			
 			//  if(selectedShape){ resetControls()};
 		}
 	}
 
 	function drag(evt) {
 		// let coord = getMousePosition(evt);
-		// 	console.log("Move", coord.x - offset.x, coord.y - offset.y);
+		// 	
 		if (selectedElement) {
 			evt.preventDefault();
 			let coord = getMousePosition(evt);
@@ -82,7 +82,7 @@ function makeDraggable(sv) {
 	}
 
 	function endDrag(evt) {
-		console.log(selectedElement);
+		
 		if (selectedElement) {
 			let newTransformation = selectedElement.getAttributeNS(
 				null,
