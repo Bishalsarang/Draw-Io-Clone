@@ -68,3 +68,15 @@
 .font-default {
 	font-family: sans-serif;
 }
+
+.text-bold {
+	font-weight: bolder;
+}
+
+.text-italics {
+	font-style: italic;
+}
+
+.text-underline {
+	text-decoration: underline;
+}

@@ -40,15 +40,6 @@ nav {
 	);
 }
 
-.text-bold {
-	font-weight: 900;
-}
-
-.text-italics {
-	font-style: italic;
-}
-.text-underline {
-}
 
 input[type='radio'],
 .btn-save {

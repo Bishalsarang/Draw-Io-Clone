@@ -177,4 +177,23 @@ function addEventListenerRightSideBar() {
 
 		}
 	});
+
+	let italicsButton = document.getElementById('italics-btn');
+	italicsButton.addEventListener('click', (e) => {
+		if(selectedShape){
+			let textArea = selectedShape.querySelector('.shape-text');
+			textArea.classList.toggle('text-italics');
+
+		}
+	});
+
+	let undelineButton = document.getElementById('underline-btn');
+	undelineButton.addEventListener('click', (e) => {
+		if(selectedShape){
+			
+			let textArea = selectedShape.querySelector('.shape-text');
+			textArea.classList.toggle('text-underline');
+
+		}
+	});
 }
