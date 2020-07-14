@@ -166,9 +166,8 @@ export class Handle {
 				let deltaY = previous.y - coord.y;
 
 				previous.x = coord.x;
-				previous.y = (coord.y);
-			// 	// 
-			// 	console.log(actualShape.getBBox());
+				previous.y = coord.y;
+
 				console.log(deltaX, deltaY);
 				for(let element of actualShape.children){
 					let [scaleX, scaleY ] = element.getAttributeNS(null, 'scale').split(' ');
@@ -176,19 +175,8 @@ export class Handle {
 					let newScaleX = (width - deltaX) / (width / scaleX);
 					let newScaleY = (height - deltaY) / (height / scaleY);
 
-
-					
-			// 		// transform.setTranslate(coord.x - offset.x, coord.y - offset.y);
-			// 		//  selectedElement.setAttributeNS(
-			// 		// 	null,
-			// 		// 	'translate',
-			// 		// 	coord.x - offset.x + ' ' + (coord.y - offset.y)
-			// 		// );
 					element.setAttributeNS(null, 'scale', `${newScaleX} ${newScaleY}`);
 					element.setAttributeNS(null, 'transform', `scale(${newScaleX} ${newScaleY})`);
-					
-		
-
 			}
 
 		}

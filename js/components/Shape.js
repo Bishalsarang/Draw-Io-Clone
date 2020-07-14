@@ -194,6 +194,7 @@ export class Shape {
 		// For main holder g
 		this.g.appendChild(this.boundingBox); // Append the bounding path
 
+		this.g.append(this.g_);
 		this.handle.forEach((button, index) => {
 			that.g.appendChild(button);
 		});
@@ -201,8 +202,8 @@ export class Shape {
 		this.addToDOM();
 		
 		
-		this.g.append(this.g_);
-		this.textBox = new TextArea(this.g.getBBox());
+		
+		this.textBox = new TextArea(this.g_.getBBox());
 
 		this.foreignG.appendChild(this.textBox.getForeignObject());
 		this.g.append(this.foreignG);

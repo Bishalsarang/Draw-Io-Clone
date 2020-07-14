@@ -114,6 +114,12 @@ function drawControls(x, y, width, height) {
 	rotateButton.setAttributeNS(null, 'style', 'visibility: visible;');
 	rotateButton.setAttributeNS(null, 'transform', `translate(${x-40} ${y-40})`)
 
+	// Position Text
+	let textBoxParent = selectedShape.querySelector('.text-box-parent');
+	textBoxParent.setAttributeNS(null, 'width', width);
+	textBoxParent.setAttributeNS(null, 'x', x - 10 + 8);
+	textBoxParent.setAttributeNS(null, 'y', y + height / 2 - 10 );
+
 	let controlButtons = selectedShape.querySelectorAll('.resize-button');
 	for (let i = 0; i < 8; i++) {
 		let controlButton = controlButtons[i];
