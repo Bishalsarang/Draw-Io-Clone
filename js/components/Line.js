@@ -1,6 +1,6 @@
 import {Shape} from "./Shape.js";
 
-export class Line extends Shape{
+export class Line {
    constructor(props={}){
       const {x1=20, y1=20, x2=60, y2=60, r=2} = props;
       super(props);

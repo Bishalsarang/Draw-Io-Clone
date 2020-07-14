@@ -4,7 +4,7 @@ import { Ellipse } from './components/Ellipse.js';
 import { Rectangle } from './components/Rectangle.js';
 import { Diamond } from './components/Diamond.js';
 import { RoundRectangle } from './components/RoundRectangle.js';
-import { Line } from './components/Line.js';
+// import { Line } from './components/Line.js';
 
 class SV {
 	constructor(selector) {
@@ -24,7 +24,7 @@ class SV {
 			Square: Square,
 			Circle: Circle,
 			Diamond: Diamond,
-			Line: Line,
+			// Line: Line,
 		};
 	}
 

@@ -22,6 +22,10 @@ function addEventListenerLeftSideBar(sv) {
 
 // Kunai shape select garey vaney RIGHT sidebar ma tesko property aunu paryo
 function shapeEventListener(shape) {
+	// IF mouse is hovered on shape, connector button
+	shape.addEventListener('mouseover', () =>{
+		console.log("MAthis");
+	})
 	shape.addEventListener('click', () => {
 		// Uncheck if previously selected shapes if any
 		if (selectedShape) {
