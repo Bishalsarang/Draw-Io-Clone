@@ -105,10 +105,10 @@ function drawControls(x, y, width, height) {
 	];
 	// Draw controls
 
-	// let rotateButton = selectedShape.querySelector('.rotate-button');
+	 let rotateButton = selectedShape.querySelector('.rotate-button');
 	// 
-	// rotateButton.setAttributeNS(null, 'style', 'visibility: visible;');
-	// rotateButton.setAttributeNS(null, 'transform', `translate(${x} ${y})`)
+	rotateButton.setAttributeNS(null, 'style', 'visibility: visible;');
+	rotateButton.setAttributeNS(null, 'transform', `translate(${x-40} ${y-40})`)
 
 	let controlButtons = selectedShape.querySelectorAll('.resize-button');
 	for (let i = 0; i < 8; i++) {
@@ -122,6 +122,10 @@ function drawControls(x, y, width, height) {
 }
 
 function resetControls() {
+	let rotateButton = selectedShape.querySelector('.rotate-button');
+	rotateButton.setAttributeNS(null, 'style', 'visibility: hidden');
+	rotateButton.removeAttributeNS(null, 'transform')
+
 	// Draw Bounding box
 	let boundingBox = selectedShape.firstChild;
 

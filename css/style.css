@@ -40,7 +40,6 @@ nav {
 	);
 }
 
-
 input[type='radio'],
 .btn-save {
 	cursor: pointer;
@@ -66,4 +65,8 @@ input[type='number'] {
 
 #fonts {
 	text-transform: capitalize;
+}
+
+.rotate-button {
+	cursor: crosshair;
 }

@@ -68,7 +68,6 @@ function makeDraggable(sv) {
 			evt.preventDefault();
 			let coord = getMousePosition(evt);
 			transform.setTranslate(coord.x - offset.x, coord.y - offset.y);
-console.log(coord.x - offset.x, coord.y - offset.y);
 			// Apply translation on dragging
 			selectedElement.setAttributeNS(
 				null,
