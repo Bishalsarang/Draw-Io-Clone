@@ -70,3 +70,7 @@ input[type='number'] {
 .rotate-button {
 	cursor: crosshair;
 }
+
+.shape-text:hover {
+	cursor: text;
+}

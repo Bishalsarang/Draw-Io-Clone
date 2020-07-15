@@ -34,7 +34,7 @@ export class TextArea{
       this.foreignObject.setAttributeNS(null, 'x', this.x - 10 + this.offsetX);
       this.foreignObject.setAttributeNS(null, 'y', this.y + this.height / 2 + this.offsetY);
       this.foreignObject.setAttributeNS(null, 'width', this.width);
-      this.foreignObject.setAttributeNS(null, 'height', this.height);
+      this.foreignObject.setAttributeNS(null, 'height', this.height / 2 - this.y - this.offsetY);
       this.foreignObject.setAttributeNS(null, 'class', 'text-box-parent');
    }
 

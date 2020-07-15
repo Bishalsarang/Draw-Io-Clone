@@ -117,6 +117,7 @@ function drawControls(x, y, width, height) {
 	// Position Text
 	let textBoxParent = selectedShape.querySelector('.text-box-parent');
 	textBoxParent.setAttributeNS(null, 'width', width);
+	textBoxParent.setAttributeNS(null, 'height', height / 2 + 10 )
 	textBoxParent.setAttributeNS(null, 'x', x - 10 + 8);
 	textBoxParent.setAttributeNS(null, 'y', y + height / 2 - 10 );
 
