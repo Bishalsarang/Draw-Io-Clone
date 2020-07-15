@@ -185,7 +185,7 @@ export class Handle {
 					let [scaleX, scaleY] = element
 						.getAttributeNS(null, 'scale')
 						.split(' ');
-						console.log(width, deltaX, scaleX);
+						
 					// Set new scale factor to teh actual shape
 					let newScaleX = (width - deltaX) / (width / scaleX);
 					let newScaleY = (height - deltaY) / (height / scaleY);

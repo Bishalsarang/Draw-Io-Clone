@@ -1,6 +1,6 @@
 export class TextArea{
    constructor(props={}){
-      const {x, y, width, height, offsetX = 8, offsetY = -10, border = 'none', outline = 'none', color = 'black', background = 'transparent', textAlign = 'center', fontSize='12px'} = props;
+      const {x, y, width, height, offsetX = 8, offsetY = -10, border = 'none', outline = 'none', color = 'black', background = 'transparent', overflow = 'visible' ,textAlign = 'center', fontSize='12px'} = props;
 
       // Layout Poperties
       this.x = x;
@@ -17,6 +17,7 @@ export class TextArea{
       
       this.textAlign = textAlign;
       this.fontSize = fontSize;
+      this.overflow = overflow;
      
 
       // Use ForeignObject tag to use input tag inside svg
@@ -37,6 +38,7 @@ export class TextArea{
       this.foreignObject.setAttributeNS(null, 'width', this.width);
       this.foreignObject.setAttributeNS(null, 'height', this.height / 2 - this.y - this.offsetY);
       this.foreignObject.setAttributeNS(null, 'class', 'text-box-parent');
+      this.foreignObject.setAttributeNS(null, 'overflow', this.overflow);
    }
 
    setTextBoxAttributes(){

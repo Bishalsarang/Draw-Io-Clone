@@ -24,7 +24,7 @@ function addEventListenerLeftSideBar(sv) {
 function shapeEventListener(shape) {
 	// IF mouse is hovered on shape, connector button
 	shape.addEventListener('mouseover', () =>{
-		console.log("MAthis");
+		
 	})
 	shape.addEventListener('click', () => {
 		// Uncheck if previously selected shapes if any
@@ -80,7 +80,13 @@ function populateRightSideBar(shape) {
 
 	// Selected Font 
 	let selectedFont = document.getElementById('fonts');
-	let currentFont = shape.querySelector('.shape-text').classList[1].split("-").slice(-1)[0];
+
+	let textArea = shape.querySelector('.shape-text');
+	let currentFont = [... textArea.classList].filter((class_) => {
+		return class_.includes('font');
+	});
+	// font class is in the form font-default
+	currentFont = currentFont[0].split('-').slice(-1)[0];
 	let fontIndex = 0;
 
 	for(let i = 0; i < selectedFont.length; i++){
@@ -92,10 +98,26 @@ function populateRightSideBar(shape) {
 	// Change selected index in right side bar
 	selectedFont.selectedIndex = fontIndex;
 
+	
 
+	// Bold Italics Underline
+	let isBold = textArea.classList.contains('text-bold');
+	let boldButton = document.getElementById('bold-btn');
+	isBold ? boldButton.classList.add('btn-active'): 	boldButton.classList.remove('btn-active');
+	
+	let isItalics = textArea.classList.contains('text-italics');
+	let italicsButton = document.getElementById('italics-btn');
+	isItalics ? italicsButton.classList.add('btn-active'): 	italicsButton.classList.remove('btn-active');
+
+	let isUnderline = textArea.classList.contains('text-underline');
+	
+	let underlineButton = document.getElementById('underline-btn');
+	
+	isUnderline ? underlineButton.classList.add('btn-active'): 	underlineButton.classList.remove('btn-active');
+	
 	// FOnt Size Inputbox
 	let fontSizeInput = document.getElementById('font-size');
-	fontSizeInput.value = parseInt(getComputedStyle(shape.querySelector('.shape-text')).fontSize);
+	fontSizeInput.value = parseInt(getComputedStyle(textArea).fontSize);
 
 }
 

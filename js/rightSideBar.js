@@ -173,6 +173,7 @@ function addEventListenerRightSideBar() {
 	boldButton.addEventListener('click', (e) => {
 		if(selectedShape){
 			let textArea = selectedShape.querySelector('.shape-text');
+			boldButton.classList.toggle('btn-active');
 			textArea.classList.toggle('text-bold');
 
 		}
@@ -182,6 +183,7 @@ function addEventListenerRightSideBar() {
 	italicsButton.addEventListener('click', (e) => {
 		if(selectedShape){
 			let textArea = selectedShape.querySelector('.shape-text');
+			italicsButton.classList.toggle('btn-active');
 			textArea.classList.toggle('text-italics');
 
 		}
@@ -191,6 +193,7 @@ function addEventListenerRightSideBar() {
 	underlineButton.addEventListener('click', (e) => {
 		if(selectedShape){	
 			let textArea = selectedShape.querySelector('.shape-text');
+			underlineButton.classList.toggle('btn-active');
 			textArea.classList.toggle('text-underline');
 
 		}
