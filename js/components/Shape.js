@@ -40,7 +40,7 @@ export class Shape {
 			fontFamily = 'Arial, Helvetica, sans-serif, monospace',
 
 			/* SVG drawing area properties */
-			sv 
+			sv,
 		} = props;
 
 		/* Stroke Properties */
@@ -72,12 +72,10 @@ export class Shape {
 		this.fontFamily = fontFamily;
 		this.fontWeight = fontWeight;
 		this.fontVariant = fontVariant;
-	
+
 		// SVG Drawing Area
-		this.sv  = sv;
+		this.sv = sv;
 
-
-		
 		// Main group holder which holds du0plicate btn, rotate btn, handle btn plus bounding box and main shape paths
 		this.g = document.createElementNS(SVGNS, 'g');
 		this.setAttributes();
@@ -85,8 +83,9 @@ export class Shape {
 		// NOTE: SCALING property only applies to path, so our buttons remains the same on resize
 		// Group tag which holds boundign box and shape
 		this.g_ = document.createElementNS(SVGNS, 'g');
-		this.g_.setAttributeNS(null, 'class','actual-shape');
+		this.g_.setAttributeNS(null, 'class', 'actual-shape');
 
+		// Foreign element to hold text
 		this.foreignG = document.createElementNS(SVGNS, 'g');
 
 		// Bounding box
@@ -97,11 +96,10 @@ export class Shape {
 		}).getBoundingBox();
 
 		// Handle scales thhe actual path but not the whole group holder
-		this.handle = new Handle({g_: this.g_, sv: this.sv}).getHandles();
+		this.handle = new Handle({ g_: this.g_, sv: this.sv }).getHandles();
 
 		// Text
 		this.textBox = null; // The dimension of bounding box is not known before adding to DOM
-
 	}
 
 	/**
@@ -111,7 +109,7 @@ export class Shape {
 		this.handle.forEach((button, index) => {
 			button.setAttributeNS(null, 'vector-effect', 'non-scaling-stroke');
 		});
-		this.path.setAttributeNS(null, 'vector-effect', 'non-scaling-stroke');
+
 		this.boundingBox.setAttributeNS(
 			null,
 			'vector-effect',
@@ -167,30 +165,42 @@ export class Shape {
 		this.setTransformationAttributes();
 	}
 
-	setPathAttributes(){
-		this.applyScalePath();
-		this.path.setAttributeNS(null, 'class', 'svg-shape');
+	setPathAttributes(element) {
+		// that.applyScalePath(that, element);
+		element.setAttributeNS(null, 'scale', `${this.scale}`);
+		element.setAttributeNS(null, 'transform', `scale(${this.scale})`);
+		element.setAttributeNS(null, 'class', 'svg-shape');
 	}
 
 	getElement() {
 		return this.g;
 	}
 
-	applyScalePath(){
+	applyScalePath(that, element) {
 		// APply scaling to path only.
-		this.path.setAttributeNS(null, 'scale', `${this.scale}`);
-		this.path.setAttributeNS(null, 'transform', `scale(${this.scale})`);
+		console.log('ss', that.scale);
+		element.setAttributeNS(null, 'scale', `${that.scale}`);
+		element.setAttributeNS(null, 'transform', `scale(${that.scale})`);
 	}
 
 	create() {
 		this.setNonScalingStrokes();
-		this.setPathAttributes();
+		// this.setPathAttributes();
 
 		let that = this;
 		// FOr  shape holder g
-		
-		this.g_.appendChild(this.path); // Append the shape path
 
+		// Append all the shape path
+		this.shapeElements.forEach((element, index) => {
+			that.g_.appendChild(element);
+
+			element.setAttributeNS(null, 'scale', `${that.scale}`);
+			element.setAttributeNS(null, 'transform', `scale(${that.scale})`);
+			element.setAttributeNS(null, 'class', 'svg-shape');
+			element.setAttributeNS(null, 'vector-effect', 'non-scaling-stroke');
+		});
+
+		// this.g_.appendChild(this.path);
 		// For main holder g
 		this.g.appendChild(this.boundingBox); // Append the bounding path
 
@@ -200,19 +210,14 @@ export class Shape {
 		});
 
 		this.addToDOM();
-		
-		
-		
+
 		this.textBox = new TextArea(this.g_.getBBox());
 
 		this.foreignG.appendChild(this.textBox.getForeignObject());
 		this.g.append(this.foreignG);
-
-		
-		
 	}
 
-	addToDOM(){
+	addToDOM() {
 		this.sv.appendChild(this.getElement());
 	}
 }

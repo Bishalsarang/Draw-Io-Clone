@@ -3,14 +3,26 @@ import {Shape} from './Shape.js'
 export class CustomShape extends Shape{
 	constructor(props = {}) {
       super(props);
-      const {d, scale} = props;
-      this.d = d;
+      const{children, scale= "1 1"} = props;
+
       this.scale = scale;
-      this.path = document.createElementNS(SVGNS, 'path');
-      this.setShapeSpecificProperties();
+      this.shapeElements = [];
+      children.forEach((child, index) => {
+          const key = Object.keys(child)[0];
+          this.createElement(key, child[key]);
+      })
+      ;
    }
 
-   setShapeSpecificProperties() {
-		this.path.setAttributeNS(null, 'd', this.d);
+   createElement(key, props={}){
+      let path = document.createElementNS(SVGNS, key);
+      this.setProperties(path, props);
+   }
+
+   setProperties(path, props){
+      for(const [key, value] of Object.entries(props)){
+         path.setAttributeNS(null, key, value);
+      }
+      this.shapeElements.push(path);
    }
 }
