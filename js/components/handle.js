@@ -58,29 +58,29 @@ export class Handle {
 			this.buttonList.push(el);
 
 
-			let connector = document.createElementNS(SVGNS, 'g');
-			connector.setAttributeNS(null, 'class', 'connector-dot');
-			connector.setAttributeNS(null, 'x', -100);
-			connector.setAttributeNS(null, 'y', 0);
-			let largeCircle = document.createElementNS(SVGNS, 'circle');
+			// let connector = document.createElementNS(SVGNS, 'g');
+			// connector.setAttributeNS(null, 'class', 'connector-dot');
+			// connector.setAttributeNS(null, 'x', -100);
+			// connector.setAttributeNS(null, 'y', 0);
+			// let largeCircle = document.createElementNS(SVGNS, 'circle');
 			
-			largeCircle.setAttributeNS(null, 'cx', '9');
-			largeCircle.setAttributeNS(null, 'cy', '9');
-			largeCircle.setAttributeNS(null, 'r', '5');
-			largeCircle.setAttributeNS(null, 'stroke', '#fff');
-			largeCircle.setAttributeNS(null, 'fill', '#29b6f2');
-			largeCircle.setAttributeNS(null, 'stroke-width', '1');
+			// largeCircle.setAttributeNS(null, 'cx', '9');
+			// largeCircle.setAttributeNS(null, 'cy', '9');
+			// largeCircle.setAttributeNS(null, 'r', '5');
+			// largeCircle.setAttributeNS(null, 'stroke', '#fff');
+			// largeCircle.setAttributeNS(null, 'fill', '#29b6f2');
+			// largeCircle.setAttributeNS(null, 'stroke-width', '1');
 
-			let smallCircle = document.createElementNS(SVGNS, 'circle');
-			smallCircle.setAttributeNS(null, 'cx', '9');
-			smallCircle.setAttributeNS(null, 'cy', '9');
-			smallCircle.setAttributeNS(null, 'r', '2');
-			smallCircle.setAttributeNS(null, 'stroke', '#fff');
-			smallCircle.setAttributeNS(null, 'fill', 'transparent');
+			// let smallCircle = document.createElementNS(SVGNS, 'circle');
+			// smallCircle.setAttributeNS(null, 'cx', '9');
+			// smallCircle.setAttributeNS(null, 'cy', '9');
+			// smallCircle.setAttributeNS(null, 'r', '2');
+			// smallCircle.setAttributeNS(null, 'stroke', '#fff');
+			// smallCircle.setAttributeNS(null, 'fill', 'transparent');
 
-			connector.appendChild(largeCircle);
-			connector.appendChild(smallCircle)
-			this.buttonList.push(connector);
+			// connector.appendChild(largeCircle);
+			// connector.appendChild(smallCircle)
+			// this.buttonList.push(connector);
 	
 
 			

@@ -187,12 +187,21 @@ function addEventListenerRightSideBar() {
 		}
 	});
 
-	let undelineButton = document.getElementById('underline-btn');
-	undelineButton.addEventListener('click', (e) => {
-		if(selectedShape){
-			
+	let underlineButton = document.getElementById('underline-btn');
+	underlineButton.addEventListener('click', (e) => {
+		if(selectedShape){	
 			let textArea = selectedShape.querySelector('.shape-text');
 			textArea.classList.toggle('text-underline');
+
+		}
+	});
+
+	let fontSizeInput = document.getElementById('font-size');
+	fontSizeInput.addEventListener('change', (e) => {
+		if(selectedShape){	
+			console.log("CHanged");
+			let textArea = selectedShape.querySelector('.shape-text');
+			textArea.style.fontSize = fontSizeInput.value + 'px';
 
 		}
 	});

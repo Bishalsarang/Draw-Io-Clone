@@ -92,6 +92,11 @@ function populateRightSideBar(shape) {
 	// Change selected index in right side bar
 	selectedFont.selectedIndex = fontIndex;
 
+
+	// FOnt Size Inputbox
+	let fontSizeInput = document.getElementById('font-size');
+	fontSizeInput.value = parseInt(getComputedStyle(shape.querySelector('.shape-text')).fontSize);
+
 }
 
 function drawControls(x, y, width, height) {

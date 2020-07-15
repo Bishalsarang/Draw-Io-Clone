@@ -1,6 +1,6 @@
 export class TextArea{
    constructor(props={}){
-      const {x, y, width, height, offsetX = 8, offsetY = -10, border = 'none', outline = 'none', color = 'black', background = 'transparent', textAlign = 'center'} = props;
+      const {x, y, width, height, offsetX = 8, offsetY = -10, border = 'none', outline = 'none', color = 'black', background = 'transparent', textAlign = 'center', fontSize='12px'} = props;
 
       // Layout Poperties
       this.x = x;
@@ -16,6 +16,7 @@ export class TextArea{
       this.outline = outline;
       
       this.textAlign = textAlign;
+      this.fontSize = fontSize;
      
 
       // Use ForeignObject tag to use input tag inside svg
@@ -42,26 +43,18 @@ export class TextArea{
 
       // Common Properties
       this.inputBox.setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
-      // this.inputBox.setAttributeNS(null, 'type', 'text');
-      // this.inputBox.setAttributeNS(null, 'name', 'text');
+     
       // Add default font css class
       this.inputBox.setAttributeNS(null, 'class', 'shape-text font-default');
-
-
-      // this.inputBox.setAttributeNS(null, 'value', this.value);
-      // this.inputBox.setAttributeNS(null, 'placeholder', this.placholder);
-
-      // // CSS attributes
-      // this.inputBox.style.border = this.border;
-      // this.inputBox.style.outline = this.outline;
-      // this.inputBox.style.color = this.color;
-      // this.inputBox.style.background = this.background;
 
       this.inputBox.innerHTML = "Text";
       this.inputBox.setAttributeNS(null, 'contenteditable', 'true');
       this.inputBox.style.border = this.border;
       this.inputBox.style.outline = this.outline
+      this.inputBox.style.color = this.color;
+      this.inputBox.style.background = this.background;
       this.inputBox.style.textAlign = this.textAlign;
+      this.inputBox.style.fontSize = this.fontSize;
 
    }
 
