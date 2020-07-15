@@ -199,10 +199,17 @@ function addEventListenerRightSideBar() {
 	let fontSizeInput = document.getElementById('font-size');
 	fontSizeInput.addEventListener('change', (e) => {
 		if(selectedShape){	
-			console.log("CHanged");
 			let textArea = selectedShape.querySelector('.shape-text');
 			textArea.style.fontSize = fontSizeInput.value + 'px';
 
+		}
+	});
+
+	let fontColorPick = document.getElementById('font-color');
+	fontColorPick.addEventListener('change', (e) => {
+		if(selectedShape){	
+			let textArea = selectedShape.querySelector('.shape-text');
+			textArea.style.color = fontColorPick.value;
 		}
 	});
 }

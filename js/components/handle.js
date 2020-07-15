@@ -1,6 +1,6 @@
 export class Handle {
 	constructor(props = {}) {
-		const { g_ , sv} = props;
+		const { g_, sv } = props;
 		this.r = '5';
 		this.g_ = g_;
 		this.sv = sv;
@@ -18,6 +18,19 @@ export class Handle {
 			'se-resize',
 		];
 
+		// To handle scaling up or down depending on the button
+		this.parity = {
+			nw: { parityX: -1, parityY: -1 },
+			n: { parityX: 0, parityY: -1 },
+			ne: { parityX: 1, parityY: -1 },
+			w: { parityX: -1, parityY: 0 },
+			e: { parityX: 1, parityY: 0 },
+			sw: { parityX: -1, parityY: 1 },
+			s: { parityX: 0, parityY: 1 },
+			se: { parityX: 1, parityY: 1 },
+		};
+		
+
 		this.color = '#29b6f2';
 		this.createButtons();
 	}
@@ -29,7 +42,7 @@ export class Handle {
 
 		el.setAttributeNS(null, 'stroke', this.color);
 		el.setAttributeNS(null, 'class', 'rotate-button');
-		el.setAttributeNS(null, 'style', 'visibility: hidden;')
+		el.setAttributeNS(null, 'style', 'visibility: hidden;');
 		el.setAttributeNS(
 			null,
 			'd',
@@ -37,7 +50,7 @@ export class Handle {
 		);
 
 		this.buttonList.push(el);
-		
+
 		// Resize handles plus connector button
 		for (let i = 0; i < 8; i++) {
 			let el = document.createElementNS(SVGNS, 'ellipse');
@@ -49,21 +62,19 @@ export class Handle {
 
 			let id = this.resizeCursor[i].split('-')[0];
 			el.setAttributeNS(null, 'id', id);
-			
+
 			el.addEventListener('click', (e) => {
 				this.handleDrag(el, id);
-				
 			});
 			// Add Handles button
 			this.buttonList.push(el);
-
 
 			// let connector = document.createElementNS(SVGNS, 'g');
 			// connector.setAttributeNS(null, 'class', 'connector-dot');
 			// connector.setAttributeNS(null, 'x', -100);
 			// connector.setAttributeNS(null, 'y', 0);
 			// let largeCircle = document.createElementNS(SVGNS, 'circle');
-			
+
 			// largeCircle.setAttributeNS(null, 'cx', '9');
 			// largeCircle.setAttributeNS(null, 'cy', '9');
 			// largeCircle.setAttributeNS(null, 'r', '5');
@@ -81,25 +92,24 @@ export class Handle {
 			// connector.appendChild(largeCircle);
 			// connector.appendChild(smallCircle)
 			// this.buttonList.push(connector);
-	
-
-			
 		}
 	}
 
 	/**
-	 * 
+	 *
 	 * @param {} el Resize button element
 	 * Returns parent element of button
 	 */
-	getParentShape(el){
+	getParentShape(el) {
 		return el.parentNode;
 	}
 
 	handleDrag(el, id) {
-
 		let that = this;
-		let offset, transform, selectedElement, previous = {};
+		let offset,
+			transform,
+			selectedElement,
+			previous = {};
 		el.addEventListener('mousedown', startResize);
 		el.addEventListener('mousemove', resize);
 		el.addEventListener('mouseup', stopResize);
@@ -115,10 +125,10 @@ export class Handle {
 
 		function initialiseDragging(evt) {
 			offset = getMousePosition(evt);
-			
+
 			// Make sure the first transform on the element is a translate transform
 			var transforms = selectedElement.transform.baseVal;
-	
+
 			if (
 				transforms.length === 0 ||
 				transforms.getItem(0).type !== SVGTransform.SVG_TRANSFORM_TRANSLATE
@@ -128,31 +138,28 @@ export class Handle {
 				translate.setTranslate(0, 0);
 				selectedElement.transform.baseVal.insertItemBefore(translate, 0);
 			}
-	
+
 			// Get initial translation
 			transform = transforms.getItem(0);
 			offset.x -= transform.matrix.e;
 			offset.y -= transform.matrix.f;
-
 		}
 
-		function startResize(evt){
-			console.log("Mouse click" , getMousePosition(evt));
+		function startResize(evt) {
 			selectedElement = that.getParentShape(el);
 			let coord = getMousePosition(evt);
-			previous.x = coord.x;
-			previous.y = coord.y;
-			initialiseDragging(evt);
-			// 
 
+			// Set previous coordinate to calculate scale after mouse is move
+			previous = coord;
+			initialiseDragging(evt);
 		}
 
-		function resize(evt){
-			// console.log("Mouse move", getMousePosition(evt));
+		function resize(evt) {
+			
 			if (selectedElement) {
 				evt.preventDefault();
 				let coord = getMousePosition(evt);
-				
+
 				transform.setTranslate(coord.x - offset.x, coord.y - offset.y);
 				// Apply translation on dragging
 				selectedElement.setAttributeNS(
@@ -160,50 +167,49 @@ export class Handle {
 					'translate',
 					coord.x - offset.x + ' ' + (coord.y - offset.y)
 				);
+
 				let actualShape = selectedElement.querySelector('.actual-shape');
-				let {x, y, width, height} = actualShape.getBBox();
-				let deltaX = previous.x - coord.x;
-				let deltaY = previous.y - coord.y;
+				let { x, y, width, height } = actualShape.getBBox();
+				
+				// Get direction of button from id
+				let buttonDir = id.split('-')[0];
+				let {parityX, parityY} = that.parity[buttonDir];
 
-				previous.x = coord.x;
-				previous.y = coord.y;
-
-				console.log(deltaX, deltaY);
-				for(let element of actualShape.children){
-					let [scaleX, scaleY ] = element.getAttributeNS(null, 'scale').split(' ');
-					
+				// Calculate how much distance has been moved
+				let deltaX = parityX * (previous.x - coord.x);
+				let deltaY = parityY * (previous.y - coord.y);
+			
+				previous = coord;
+				
+				for (let element of actualShape.children) {
+					let [scaleX, scaleY] = element
+						.getAttributeNS(null, 'scale')
+						.split(' ');
+						console.log(width, deltaX, scaleX);
+					// Set new scale factor to teh actual shape
 					let newScaleX = (width - deltaX) / (width / scaleX);
 					let newScaleY = (height - deltaY) / (height / scaleY);
-
-					element.setAttributeNS(null, 'scale', `${newScaleX} ${newScaleY}`);
-					element.setAttributeNS(null, 'transform', `scale(${newScaleX} ${newScaleY})`);
+					setNewScale(element, newScaleX, newScaleY);
+				}
 			}
-
 		}
-	}
 
-		function stopResize(evt){
-			console.log("Mouse up", getMousePosition(evt));
-			if (selectedElement) {
-				let newTransformation = selectedElement.getAttributeNS(
-					null,
-					'transform',
+		function setNewScale(element, newScaleX, newScaleY){
+			element.setAttributeNS(
+				null,
+				'scale',
+				`${newScaleX} ${newScaleY}`
+			);
 
-				);
-				// element.removeAttributeNS(null, 'transform');
-				// element.setAttributeNS(null, 'transform', `scale(${newScaleX} ${newScaleY}) translate(${-x} ${-y})`);
-					
-		
-
-	
-				// selectedElement.removeAttributeNS(null, 'transform');
-				// selectedElement.setAttribute('transform', newTransformation);
-			}
+			element.setAttributeNS(
+				null,
+				'transform',
+				`scale(${newScaleX} ${newScaleY})`
+			);
+		}
+		function stopResize(evt) {
 			selectedElement = false;
 		}
-
-		
-	
 	}
 
 	getHandles() {
