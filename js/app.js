@@ -60,7 +60,7 @@ window.onload = function () {
 	if (hasPreviousSavedState()) {
 		if (
 			confirm(
-				'Are you sure you want to continue the previous saved diagram? '
+				'Do you want to continue the previous saved diagram? '
 			)
 		) {
 			loadPreviousState();
