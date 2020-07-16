@@ -90,9 +90,9 @@ export class Shape {
 
 		// Bounding box
 		this.boundingBox = new BoundingBox({
-			translate: this.translate,
 			scale: this.scale,
 			rotate: this.rotate,
+			translate: this.translate,
 		}).getBoundingBox();
 
 		// Handle scales thhe actual path but not the whole group holder
@@ -198,9 +198,9 @@ export class Shape {
 			that.g_.appendChild(element);
 
 			setSVGAttributes(element, {
+				class: 'svg-shape',
 				scale: `${that.scale}`,
 				transform: `scale(${that.scale})`,
-				class: 'svg-shape',
 				'vector-effect': 'non-scaling-stroke'
 			});
 		});

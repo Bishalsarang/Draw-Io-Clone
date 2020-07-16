@@ -18,10 +18,22 @@ function setSVGAttributes(element, props){
 }
 
 
+/**
+ * 
+ * @param {*} element 
+ * @param {*} key 
+ * @param {*} value 
+ */
 function setCSSAttribute(element, key, value){
     element.style[key] = value;
 }
 
+
+/**
+ * 
+ * @param {*} element 
+ * @param {*} props 
+ */
 function setCSSAttributes(element, props){
     for(const [key, value] of Object.entries(props)){
         setCSSAttribute(element, key, value);
