@@ -12,8 +12,6 @@ function addEventListenerLeftSideBar(sv) {
 
 			let elem = new sv.ShapesConstruct["CustomShape"]({ sv: sv.sv, ...ShapeInfo[clickedShape]});
 			
-			// console.log(Rectangle);
-			// let elem = new CustomShape(ShapeInfo[clickedShape]);
 			elem.create();
 
 			// Add event listener to shape to change property by and on right sidebar
