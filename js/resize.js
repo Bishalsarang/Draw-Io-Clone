@@ -52,7 +52,6 @@ function handleResize(sv, el, id) {
    }
 
    function resize(evt) {
-      
       if (selectedElement) {
          evt.preventDefault();
          let coord = getMousePosition(evt);
@@ -75,9 +74,8 @@ function handleResize(sv, el, id) {
          // Calculate how much distance has been moved
          let deltaX = parityX * (previous.x - coord.x);
          let deltaY = parityY * (previous.y - coord.y);
-      
-         previous = coord;
          
+         previous = coord;
          for (let element of actualShape.children) {
             let [scaleX, scaleY] = element
                .getAttributeNS(null, 'scale')
@@ -92,19 +90,13 @@ function handleResize(sv, el, id) {
    }
 
    function setNewScale(element, newScaleX, newScaleY){
-      element.setAttributeNS(
-         null,
-         'scale',
-         `${newScaleX} ${newScaleY}`
-      );
-
-      element.setAttributeNS(
-         null,
-         'transform',
-         `scale(${newScaleX} ${newScaleY})`
-      );
+      setSVGAttributes(element, {
+			scale: `${newScaleX} ${newScaleY}`,
+			transform: `scale(${newScaleX} ${newScaleY})`,
+		});
    }
-   function stopResize(evt) {
+
+   function stopResize(evt) {     
       selectedElement = false;
    }
 }

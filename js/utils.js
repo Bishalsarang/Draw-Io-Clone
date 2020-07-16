@@ -32,7 +32,7 @@ function setCSSAttribute(element, key, value){
 /**
  * 
  * @param {*} element 
- * @param {*} props 
+ * @param {Object} props 
  */
 function setCSSAttributes(element, props){
     for(const [key, value] of Object.entries(props)){
@@ -40,9 +40,18 @@ function setCSSAttributes(element, props){
      }
 }
 
-
 function getSVGAttribute(element, key){
     return element.getAttributeNS(null, key);
+}
+
+function removeSVGAttribute(element, key){
+    element.removeAttributeNS(null, key);
+}
+
+function removeSVGAttributes(element, atributeList){
+    for(const key of atributeList){
+        removeSVGAttribute(element, key);
+     }
 }
 
 function getCurrentTimeStamp(){

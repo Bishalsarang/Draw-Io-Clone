@@ -55,25 +55,9 @@ class SV {
 let sv;
 window.onload = function () {
 	sv = new SV('.drawing-area');
-	addGrid();
-
 	if (hasPreviousSavedState()) {
-		if (
-			confirm(
-				'Do you want to continue the previous saved diagram? '
-			)
-		) {
-			loadPreviousState();
-			sv.sv.querySelectorAll('.draggable-group').forEach((element) => {
-				// Enable EVents on click to draw boundary box, resizebuttons
-				shapeEventListener(element);
-		});
-		}
-		// Since all the resize buttons are already drawn, add event handler to resize buttons
-		document.querySelectorAll('.resize-button').forEach((element) => {
-			let id = element.id;
-			handleResize(sv.sv, element, id);
-		});
+			// SHow Draft Selector
+			showDraftSelector(sv.sv);
 	}
 
 	addEventListenerLeftSideBar(sv);
@@ -89,75 +73,9 @@ function hasPreviousSavedState() {
 	return localStorage.length;
 }
 
-function loadPreviousState() {
-	// Load from previous state
-	let lastTimeStamp = Object.keys(localStorage)[0];
-	let previousState = JSON.parse(localStorage.getItem(lastTimeStamp));
-	
-	sv.sv.innerHTML = Object.values(previousState)[0];
-}
 
-/**
- *
- */
-function addGrid() {
-	let defElement = document.createElementNS(SVGNS, 'defs');
-	let patternSmallGrid = document.createElementNS(SVGNS, 'pattern');
-	setSVGAttributes(patternSmallGrid, {
-		id: 'tenthGrid',
-		width: '10',
-		height: '10',
-		patternUnits: 'userSpaceOnUse',
-	});
 
-	let pathSmallGrid = document.createElementNS(SVGNS, 'path');
-	setSVGAttributes(pathSmallGrid, {
-		d: 'M 10 0 L 0 0 0 10',
-		fill: 'none',
-		stroke: 'silver',
-		'stroke-width': '0.5',
-	});
 
-	patternSmallGrid.appendChild(pathSmallGrid);
-	defElement.appendChild(patternSmallGrid);
-
-	let patternLargeGrid = document.createElementNS(SVGNS, 'pattern');
-	setSVGAttributes(patternLargeGrid, {
-		id: 'grid',
-		width: '100',
-		height: '100',
-		patternUnits: 'userSpaceOnUse',
-	});
-
-	let pathLargeGrid = document.createElementNS(SVGNS, 'path');
-	setSVGAttributes(pathLargeGrid, {
-		d: 'M 100 0 L 0 0 0 100',
-		fill: 'none',
-		stroke: 'gray',
-		'stroke-width': '1',
-	});
-
-	let rectLargeGrid = document.createElementNS(SVGNS, 'rect');
-	setSVGAttributes(rectLargeGrid, {
-		width: '100',
-		height: '100',
-		fill: 'url(#tenthGrid)',
-	});
-
-	patternLargeGrid.appendChild(rectLargeGrid);
-	patternLargeGrid.appendChild(pathLargeGrid);
-	defElement.appendChild(patternLargeGrid);
-
-	let gridRect = document.createElementNS(SVGNS, 'rect');
-	setSVGAttributes(gridRect, {
-		width: '100%',
-		height: '100%',
-		fill: 'url(#grid)',
-		class: 'background-grid'
-	});
-	sv.sv.appendChild(defElement);
-	sv.sv.appendChild(gridRect);
-}
 
 /**
  * downloadButton onClick
@@ -204,7 +122,7 @@ function saveProgressEventListener() {
 		resetControls();
 		let currentTimeStamp = getCurrentTimeStamp();
 		let currentSignature = {};
-		localStorage.clear();
+		// localStorage.clear();
 		currentSignature[currentTimeStamp] = sv.sv.innerHTML;
 		localStorage.setItem(currentTimeStamp, JSON.stringify(currentSignature));
 	});
