@@ -551,25 +551,75 @@
                         </a>
                     </svg>
                 </div>
+                <!-- Connectors -->
+                <div class="connectors">
+                    <h2>Connectors</h2>
+                    <svg class="shape">
+                        <a class='sidebar-shape' href='#' title="DashedLine">
+                            <g transform="translate(0.5,0.5)" style="visibility: visible;">
+                                <path d="M 2.12 27.56 L 28.62 1.06" fill="none" stroke="white" stroke-width="9.3"
+                                    stroke-miterlimit="10" pointer-events="stroke" visibility="hidden"></path>
+                                <path d="M 2.12 27.56 L 28.62 1.06" fill="none" stroke="#000000" stroke-width="1.3"
+                                    stroke-miterlimit="10" stroke-dasharray="1.59 1.59" pointer-events="stroke"></path>
+                            </g>
+                        </a>
+                    </svg>
+                    <svg class="shape">
+                        <a class='sidebar-shape' href='#' title="DottedLine">
+                            <g>
+                                <path d="M 2.6 27.56 L 28.6 1.56" fill="none" stroke="white" stroke-width="9.3"
+                                    stroke-miterlimit="10" pointer-events="stroke" visibility="hidden"></path>
+                                <path d="M 2.6 27.56 L 28.6 1.56" fill="none" stroke="#000000" stroke-width="1.3"
+                                    stroke-miterlimit="10" stroke-dasharray="1.04 3.12" pointer-events="stroke"></path>
+                            </g>
+                        </a>
+                    </svg>
+                    <svg class="shape">
+                        <a class='sidebar-shape' href='#' title="Line">
+                            <g>
+                                <path d="M 2.12 27.56 L 28.62 1.06" fill="none" stroke="white" stroke-width="9.3"
+                                    stroke-miterlimit="10" pointer-events="stroke" visibility="hidden"></path>
+                                <path d="M 2.12 27.56 L 28.62 1.06" fill="none" stroke="#000000" stroke-width="1.3"
+                                    stroke-miterlimit="10" pointer-events="stroke"></path>
+                            </g>
+                        </a>
+                    </svg>
+                    <svg class="shape">
+                        <a class='sidebar-shape' href='#' title="BiDirectionalConnector">
+                            <g>
+                                <path d="M 7.18 23.16 L 23.98 6.36" fill="none" stroke="white" stroke-width="9.3"
+                                    stroke-miterlimit="10" pointer-events="stroke" visibility="hidden"></path>
+                                <path d="M 7.18 23.16 L 23.98 6.36" fill="none" stroke="#000000" stroke-width="1.3"
+                                    stroke-miterlimit="10" pointer-events="stroke"></path>
+                                <path d="M 5.65 24.69 L 6.67 21.64 L 7.18 23.16 L 8.7 23.67 Z" fill="#000000"
+                                    stroke="#000000" stroke-width="1.3" stroke-miterlimit="10" pointer-events="all">
+                                </path>
+                                <path d="M 25.51 4.83 L 24.49 7.88 L 23.98 6.36 L 22.46 5.85 Z" fill="#000000"
+                                    stroke="#000000" stroke-width="1.3" stroke-miterlimit="10" pointer-events="all">
+                                </path>
+                            </g>
+                        </a>
+                    </svg>
+                    <svg class="shape">
+                        <a class='sidebar-shape' href='#' title="DirectionalConnector">
+                            <g>
+                                <path d="M 5.04 25.2 L 24.15 6.09" fill="none" stroke="white" stroke-width="9.3"
+                                    stroke-miterlimit="10" pointer-events="stroke" visibility="hidden"></path>
+                                <path d="M 5.04 25.2 L 24.15 6.09" fill="none" stroke="#000000" stroke-width="1.3"
+                                    stroke-miterlimit="10" pointer-events="stroke"></path>
+                                <path d="M 25.71 4.53 L 24.67 7.65 L 24.15 6.09 L 22.59 5.57 Z" fill="#000000"
+                                    stroke="#000000" stroke-width="1.3" stroke-miterlimit="10" pointer-events="all">
+                                </path>
+                            </g>
+                        </a>
+                    </svg>
+                </div>
 
             </div>
-
             <svg id="drawing-area" class="left" version="1.1" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-                <!-- Add Grid -->
-                <defs>
-                    <pattern id="tenthGrid" width="10" height="10" patternUnits="userSpaceOnUse">
-                        <path d="M 10 0 L 0 0 0 10" fill="none" stroke="silver" stroke-width="0.5" />
-                    </pattern>
-                    <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse">
-                        <rect width="100" height="100" fill="url(#tenthGrid)" />
-                        <path d="M 100 0 L 0 0 0 100" fill="none" stroke="gray" stroke-width="1" />
-                    </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#grid)" />
-                <!--  -->
-            </svg>
 
+            </svg>
             <div class="sidebar-right left">
                 <div>
                     <input type="checkbox" checked="false" style="margin: 0px 6px 0px 0px;" id="fill-status">
@@ -645,6 +695,7 @@
     </div>
     <script src="js/constants.js"></script>
     <script src="js/ShapeFile.js"></script>
+    <script src="js/utils.js"></script>
     <script src="js/app.js" type="module" defer></script>
     <script src="js/leftSideBar.js"></script>
     <script src="js/rightSideBar.js"></script>

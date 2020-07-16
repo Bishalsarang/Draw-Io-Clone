@@ -1,40 +1,29 @@
-class BezierCircle{
-    constructor(centerX, centerY, radius) {
-        this.centerX = centerX;
-        this.centerY = centerY;
-        this.radius = radius;        
-    }
-
-    
-    drawBezierCircle() {
-        drawBezierOval(centerX, centerY, this.radius, this.radius);
-    }
-
-
-
-    
+/**
+ * 
+ */
+function setSVGAttribute(element, key, value){
+    element.setAttributeNS(null, key, value)
 }
 
-function drawBezierOvalQuarter(centerX, centerY, sizeX, sizeY) {
-    ctx.beginPath();
-    ctx.moveTo(
-        centerX - (sizeX),
-        centerY - (0)
-    );
-    ctx.bezierCurveTo(
-        centerX - (sizeX),
-        centerY - (0.552 * sizeY),
-        centerX - (0.552 * sizeX),
-        centerY - (sizeY),
-        centerX - (0),
-        centerY - (sizeY)
-    );
+
+/**
+ * 
+ * @param {} element SVG ELement in which we want to add attributes
+ * @param {Object} props All the attributes we want to set
+ */
+function setSVGAttributes(element, props){
+    for(const [key, value] of Object.entries(props)){
+        setSVGAttribute(element, key, value);
+     }
 }
 
-function drawBezierOval(centerX, centerY, sizeX, sizeY) {
-    drawBezierOvalQuarter(centerX, centerY, -sizeX, sizeY);
-    drawBezierOvalQuarter(centerX, centerY, sizeX, sizeY);
-    drawBezierOvalQuarter(centerX, centerY, sizeX, -sizeY);
-    drawBezierOvalQuarter(centerX, centerY, -sizeX, -sizeY);
+
+function setCSSAttribute(element, key, value){
+    element.style[key] = value;
 }
 
+function setCSSAttributes(element, props){
+    for(const [key, value] of Object.entries(props)){
+        setCSSAttribute(element, key, value);
+     }
+}

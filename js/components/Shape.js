@@ -106,56 +106,56 @@ export class Shape {
 	 * Apply nonScalingStrokes so that the width remains same while scaling
 	 */
 	setNonScalingStrokes() {
-		this.handle.forEach((button, index) => {
-			button.setAttributeNS(null, 'vector-effect', 'non-scaling-stroke');
+		this.handle.forEach((button) => {
+			setSVGAttribute(button, 'vector-effect', 'non-scaling-stroke')
 		});
 
-		this.boundingBox.setAttributeNS(
-			null,
-			'vector-effect',
-			'non-scaling-stroke'
-		);
+		setSVGAttribute(this.boundingBox, 'vector-effect', 'non-scaling-stroke')
 	}
 
 	setAttribute(elem, key, value) {
-		elem.setAttributeNS(null, key, value);
+		setSVGAttribute(elem, key, value);
 	}
 
 	setStrokeAttributes() {
-		this.g.setAttributeNS(null, 'stroke', this.stroke);
-		this.g.setAttributeNS(null, 'stroke-width', this.strokeWidth);
-		this.g.setAttributeNS(null, 'stroke-linecap', this.strokeLineCap);
-		this.g.setAttributeNS(null, 'stroke-opacity', this.strokeOpacity);
-		this.g.setAttributeNS(null, 'stroke-linejoin', this.strokeLineJoin);
-		this.g.setAttributeNS(null, 'stroke-dasharray', this.strokeDashArray);
-		this.g.setAttributeNS(null, 'stroke-dashoffset', this.strokeDashOffset);
+
+		setSVGAttributes(this.g, {
+			stroke: this.stroke,
+			'stroke-width': this.strokeWidth,
+			'stroke-linecap': this.strokeLineCap,
+			'stroke-opacity': this.strokeOpacity,
+			'stroke-linejoin': this.strokeLineJoin,
+			'stroke-dasharray': this.strokeDashArray,
+			'stroke-dashoffset': this.strokeDashOffset,
+		});
 	}
 
 	setFillAttributes() {
-		this.g.setAttributeNS(null, 'fill', this.fill);
-		this.g.setAttributeNS(null, 'fill-rule', this.fillRule);
-		this.g.setAttributeNS(null, 'fill-opacity', this.fillOpacity);
+
+		setSVGAttributes(this.g, {
+			fill: this.fill,
+			'fill-rule': this.fillRule,
+			'fill-opacity': this.fillOpacity
+		});
 	}
 
 	setTransformationAttributes() {
-		this.g.setAttributeNS(null, 'rotate', this.rotate);
 
-		// This line is commented because we don't want to apply scaling to every elements including buttons
-		// We want only our path to scale
-		// this.g.setAttributeNS(null, 'scale', this.scale);
-		this.g.setAttributeNS(null, 'translate', this.translate);
-
-		this.g.setAttributeNS(
-			null,
-			'transform',
-			`translate(${this.translate})  rotate(${this.rotate})`
-		);
+		setSVGAttributes(this.g, {
+			rotate: this.rotate,
+			translate: this.translate,
+			transform: `translate(${this.translate})  rotate(${this.rotate})`	
+		});
 	}
 
 	setCursorAttributes() {
-		this.g.style.cursor = 'move';
-		this.g.style.pointerEvents = 'all';
-		this.g.setAttributeNS(null, 'class', 'draggable-group');
+
+		setCSSAttributes(this.g, {
+			cursor: "move",
+			pointerEvents: "all"
+		})
+
+		setSVGAttribute(this.g, 'class', 'draggable-group')
 	}
 
 	setAttributes() {
@@ -166,10 +166,13 @@ export class Shape {
 	}
 
 	setPathAttributes(element) {
-		// that.applyScalePath(that, element);
-		element.setAttributeNS(null, 'scale', `${this.scale}`);
-		element.setAttributeNS(null, 'transform', `scale(${this.scale})`);
-		element.setAttributeNS(null, 'class', 'svg-shape');
+
+		setSVGAttributes(element, {
+			class: 'svg-shape',
+			scale: `${this.scale}`,
+			transform: `scale(${this.scale})`,
+
+		});
 	}
 
 	getElement() {
@@ -178,15 +181,15 @@ export class Shape {
 
 	applyScalePath(that, element) {
 		// APply scaling to path only.
-		console.log('ss', that.scale);
-		element.setAttributeNS(null, 'scale', `${that.scale}`);
-		element.setAttributeNS(null, 'transform', `scale(${that.scale})`);
+		setSVGAttributes(element, {
+			scale: `${that.scale}`,
+			transform: `scale(${that.scale})`
+		});
 	}
 
 	create() {
 		this.setNonScalingStrokes();
-		// this.setPathAttributes();
-
+		
 		let that = this;
 		// FOr  shape holder g
 
@@ -194,10 +197,12 @@ export class Shape {
 		this.shapeElements.forEach((element, index) => {
 			that.g_.appendChild(element);
 
-			element.setAttributeNS(null, 'scale', `${that.scale}`);
-			element.setAttributeNS(null, 'transform', `scale(${that.scale})`);
-			element.setAttributeNS(null, 'class', 'svg-shape');
-			element.setAttributeNS(null, 'vector-effect', 'non-scaling-stroke');
+			setSVGAttributes(element, {
+				scale: `${that.scale}`,
+				transform: `scale(${that.scale})`,
+				class: 'svg-shape',
+				'vector-effect': 'non-scaling-stroke'
+			});
 		});
 
 		// this.g_.appendChild(this.path);

@@ -25,7 +25,7 @@ function addEventListenerLeftSideBar(sv) {
 function shapeEventListener(shape) {
 	// IF mouse is hovered on shape, connector button
 	shape.addEventListener('mouseover', () =>{
-		
+		console.log("SHow connection");
 	})
 	shape.addEventListener('click', () => {
 		// Uncheck if previously selected shapes if any
