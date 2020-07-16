@@ -41,6 +41,10 @@ function setCSSAttributes(element, props){
 }
 
 
+function getSVGAttribute(element, key){
+    return element.getAttributeNS(null, key);
+}
+
 function getCurrentTimeStamp(){
     let currentdate = new Date(); 
     

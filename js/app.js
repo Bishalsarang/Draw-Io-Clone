@@ -6,11 +6,12 @@ class SV {
 		this.sv = document.querySelector(selector);
 		this.sv.style.height = SVG_HEIGHT;
 		this.sv.style.width = SVG_WIDTH;
-		this.sv.setAttributeNS(
-			null,
-			'viewBox',
-			'0 0 ' + SVG_WIDTH + ' ' + SVG_HEIGHT
-		);
+		setSVGAttribute(this.sv, 'viewBox', '0 0 ' + SVG_WIDTH + ' ' + SVG_HEIGHT)
+		// this.sv.setAttributeNS(
+		// 	null,
+		// 	'viewBox',
+		// 	'0 0 ' + SVG_WIDTH + ' ' + SVG_HEIGHT
+		// );
 		this.shapeList = [];
 		this.ShapesConstruct = {
 			CustomShape: CustomShape,
@@ -53,7 +54,7 @@ class SV {
 
 let sv;
 window.onload = function () {
-	sv = new SV('#drawing-area');
+	sv = new SV('.drawing-area');
 	addGrid();
 
 	if (hasPreviousSavedState()) {
@@ -79,6 +80,7 @@ window.onload = function () {
 	makeDraggable(sv);
 	addEventListenerRightSideBar();
 	shapeDeleteEventListener();
+	outsideClickEventListener(sv);
 	saveProgressEventListener();
 	downloadEventListener();
 };
@@ -151,6 +153,7 @@ function addGrid() {
 		width: '100%',
 		height: '100%',
 		fill: 'url(#grid)',
+		class: 'background-grid'
 	});
 	sv.sv.appendChild(defElement);
 	sv.sv.appendChild(gridRect);

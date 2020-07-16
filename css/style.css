@@ -41,16 +41,22 @@ nav {
 }
 
 input[type='radio'],
-.btn-save {
+.btn-save,
+.btn-save-progress {
 	cursor: pointer;
 }
 
-.btn-save {
+.btn-save,
+.btn-save-progress {
 	border-radius: 12px;
-	width: 90px;
+	padding-left: 10px;
+	padding-right: 10px;
+	height: 20px;
+	/* width: 90px; */
 }
 
-.btn-save:hover {
+.btn-save:hover,
+.btn-save-progress:hover {
 	background-color: gray;
 }
 

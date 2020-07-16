@@ -21,6 +21,17 @@ function addEventListenerLeftSideBar(sv) {
 	});
 }
 
+
+function outsideClickEventListener(sv){
+	sv.sv.addEventListener('click', (e) => {
+		let clickedElement = e.target;
+		// Reset selected
+		if(clickedElement.classList.contains('background-grid') || clickedElement.classList.contains('drawing-area')){
+			resetControls();
+		}
+	});
+}
+
 // Kunai shape select garey vaney RIGHT sidebar ma tesko property aunu paryo
 function shapeEventListener(shape) {
 	// IF mouse is hovered on shape, connector button
@@ -181,8 +192,8 @@ function resetControls() {
 		controlButton.removeAttributeNS(null, 'rx');
 		controlButton.removeAttributeNS(null, 'ry');
 	}
-
-	// selectedShape = null;
+	// Unselect the selected shape
+	selectedShape = null;
 }
 
 let selectedShape = null;
