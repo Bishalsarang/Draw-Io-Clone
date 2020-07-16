@@ -39,3 +39,15 @@ function setCSSAttributes(element, props){
         setCSSAttribute(element, key, value);
      }
 }
+
+
+function getCurrentTimeStamp(){
+    let currentdate = new Date(); 
+    
+    return currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/" 
+                + currentdate.getFullYear() + " @ "  
+                + currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds();
+}

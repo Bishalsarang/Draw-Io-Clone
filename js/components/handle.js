@@ -1,36 +1,12 @@
 export class Handle {
 	constructor(props = {}) {
 		const { g_, sv } = props;
+		console.log(props);
 		this.r = '5';
 		this.g_ = g_;
 		this.sv = sv;
 
 		this.buttonList = [];
-		// Cursor for resize
-		this.resizeCursor = [
-			'nw-resize',
-			'n-resize',
-			'ne-resize',
-			'w-resize',
-			'e-resize',
-			'sw-resize',
-			's-resize',
-			'se-resize',
-		];
-
-		// To handle scaling up or down depending on the button
-		this.parity = {
-			nw: { parityX: -1, parityY: -1 },
-			n: { parityX: 0, parityY: -1 },
-			ne: { parityX: 1, parityY: -1 },
-			w: { parityX: -1, parityY: 0 },
-			e: { parityX: 1, parityY: 0 },
-			sw: { parityX: -1, parityY: 1 },
-			s: { parityX: 0, parityY: 1 },
-			se: { parityX: 1, parityY: 1 },
-		};
-		
-
 		this.color = '#29b6f2';
 		this.createButtons();
 	}
@@ -58,13 +34,13 @@ export class Handle {
 			el.setAttributeNS(null, 'stroke', this.color);
 			el.setAttributeNS(null, 'stroke-width', '1');
 			el.setAttributeNS(null, 'class', 'resize-button');
-			el.setAttributeNS(null, 'cursor', this.resizeCursor[i]);
+			el.setAttributeNS(null, 'cursor', RESIZE_CURSOR[i]);
 
-			let id = this.resizeCursor[i].split('-')[0];
+			let id = RESIZE_CURSOR[i].split('-')[0];
 			el.setAttributeNS(null, 'id', id);
 
 			el.addEventListener('click', (e) => {
-				this.handleDrag(el, id);
+				handleResize(this.sv, el, id);
 			});
 			// Add Handles button
 			this.buttonList.push(el);
@@ -104,7 +80,7 @@ export class Handle {
 		return el.parentNode;
 	}
 
-	handleDrag(el, id) {
+	handleResize(el, id) {
 		let that = this;
 		let offset,
 			transform,

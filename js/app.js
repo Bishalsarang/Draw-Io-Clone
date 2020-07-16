@@ -1,4 +1,5 @@
 import { CustomShape } from './components/CustomShape.js';
+import { Handle } from './components/handle.js';
 
 class SV {
 	constructor(selector) {
@@ -54,61 +55,92 @@ let sv;
 window.onload = function () {
 	sv = new SV('#drawing-area');
 	addGrid();
+
+	if (hasPreviousSavedState()) {
+		if (
+			confirm(
+				'Are you sure you want to continue the previous saved diagram? '
+			)
+		) {
+			loadPreviousState();
+			sv.sv.querySelectorAll('.draggable-group').forEach((element) => {
+				// Enable EVents on click to draw boundary box, resizebuttons
+				shapeEventListener(element);
+		});
+		}
+		// Since all the resize buttons are already drawn, add event handler to resize buttons
+		document.querySelectorAll('.resize-button').forEach((element) => {
+			let id = element.id;
+			handleResize(sv.sv, element, id);
+		});
+	}
+
 	addEventListenerLeftSideBar(sv);
 	makeDraggable(sv);
 	addEventListenerRightSideBar();
 	shapeDeleteEventListener();
+	saveProgressEventListener();
 	downloadEventListener();
-
-	
 };
 
+function hasPreviousSavedState() {
+	return localStorage.length;
+}
+
+function loadPreviousState() {
+	// Load from previous state
+	let lastTimeStamp = Object.keys(localStorage)[0];
+	let previousState = JSON.parse(localStorage.getItem(lastTimeStamp));
+	console.log(Object.values(previousState));
+	sv.sv.innerHTML = Object.values(previousState)[0];
+}
+
 /**
- * 
+ *
  */
-function addGrid(){
+function addGrid() {
 	let defElement = document.createElementNS(SVGNS, 'defs');
 	let patternSmallGrid = document.createElementNS(SVGNS, 'pattern');
 	setSVGAttributes(patternSmallGrid, {
-		id: "tenthGrid",
-		width: "10",
-		height: "10",
-		patternUnits: "userSpaceOnUse"
+		id: 'tenthGrid',
+		width: '10',
+		height: '10',
+		patternUnits: 'userSpaceOnUse',
 	});
 
 	let pathSmallGrid = document.createElementNS(SVGNS, 'path');
 	setSVGAttributes(pathSmallGrid, {
-		d: "M 10 0 L 0 0 0 10",
-		fill: "none",
-		stroke: "silver",
-		"stroke-width": "0.5"
-	})
+		d: 'M 10 0 L 0 0 0 10',
+		fill: 'none',
+		stroke: 'silver',
+		'stroke-width': '0.5',
+	});
 
 	patternSmallGrid.appendChild(pathSmallGrid);
 	defElement.appendChild(patternSmallGrid);
 
 	let patternLargeGrid = document.createElementNS(SVGNS, 'pattern');
 	setSVGAttributes(patternLargeGrid, {
-		id: "grid",
-		width: "100",
-		height: "100",
-		patternUnits: "userSpaceOnUse"                      
+		id: 'grid',
+		width: '100',
+		height: '100',
+		patternUnits: 'userSpaceOnUse',
 	});
 
 	let pathLargeGrid = document.createElementNS(SVGNS, 'path');
 	setSVGAttributes(pathLargeGrid, {
-		d: "M 100 0 L 0 0 0 100",
-		fill: "none",
-		stroke: "gray",
-		"stroke-width": "1"
-	})
+		d: 'M 100 0 L 0 0 0 100',
+		fill: 'none',
+		stroke: 'gray',
+		'stroke-width': '1',
+	});
 
 	let rectLargeGrid = document.createElementNS(SVGNS, 'rect');
 	setSVGAttributes(rectLargeGrid, {
-		width: "100",
-		height: "100",
-		fill: "url(#tenthGrid)"
-	})
+		width: '100',
+		height: '100',
+		fill: 'url(#tenthGrid)',
+	});
 
 	patternLargeGrid.appendChild(rectLargeGrid);
 	patternLargeGrid.appendChild(pathLargeGrid);
@@ -116,14 +148,13 @@ function addGrid(){
 
 	let gridRect = document.createElementNS(SVGNS, 'rect');
 	setSVGAttributes(gridRect, {
-		width: "100%",
-		height: "100%",
-		fill: "url(#grid)"
-
-	})
+		width: '100%',
+		height: '100%',
+		fill: 'url(#grid)',
+	});
 	sv.sv.appendChild(defElement);
 	sv.sv.appendChild(gridRect);
- }
+}
 
 /**
  * downloadButton onClick
@@ -154,5 +185,19 @@ function shapeDeleteEventListener() {
 				sv.sv.removeChild(selectedShape);
 			}
 		}
+	});
+}
+
+/**
+ * Listen for click event to save progress
+ */
+function saveProgressEventListener() {
+	let saveProgress = document.querySelector('.btn-save-progress');
+	// If save Progress is clicked
+	saveProgress.addEventListener('click', (e) => {
+		let currentTimeStamp = getCurrentTimeStamp();
+		let currentSignature = {};
+		currentSignature[currentTimeStamp] = sv.sv.innerHTML;
+		localStorage.setItem(currentTimeStamp, JSON.stringify(currentSignature));
 	});
 }
