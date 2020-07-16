@@ -167,6 +167,8 @@ function downloadEventListener() {
 	let downloadLink = document.querySelector('.download-link');
 
 	downloadButton.addEventListener('click', (e) => {
+		// Unselect if any shape is selected
+		resetControls();
 		let exportFileType = '';
 		document.getElementsByName('export-extension').forEach((option) => {
 			if (option.checked) {
