@@ -93,7 +93,7 @@ function loadPreviousState() {
 	// Load from previous state
 	let lastTimeStamp = Object.keys(localStorage)[0];
 	let previousState = JSON.parse(localStorage.getItem(lastTimeStamp));
-	console.log(Object.values(previousState));
+	
 	sv.sv.innerHTML = Object.values(previousState)[0];
 }
 
@@ -198,8 +198,11 @@ function saveProgressEventListener() {
 	let saveProgress = document.querySelector('.btn-save-progress');
 	// If save Progress is clicked
 	saveProgress.addEventListener('click', (e) => {
+		// Unselect if any shape is selected before saving the state
+		resetControls();
 		let currentTimeStamp = getCurrentTimeStamp();
 		let currentSignature = {};
+		localStorage.clear();
 		currentSignature[currentTimeStamp] = sv.sv.innerHTML;
 		localStorage.setItem(currentTimeStamp, JSON.stringify(currentSignature));
 	});

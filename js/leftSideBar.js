@@ -23,10 +23,14 @@ function addEventListenerLeftSideBar(sv) {
 
 
 function outsideClickEventListener(sv){
+
 	sv.sv.addEventListener('click', (e) => {
+		
 		let clickedElement = e.target;
+		
 		// Reset selected
 		if(clickedElement.classList.contains('background-grid') || clickedElement.classList.contains('drawing-area')){
+			
 			resetControls();
 		}
 	});
@@ -36,7 +40,7 @@ function outsideClickEventListener(sv){
 function shapeEventListener(shape) {
 	// IF mouse is hovered on shape, connector button
 	shape.addEventListener('mouseover', () =>{
-		console.log("SHow connection");
+		
 	})
 	shape.addEventListener('click', () => {
 		// Uncheck if previously selected shapes if any
@@ -172,28 +176,31 @@ function drawControls(x, y, width, height) {
 }
 
 function resetControls() {
-	let rotateButton = selectedShape.querySelector('.rotate-button');
-	rotateButton.setAttributeNS(null, 'style', 'visibility: hidden');
-	rotateButton.removeAttributeNS(null, 'transform')
-
-	// Draw Bounding box
-	let boundingBox = selectedShape.firstChild;
-
-	boundingBox.removeAttributeNS(null, 'x');
-	boundingBox.removeAttributeNS(null, 'y');
-	boundingBox.removeAttributeNS(null, 'width');
-	boundingBox.removeAttributeNS(null, 'height');
-	// Reset controls
-	let controlButtons = selectedShape.querySelectorAll('.resize-button');
-	for (let i = 0; i < 8; i++) {
-		let controlButton = controlButtons[i];
-		controlButton.removeAttributeNS(null, 'cx');
-		controlButton.removeAttributeNS(null, 'cy');
-		controlButton.removeAttributeNS(null, 'rx');
-		controlButton.removeAttributeNS(null, 'ry');
+	if(selectedShape){
+		let rotateButton = selectedShape.querySelector('.rotate-button');
+		rotateButton.setAttributeNS(null, 'style', 'visibility: hidden');
+		rotateButton.removeAttributeNS(null, 'transform')
+	
+		// Draw Bounding box
+		let boundingBox = selectedShape.firstChild;
+	
+		boundingBox.removeAttributeNS(null, 'x');
+		boundingBox.removeAttributeNS(null, 'y');
+		boundingBox.removeAttributeNS(null, 'width');
+		boundingBox.removeAttributeNS(null, 'height');
+		// Reset controls
+		let controlButtons = selectedShape.querySelectorAll('.resize-button');
+		for (let i = 0; i < 8; i++) {
+			let controlButton = controlButtons[i];
+			controlButton.removeAttributeNS(null, 'cx');
+			controlButton.removeAttributeNS(null, 'cy');
+			controlButton.removeAttributeNS(null, 'rx');
+			controlButton.removeAttributeNS(null, 'ry');
+		}
+		// Unselect the selected shape
+		selectedShape = null;
 	}
-	// Unselect the selected shape
-	selectedShape = null;
+	
 }
 
 let selectedShape = null;
