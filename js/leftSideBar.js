@@ -22,6 +22,40 @@ function addEventListenerLeftSideBar(sv) {
 }
 
 
+function sideBarShapeHoverEventListener(sv) {
+	let leftSideBarShapes = document.querySelectorAll('.sidebar-shape');
+	let showShapeInfo = document.querySelector('.show-shape-info');
+	let showShapeInfoShapeName = showShapeInfo.querySelector('.shape-name');
+	let showShapeInfoPreview = showShapeInfo.querySelector('.show-shape-info-preview');
+
+	leftSideBarShapes.forEach((sidebarShape) => {
+		// Show Shape Info on Hover
+		sidebarShape.addEventListener('mouseover', (e) => {
+			let shapeGroup = sidebarShape.querySelector('g');
+			// Display the element
+			showShapeInfo.classList.remove('hide');
+			showShapeInfoShapeName.innerHTML = getHTMLAttribute(sidebarShape, 'title');
+			
+			// Display the shape on Shape Info preview by scaling
+			showShapeInfoPreview.innerHTML = sidebarShape.innerHTML;
+			shapeGroup = showShapeInfoPreview.querySelector('g');
+			setSVGAttributes(shapeGroup, {
+				'transform': 'translate(180 10) scale(15 15)',
+			});
+		});
+
+		// Hide Shape info when out of hover
+		sidebarShape.addEventListener('mouseout', (e) => {
+			showShapeInfo.classList.add('hide');
+		});
+
+		// Hide shape when the shape is clicked
+		sidebarShape.addEventListener('click', (e) => {
+			showShapeInfo.classList.add('hide');
+		});
+	});
+}
+
 function outsideClickEventListener(sv){
 	sv.sv.addEventListener('click', (e) => {
 		let clickedElement = e.target;

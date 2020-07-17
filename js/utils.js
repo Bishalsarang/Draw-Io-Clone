@@ -44,6 +44,15 @@ function getSVGAttribute(element, key){
     return element.getAttributeNS(null, key);
 }
 
+function getCSSAttribute(element, key){
+    return window.getComputedStyle(element).getPropertyValue(key);
+}
+
+function getHTMLAttribute(element, key){
+    return element.getAttribute(key);
+}
+
+
 function removeSVGAttribute(element, key){
     element.removeAttributeNS(null, key);
 }

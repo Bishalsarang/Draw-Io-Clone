@@ -55,14 +55,9 @@ function handleResize(sv, el, id) {
       if (selectedElement) {
          evt.preventDefault();
          let coord = getMousePosition(evt);
-
          transform.setTranslate(coord.x - offset.x, coord.y - offset.y);
          // Apply translation on dragging
-         selectedElement.setAttributeNS(
-            null,
-            'translate',
-            coord.x - offset.x + ' ' + (coord.y - offset.y)
-         );
+         setSVGAttribute(selectedElement, 'translate',   coord.x - offset.x + ' ' + (coord.y - offset.y))
 
          let actualShape = selectedElement.querySelector('.actual-shape');
          let { x, y, width, height } = actualShape.getBBox();
@@ -81,7 +76,7 @@ function handleResize(sv, el, id) {
                .getAttributeNS(null, 'scale')
                .split(' ');
                
-            // Set new scale factor to teh actual shape
+            // Set new scale factor to the actual shape
             let newScaleX = (width - deltaX) / (width / scaleX);
             let newScaleY = (height - deltaY) / (height / scaleY);
             setNewScale(element, newScaleX, newScaleY);

@@ -4,14 +4,7 @@ import { Handle } from './components/handle.js';
 class SV {
 	constructor(selector) {
 		this.sv = document.querySelector(selector);
-		this.sv.style.height = SVG_HEIGHT;
-		this.sv.style.width = SVG_WIDTH;
-		setSVGAttribute(this.sv, 'viewBox', '0 0 ' + SVG_WIDTH + ' ' + SVG_HEIGHT)
-		// this.sv.setAttributeNS(
-		// 	null,
-		// 	'viewBox',
-		// 	'0 0 ' + SVG_WIDTH + ' ' + SVG_HEIGHT
-		// );
+		setSVGAttribute(this.sv, 'viewBox', '0 0 ' + SVG_WIDTH + ' ' + SVG_HEIGHT);
 		this.shapeList = [];
 		this.ShapesConstruct = {
 			CustomShape: CustomShape,
@@ -60,6 +53,7 @@ window.onload = function () {
 			showDraftSelector(sv.sv);
 	}
 
+	sideBarShapeHoverEventListener(sv);
 	addEventListenerLeftSideBar(sv);
 	makeDraggable(sv);
 	addEventListenerRightSideBar();
@@ -72,9 +66,6 @@ window.onload = function () {
 function hasPreviousSavedState() {
 	return localStorage.length;
 }
-
-
-
 
 
 /**

@@ -5,8 +5,8 @@ let ShapeInfo = {
 				rect: {
 					x: '10',
 					y: '10',
-					width: '58.8',
-					height: '68.4',
+					width: '80',
+					height: '50',
 				},
 			},
 		],
@@ -17,8 +17,8 @@ let ShapeInfo = {
 				rect: {
 					x: '10',
 					y: '10',
-					width: '58.8',
-					height: '68.4',
+					width: '80',
+					height: '50',
 					rx: '3',
 					ry: '3',
 				},

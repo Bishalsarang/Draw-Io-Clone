@@ -18,13 +18,27 @@ nav {
 
 .modal {
 	position: fixed;
-	z-index: 1;
+	z-index: 2;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
 	background-color: rgba(0, 0, 0, 0.5);
+}
+.show-shape-info {
+	position: fixed;
+	z-index: 1;
+	top: 20%;
+	left: 18%;
+	width: 15%;
+	height: 200px;
+	text-align: center;
+	color: gray;
+	background-color: antiquewhite;
+	-webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+	box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
 .modal-content {
@@ -35,11 +49,16 @@ nav {
 	box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-.modal-header {
+.modal-header,
+.show-shape-info-header {
 	background: coral;
 	padding: 15px;
 	text-align: center;
 	color: #ffffff;
+}
+
+.show-shape-info-header {
+	padding: 10px;
 }
 
 .saved-draft-selector {
