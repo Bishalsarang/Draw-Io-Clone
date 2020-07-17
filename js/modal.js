@@ -45,7 +45,8 @@ function draftSelectEventListener() {
 function editEventHandler(sv){
    let editButton = document.getElementById('btn-edit-draft');
    editButton.addEventListener('click', (e) => {
-		let selectedTimeStamp = getSelectedTimeStamp();
+      console.log("edit");
+      let selectedTimeStamp = getSelectedTimeStamp();
 		let selectedDiagram = getSelectedDiagram(selectedTimeStamp);
 		loadPreviousState(sv, selectedDiagram);
    });
@@ -87,10 +88,15 @@ function getSelectedDiagram(timeStamp) {
 function removeGrid(previewSVG){
    let defElement = previewSVG.querySelector('defs');
    let backgroundGrid = previewSVG.querySelector('.background-grid');
-   
+   console.log(previewSVG.innerHTML);
    // Remove defs and background-grid from preview
-   previewSVG.removeChild(defElement);
-   previewSVG.removeChild(backgroundGrid); 
+   if(defElement){
+      previewSVG.removeChild(defElement);
+   }
+   if(backgroundGrid){
+      previewSVG.removeChild(backgroundGrid);
+   }
+    
 }
 
 function showPreview(index) {
