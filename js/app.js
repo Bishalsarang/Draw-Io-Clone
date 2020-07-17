@@ -52,6 +52,9 @@ window.onload = function () {
 			// SHow Draft Selector
 			showDraftSelector(sv.sv);
 	}
+	else{
+		addGrid(sv.sv)
+	}
 
 	sideBarShapeHoverEventListener(sv);
 	addEventListenerLeftSideBar(sv);
