@@ -26,6 +26,13 @@ export class BoundingBox{
       this.box.setAttributeNS(null, 'stroke-dasharray', strokeDashArray);
       this.box.setAttributeNS(null, 'stroke-width', strokeWidth);
 
+      setSVGAttributes(this.box, {
+         'fill': fill,
+         'stroke': stroke,
+         'class': 'bounding-box',
+         'stroke-width': strokeWidth,
+         'stroke-dasharray':  strokeDashArray,
+      });
    }
 
    

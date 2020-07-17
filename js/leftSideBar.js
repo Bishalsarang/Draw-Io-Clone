@@ -216,14 +216,12 @@ function resetControls() {
 		});
 		removeSVGAttributes(rotateButton, ['transform']);
 
-		// Bounding box
+		// Hide Bounding box
 		let boundingBox = selectedShape.firstChild;
-		removeSVGAttributes(boundingBox, [
-			'x',
-			'y',
-			'width',
-			'height',
-		]);
+		setSVGAttributes(boundingBox, {
+			style: 'visibility: hidden'
+		});
+		
 		
 		// Reset controls
 		let resizeButtons = selectedShape.querySelectorAll('.resize-button');
