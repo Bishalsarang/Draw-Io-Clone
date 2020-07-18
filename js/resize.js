@@ -8,6 +8,7 @@ function handleResize(sv, el, id) {
       selectedElement,
       previous = {};
    el.addEventListener('mousedown', startResize);
+   // const resizeFunc = debounce(resize, 2);
    el.addEventListener('mousemove', resize);
    el.addEventListener('mouseup', stopResize);
    el.addEventListener('mouseleave', stopResize);

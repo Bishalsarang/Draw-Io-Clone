@@ -21,11 +21,6 @@ export class BoundingBox{
       
       this.box = document.createElementNS(SVGNS, 'rect');
       // Bounding box attributes
-      this.box.setAttributeNS(null, 'fill', fill);
-      this.box.setAttributeNS(null, 'stroke', stroke);
-      this.box.setAttributeNS(null, 'stroke-dasharray', strokeDashArray);
-      this.box.setAttributeNS(null, 'stroke-width', strokeWidth);
-
       setSVGAttributes(this.box, {
          'fill': fill,
          'stroke': stroke,

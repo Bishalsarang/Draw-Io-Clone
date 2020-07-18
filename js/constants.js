@@ -29,3 +29,5 @@ const RESIZE_CURSOR = [
    's-resize',
    'se-resize',
 ];
+
+const DELTA = 0.9;

@@ -50,8 +50,12 @@ function makeDraggable(sv) {
 		// FOr group <g></g> tag, the mouse selects the child node.
 		// SO we find the parents
 		if (evt.target.parentNode.classList.contains('draggable-group')) {
-			selectedElement = evt.target.parentNode;
-			initialiseDragging(evt);
+			console.log("jajajj");
+			if(!evt.target.classList.contains('point1') && !evt.target.classList.contains('point2')){
+				selectedElement = evt.target.parentNode;
+				initialiseDragging(evt);
+			}
+			
 		}
 		// Sometimes we may select the actual path or shape of svg.
 		// In that case we check for grandparent
@@ -65,7 +69,6 @@ function makeDraggable(sv) {
 
 	function drag(evt) {
 		if (selectedElement) {
-			console.log("Dragging....");
 			evt.preventDefault();
 			let coord = getMousePosition(evt);
 			transform.setTranslate(coord.x - offset.x, coord.y - offset.y);
@@ -75,7 +78,17 @@ function makeDraggable(sv) {
 				'translate',
 				coord.x - offset.x + ' ' + (coord.y - offset.y)
 			);
-		}
+
+			
+			// let currentBoundingBoxElement = selectedElement.querySelector('.bounding-box');
+
+			
+	
+			// // Draw Guidelines that shows alignment
+			// drawGuideLines(currentBoundingBoxElement,
+			// 	getBoundaryBoxesOfShapes(currentBoundingBoxElement));
+			
+			}
 	}
 
 	function endDrag(evt) {
@@ -89,5 +102,91 @@ function makeDraggable(sv) {
 			selectedElement.setAttribute('transform', newTransformation);
 		}
 		selectedElement = false;
+	}
+
+
+
+function getCoordinates(shape){
+	let matrix = shape.getCTM();
+
+	// transform a point using the transformed matrix
+	let position = sv.sv.createSVGPoint();
+	position.x = getSVGAttribute(shape, 'x');
+	position.y = getSVGAttribute(shape, 'y');
+	return position.matrixTransform(matrix);
+}
+
+	function getBoundaryBoxesOfShapes(currentBoundingBoxElement){
+		let boundingBoxes = sv.sv.querySelectorAll('.bounding-box');
+		let boundingBoxesList = [];
+		boundingBoxes.forEach((boundingBox) => {
+			if(boundingBox != currentBoundingBoxElement){
+				let {x, y} = getCoordinates(boundingBox);
+			
+				let width = getSVGAttribute(boundingBox, 'width');
+				let height = getSVGAttribute(boundingBox, 'height');
+				boundingBoxesList.push({x: x, y: y, width: width, height: height});
+			}			
+		});
+		console.log(boundingBoxesList);
+		return boundingBoxesList;
+	}
+
+	function drawGuideLines(selectedBoundingBox, boundingBoxesList){
+		removePreviouslyDrawnLines();
+
+		let {x, y} = getCoordinates(selectedBoundingBox);
+		let width = getSVGAttribute(selectedBoundingBox, 'width');
+		let height = getSVGAttribute(selectedBoundingBox, 'height');
+		x = parseFloat(x);
+		y = parseFloat(y);
+		width = parseFloat(width);
+		height = parseFloat(height);
+		
+		boundingBoxesList.forEach((boundingBox) => {
+			let x_ = parseFloat(boundingBox.x);
+			let y_ = parseFloat(boundingBox.y);
+			let width_ = parseFloat(boundingBox.width);
+			let height_ = parseFloat(boundingBox.height);
+			console.log(x - x_);
+					// Left Side Align
+			if(Math.abs(x - x_) <= DELTA){
+				console.log("Left align")
+				drawLine(x, y, x_, y_);
+			}
+			// Top Side ALign
+			if(Math.abs(y - y_) <= DELTA){
+				console.log("Top align")
+			}
+			// Right Side Align
+			if(Math.abs(x + width - x_ - width_) <= DELTA){
+				console.log("Right align")
+			}
+			// Bottom SIde align
+			if(Math.abs(y + height - y_ - height_) <= DELTA){
+				console.log("Bottom align")
+			}
+
+		});
+	}
+
+	function removePreviouslyDrawnLines(){
+		console.log("Remove")
+		sv.sv.querySelectorAll('.alignment-line').forEach((line) => {
+			console.log(line)
+			sv.sv.removeChild(line);
+		});
+	}
+	function drawLine(x1, y1, x2, y2){
+		let line = document.createElementNS(SVGNS, 'line');
+		setSVGAttributes(line, {
+			x1: x1,
+			y1: y1,
+			x2: x2,
+			y2: y2,
+			class: 'alignment-line',
+			stroke: 'blue'
+		});
+		sv.sv.appendChild(line);
 	}
 }

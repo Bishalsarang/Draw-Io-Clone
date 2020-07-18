@@ -26,7 +26,7 @@ export class Shape {
 			//* Transformation Properties */
 			rotate = '0',
 			scale = '1 1',
-			translate = '400 50',
+			translate = '400 100',
 
 			/* Cursor Properties */
 			cursor = 'move',

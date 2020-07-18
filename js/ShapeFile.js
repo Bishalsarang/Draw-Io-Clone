@@ -644,24 +644,6 @@ let ShapeInfo = {
       ],
       scale: "2 2"
    },
-   DashedLine:{
-      children:[
-         {
-            path: {
-               d: "M 10 10 L 28.62 1.06"
-            }
-         }
-      ]
-   }
-
-
-
-
-
-
-  
-
-
 };
 
-// console.log(ShapeInfo["Annotation-1"]["children"][0]["rect"]);
+// 

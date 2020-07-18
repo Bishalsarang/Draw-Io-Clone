@@ -4,26 +4,30 @@
  * Add Event Lsitener to left sidebar buttons used to create shape
  */
 function addEventListenerLeftSideBar(sv) {
-	let allShapesBtn = document.querySelectorAll('.sidebar-shape');
+	let allShapesBtn = document.querySelectorAll('.sidebar-shape, .sidebar-connector');
 	// Add event handler for each button
-	allShapesBtn.forEach((button, index) => {
+	allShapesBtn.forEach((button) => {
 		button.addEventListener('click', () => {
 			let clickedShape = button.getAttribute('title');
-
-			let elem = new sv.ShapesConstruct["CustomShape"]({ sv: sv.sv, ...ShapeInfo[clickedShape]});
-			
-			elem.create();
-
-			// Add event listener to shape to change property by and on right sidebar
+			let elem;
+			if(getHTMLAttribute(button, 'class') === 'sidebar-shape'){
+				let elem = new sv.ShapesConstruct["CustomShape"]({ sv: sv.sv, ...ShapeInfo[clickedShape]});
+				elem.create();
+				// Add event listener to shape to change property by and on right sidebar
 			shapeEventListener(elem.getElement());
-			sv.shapeList.push(elem.getElement());
+			}
+			else{
+				elem =  new sv.ShapesConstruct["Connector"]({ sv: sv.sv, ...ConnectorInfo[clickedShape]});
+				elem.create();
+				connectorEventListener(sv.sv);
+			}
 		});
 	});
 }
 
 
 function sideBarShapeHoverEventListener(sv) {
-	let leftSideBarShapes = document.querySelectorAll('.sidebar-shape');
+	let leftSideBarShapes = document.querySelectorAll('.sidebar-shape, .sidebar-connector');
 	let showShapeInfo = document.querySelector('.show-shape-info');
 	let showShapeInfoShapeName = showShapeInfo.querySelector('.shape-name');
 	let showShapeInfoPreview = showShapeInfo.querySelector('.show-shape-info-preview');
@@ -73,6 +77,7 @@ function shapeEventListener(shape) {
 	shape.addEventListener('mouseover', () =>{
 		
 	})
+
 	shape.addEventListener('click', () => {
 		// Uncheck if previously selected shapes if any
 		if (selectedShape) {
@@ -91,6 +96,7 @@ function shapeEventListener(shape) {
 			y: y,
 			width: width,
 			height: height,
+			style: "visibility: visible"
 		});
 
 		drawControls(x, y, width, height);
@@ -221,7 +227,7 @@ function resetControls() {
 		setSVGAttributes(boundingBox, {
 			style: 'visibility: hidden'
 		});
-		
+		// removeSVGAttributes(boundingBox, ['x', 'y', 'width', 'height']);
 		
 		// Reset controls
 		let resizeButtons = selectedShape.querySelectorAll('.resize-button');

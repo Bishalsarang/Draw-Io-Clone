@@ -1,5 +1,5 @@
 import { CustomShape } from './components/CustomShape.js';
-import { Handle } from './components/handle.js';
+import {  Connector} from './components/Connector.js';
 
 class SV {
 	constructor(selector) {
@@ -8,6 +8,7 @@ class SV {
 		this.shapeList = [];
 		this.ShapesConstruct = {
 			CustomShape: CustomShape,
+			Connector: Connector,
 		};
 	}
 

@@ -7,11 +7,10 @@ export class CustomShape extends Shape{
 
       this.scale = scale;
       this.shapeElements = [];
-      children.forEach((child, index) => {
+      children.forEach((child) => {
           const key = Object.keys(child)[0];
           this.createElement(key, child[key]);
-      })
-      ;
+      });
    }
 
    createElement(key, props={}){
@@ -21,7 +20,7 @@ export class CustomShape extends Shape{
 
    setProperties(path, props){
       for(const [key, value] of Object.entries(props)){
-         path.setAttributeNS(null, key, value);
+         setSVGAttribute(path, key, value);
       }
       this.shapeElements.push(path);
    }
