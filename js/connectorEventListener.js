@@ -26,6 +26,14 @@ function connectorEventListener(svg){
     console.log("Starting");
    if (evt.target.classList.contains('point1') || evt.target.classList.contains('point2')) {
       selectedElement = evt.target.parentNode;
+      transform = getSVGAttribute(selectedElement, 'translate');
+      if(transform){
+         transform = transform.split(' ');
+      }
+      else{
+         transform = [0, 0];
+      }
+   
       pointElement = evt.target;
       if(getSVGAttribute(pointElement, 'class') === 'point1'){
          correspondingPointElement = selectedElement.querySelector('.point2');
@@ -43,16 +51,16 @@ function connectorEventListener(svg){
     if(selectedElement){
        console.log("Updating");
        evt.preventDefault();
-      
+      console.log("TX" , transform);
        
       setSVGAttributes(pointElement,{
-          cx: coord.x,
-          cy: coord.y,
+          cx: coord.x - transform[0],
+          cy: coord.y  - transform[1],
       });
 
        setSVGAttributes(lineElement, {
-         x1: coord.x,
-         y1: coord.y,
+         x1: coord.x  - transform[0],
+         y1: coord.y  - transform[1],
          x2: getSVGAttribute(correspondingPointElement, 'cx'),
          y2: getSVGAttribute(correspondingPointElement, 'cy'),
 
