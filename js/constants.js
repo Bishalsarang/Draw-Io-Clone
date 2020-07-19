@@ -6,6 +6,11 @@ const CANVAS_BOUNDARY_COLOR = '#F5F5F5';
 const SVG_WIDTH = 800;
 const SVG_HEIGHT = 800;
 
+
+const RESIZE_BUTTON_RADIUS = 5;
+
+const ROTATE_BUTTON_OFFSET_X = 40;
+const ROTATE_BUTTON_OFFSET_Y = 40;
 // To handle scaling up or down depending on the button
 const PARITY = {
    nw: { parityX: -1, parityY: -1 },
