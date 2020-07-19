@@ -23,7 +23,7 @@ function connectorEventListener(svg){
  
 
  function startMove(evt){
-    console.log("Starting");
+    
    if (evt.target.classList.contains('point1') || evt.target.classList.contains('point2')) {
       selectedElement = evt.target.parentNode;
       transform = getSVGAttribute(selectedElement, 'translate');
@@ -49,9 +49,9 @@ function connectorEventListener(svg){
      let coord = getMousePosition(evt);
      
     if(selectedElement){
-       console.log("Updating");
+       
        evt.preventDefault();
-      console.log("TX" , transform);
+      
        
       setSVGAttributes(pointElement,{
           cx: coord.x - transform[0],

@@ -114,7 +114,7 @@ function deleteShape(sv, selectedShape) {
 }
 
 function copyShape(sv, selectedShape) {
-	console.log('Copied');
+	
 
 	// CopiedShape = selectedShape.cloneNode(true);
 	// ssssv.append(CopiedShape);

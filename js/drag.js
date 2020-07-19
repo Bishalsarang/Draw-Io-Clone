@@ -50,7 +50,7 @@ function makeDraggable(sv) {
 		// FOr group <g></g> tag, the mouse selects the child node.
 		// SO we find the parents
 		if (evt.target.parentNode.classList.contains('draggable-group')) {
-			console.log("jajajj");
+			
 			if(!evt.target.classList.contains('point1') && !evt.target.classList.contains('point2')){
 				selectedElement = evt.target.parentNode;
 				initialiseDragging(evt);
@@ -128,7 +128,7 @@ function getCoordinates(shape){
 				boundingBoxesList.push({x: x, y: y, width: width, height: height});
 			}			
 		});
-		console.log(boundingBoxesList);
+		
 		return boundingBoxesList;
 	}
 
@@ -148,32 +148,32 @@ function getCoordinates(shape){
 			let y_ = parseFloat(boundingBox.y);
 			let width_ = parseFloat(boundingBox.width);
 			let height_ = parseFloat(boundingBox.height);
-			console.log(x - x_);
+			
 					// Left Side Align
 			if(Math.abs(x - x_) <= DELTA){
-				console.log("Left align")
+				
 				drawLine(x, y, x_, y_);
 			}
 			// Top Side ALign
 			if(Math.abs(y - y_) <= DELTA){
-				console.log("Top align")
+				
 			}
 			// Right Side Align
 			if(Math.abs(x + width - x_ - width_) <= DELTA){
-				console.log("Right align")
+				
 			}
 			// Bottom SIde align
 			if(Math.abs(y + height - y_ - height_) <= DELTA){
-				console.log("Bottom align")
+				
 			}
 
 		});
 	}
 
 	function removePreviouslyDrawnLines(){
-		console.log("Remove")
+		
 		sv.sv.querySelectorAll('.alignment-line').forEach((line) => {
-			console.log(line)
+			
 			sv.sv.removeChild(line);
 		});
 	}

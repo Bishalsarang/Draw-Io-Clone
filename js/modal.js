@@ -108,7 +108,7 @@ function showPreview() {
 
 	// remove grid from DOM of preview to prevent conflicts of grid with same ID
 	removeGrid(previewSVG);
-	console.log(previewSVG.childNodes);
+	
 }
 
 function loadPreviousState(sv, selectedDiagram) {

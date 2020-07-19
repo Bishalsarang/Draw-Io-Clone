@@ -122,7 +122,7 @@ function updateRotationProperties(shape) {
 function updateCurrentFont(textArea) {
 	// Selected Font
 	let selectedFont = $('#fonts');
-	console.log(textArea);
+	
 	let currentFont = [...textArea.classList].filter((class_) => {
 		return class_.includes('font');
 	});
