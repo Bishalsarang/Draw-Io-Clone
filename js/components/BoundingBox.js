@@ -1,40 +1,46 @@
-export class BoundingBox{
-   /**
-    * 
-    * @param {String} fill 
-    * @param {String} stroke 
-    * @param {String} strokeDashArray 
-    * @param {STring} strokeWidth 
-    */
-   constructor(props={}){
-      const {fill='none', stroke='blue', strokeDashArray='4', strokeWidth='2', translate, scale, rotate} = props;
+export class BoundingBox {
+	/**
+	 *
+	 * @param {object} props  properties for bounding box
+	 */
+	constructor(props = {}) {
+		const {
+			scale,
+			rotate,
+			translate,
+			fill = 'none',
+			stroke = 'blue',
+			strokeWidth = '2',
+			strokeDashArray = '4',
 
-      this.fill = fill;
-      this.stroke = stroke;
-      this.strokeDashArray = strokeDashArray;
-      this.strokeWidth = strokeWidth;
+		} = props;
 
-      // Get transformation attributes of parent g element
-      this.translate = translate;
-      this.scale = scale;
-      this.rotate = rotate;
-      
-      this.box = document.createElementNS(SVGNS, 'rect');
-      // Bounding box attributes
-      setSVGAttributes(this.box, {
-         'fill': fill,
-         'stroke': stroke,
-         'class': 'bounding-box',
-         'stroke-width': strokeWidth,
-         'stroke-dasharray':  strokeDashArray,
-      });
-   }
+		this.fill = fill;
+		this.stroke = stroke;
+		this.strokeWidth = strokeWidth;
+		this.strokeDashArray = strokeDashArray;
 
-   
-   /**
-    * Returns bounding box HTML element
-    */
-   getBoundingBox(){
-      return this.box;
-   }
+		// Get transformation attributes of parent g element
+		this.scale = scale;
+		this.rotate = rotate;
+		this.translate = translate;
+
+
+		this.box = document.createElementNS(SVGNS, 'rect');
+		// Bounding box attributes
+		setSVGAttributes(this.box, {
+			fill: fill,
+			stroke: stroke,
+			class: 'bounding-box',
+			'stroke-width': strokeWidth,
+			'stroke-dasharray': strokeDashArray,
+		});
+	}
+
+	/**
+	 * Returns bounding box HTML element
+	 */
+	getBoundingBox() {
+		return this.box;
+	}
 }

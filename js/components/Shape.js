@@ -107,10 +107,10 @@ export class Shape {
 	 */
 	setNonScalingStrokes() {
 		this.handle.forEach((button) => {
-			setSVGAttribute(button, 'vector-effect', 'non-scaling-stroke')
+			setSVGAttribute(button, 'vector-effect', 'non-scaling-stroke');
 		});
 
-		setSVGAttribute(this.boundingBox, 'vector-effect', 'non-scaling-stroke')
+		setSVGAttribute(this.boundingBox, 'vector-effect', 'non-scaling-stroke');
 	}
 
 	setAttribute(elem, key, value) {
@@ -118,7 +118,6 @@ export class Shape {
 	}
 
 	setStrokeAttributes() {
-
 		setSVGAttributes(this.g, {
 			stroke: this.stroke,
 			'stroke-width': this.strokeWidth,
@@ -131,31 +130,28 @@ export class Shape {
 	}
 
 	setFillAttributes() {
-
 		setSVGAttributes(this.g, {
 			fill: this.fill,
 			'fill-rule': this.fillRule,
-			'fill-opacity': this.fillOpacity
+			'fill-opacity': this.fillOpacity,
 		});
 	}
 
 	setTransformationAttributes() {
-
 		setSVGAttributes(this.g, {
 			rotate: this.rotate,
 			translate: this.translate,
-			transform: `translate(${this.translate})  rotate(${this.rotate})`	
+			transform: `translate(${this.translate})  rotate(${this.rotate})`,
 		});
 	}
 
 	setCursorAttributes() {
-
 		setCSSAttributes(this.g, {
-			cursor: "move",
-			pointerEvents: "all"
-		})
+			cursor: 'move',
+			pointerEvents: 'all',
+		});
 
-		setSVGAttribute(this.g, 'class', 'draggable-group')
+		setSVGAttribute(this.g, 'class', 'draggable-group');
 	}
 
 	setAttributes() {
@@ -166,12 +162,10 @@ export class Shape {
 	}
 
 	setPathAttributes(element) {
-
 		setSVGAttributes(element, {
 			class: 'svg-shape',
 			scale: `${this.scale}`,
 			transform: `scale(${this.scale})`,
-
 		});
 	}
 
@@ -183,13 +177,13 @@ export class Shape {
 		// APply scaling to path only.
 		setSVGAttributes(element, {
 			scale: `${that.scale}`,
-			transform: `scale(${that.scale})`
+			transform: `scale(${that.scale})`,
 		});
 	}
 
 	create() {
 		this.setNonScalingStrokes();
-		
+
 		let that = this;
 		// FOr  shape holder g
 
@@ -201,7 +195,7 @@ export class Shape {
 				class: 'svg-shape',
 				scale: `${that.scale}`,
 				transform: `scale(${that.scale})`,
-				'vector-effect': 'non-scaling-stroke'
+				'vector-effect': 'non-scaling-stroke',
 			});
 		});
 

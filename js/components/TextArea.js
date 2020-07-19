@@ -1,70 +1,88 @@
-export class TextArea{
-   constructor(props={}){
-      const {x, y, width, height, offsetX = 8, offsetY = -10, border = 'none', outline = 'none', color = 'black', background = 'transparent', overflow = 'visible' ,textAlign = 'center', fontSize='12px'} = props;
+export class TextArea {
+	constructor(props = {}) {
+		const {
+			x,
+			y,
+			width,
+			height,
+			offsetX = 8,
+			offsetY = -10,
+			border = 'none',
+			color = 'black',
+			outline = 'none',
+			fontSize = '12px',
+			overflow = 'visible',
+			textAlign = 'center',
+			background = 'transparent',
+		} = props;
 
-      // Layout Poperties
-      this.x = x;
-      this.y = y;
-      this.width = width;
-      this.height = height;
-      this.offsetX = offsetX;
-      this.offsetY = offsetY;
+		// Layout Poperties
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.offsetX = offsetX;
+		this.offsetY = offsetY;
 
-      this.color = color;
-      this.background = background;
-      this.border = border;
-      this.outline = outline;
-      
-      this.textAlign = textAlign;
-      this.fontSize = fontSize;
-      this.overflow = overflow;
-     
+		this.color = color;
+		this.border = border;
+		this.outline = outline;
+		this.background = background;
 
-      // Use ForeignObject tag to use input tag inside svg
-      this.foreignObject = document.createElementNS(SVGNS, 'foreignObject');
-      this.setForeignObjectAttributes();
+		this.overflow = overflow;
+		this.fontSize = fontSize;
+		this.textAlign = textAlign;
 
-      // TODO: Change to div depending on the requirement
-      this.inputBox  = document.createElement('div');
-      // this.inputBox.innerHTML = "Text";
-      this.setTextBoxAttributes();
+		// Use ForeignObject tag to use input tag inside svg
+		this.foreignObject = document.createElementNS(SVGNS, 'foreignObject');
+		this.setForeignObjectAttributes();
 
-      this.foreignObject.appendChild(this.inputBox);
-   }
+		// TODO: Change to div depending on the requirement
+		this.inputBox = document.createElement('div');
+		// this.inputBox.innerHTML = "Text";
+		this.setTextBoxAttributes();
 
-   setForeignObjectAttributes(){
-      this.foreignObject.setAttributeNS(null, 'x', this.x - 10 + this.offsetX);
-      this.foreignObject.setAttributeNS(null, 'y', this.y + this.height / 2 + this.offsetY);
-      this.foreignObject.setAttributeNS(null, 'width', this.width);
-      this.foreignObject.setAttributeNS(null, 'height', this.height / 2 - this.y - this.offsetY);
-      this.foreignObject.setAttributeNS(null, 'class', 'text-box-parent');
-      this.foreignObject.setAttributeNS(null, 'overflow', this.overflow);
-   }
+		this.foreignObject.appendChild(this.inputBox);
+	}
 
-   setTextBoxAttributes(){
+	setForeignObjectAttributes() {
+		setSVGAttributes(this.foreignObject, {
+			width: this.width,
+			overflow: this.overflow,
+			class: 'text-box-parent',
+			x: this.x - 10 + this.offsetX,
+			y: this.y + this.height / 2 + this.offsetY,
+			height: this.height / 2 - this.y - this.offsetY,
+		});
+	}
 
-      // Common Properties
-      this.inputBox.setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
-     
-      // Add default font css class
-      this.inputBox.setAttributeNS(null, 'class', 'shape-text font-default');
+	setTextBoxAttributes() {
+		// Common Properties
+		this.inputBox.setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
+		this.inputBox.innerHTML = 'Text';
 
-      this.inputBox.innerHTML = "Text";
-      this.inputBox.setAttributeNS(null, 'contenteditable', 'true');
-      this.inputBox.style.border = this.border;
-      this.inputBox.style.outline = this.outline
-      this.inputBox.style.color = this.color;
-      this.inputBox.style.background = this.background;
-      this.inputBox.style.textAlign = this.textAlign;
-      this.inputBox.style.fontSize = this.fontSize;
+		// Add default font css class and contenteditable
+		setSVGAttributes(this.inputBox, {
+			contenteditable: 'true',
+			class: 'shape-text font-default',
+		});
 
-   }
+      // Apply CSS Attributes
+		setCSSAttributes(this.inputBox, {
+			color: this.color,
+			border: this.border,
+			outline: this.outline,
+			'font-size': this.fontSize,
+			background: this.background,
+			'text-align': this.textAlign,
+		});
+	}
 
-   getForeignObject(){
-      return this.foreignObject;
-   }
+	getForeignObject() {
+		return this.foreignObject;
+	}
 
-   getTextObject(){
-      return this.inputBox;
-   }
+	getTextObject() {
+		return this.inputBox;
+	}
 }
