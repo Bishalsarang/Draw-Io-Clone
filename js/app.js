@@ -58,8 +58,6 @@ class SV {
 }
 
 let sv;
-
-
 window.onload = function () {
 	sv = new SV('.drawing-area');
 
@@ -71,6 +69,10 @@ window.onload = function () {
 		addGrid(sv.sv);
 	}
 
+	initialise(sv);
+};
+
+function initialise(sv){
 	// Show shape info on hovering shape on left sidebar
 	sideBarShapeHoverEventListener(sv);
 	addEventListenerLeftSideBar(sv);
@@ -79,100 +81,7 @@ window.onload = function () {
 	addEventListenerRightSideBar();
 	keyBoardEventListener(sv);
 	outsideClickEventListener(sv);
-	saveProgressEventListener();
-	downloadEventListener();
-};
 
-function hasPreviousSavedState() {
-	return localStorage.length;
-}
-
-/**
- * downloadButton onClick
- */
-function downloadEventListener() {
-	let downloadButton = document.querySelector('.btn-save');
-	let downloadLink = document.querySelector('.download-link');
-
-	downloadButton.addEventListener('click', (e) => {
-		// Unselect if any shape is selected
-		resetControls();
-		// Remove grid from output
-		removeGrid(sv.sv);
-		let exportFileType = '';
-		document.getElementsByName('export-extension').forEach((option) => {
-			if (option.checked) {
-				exportFileType = option.value;
-			}
-		});
-		sv.svg2img(downloadLink, exportFileType);
-		// Add grid back after export
-		addGrid(sv.sv);
-	});
-}
-
-// function deleteShape(sv, selectedShape) {
-// 	sv.removeChild(selectedShape);
-// }
-
-// function copyShape(sv, selectedShape) {
-// 	copiedShape = selectedShape.cloneNode(true);
-// }
-
-// function pasteShape(sv){
-// 	sv.append(copiedShape);
-// 	shapeEventListener(copiedShape);
-
-// 	// Since all the resize buttons are already drawn, add event handler to resize buttons
-// 	document.querySelectorAll('.resize-button').forEach((element) => {
-// 		let id = element.id;
-// 		handleResize(sv, element, id);
-// 	});
-// }
-
-// /**
-//  * shapeDeleteEventListener
-//  * Listen if delete key is pressed and remove if any shape is deleted
-//  */
-// function keyBoardEventListener() {
-// 	window.addEventListener('keydown', (e) => {
-// 		if (selectedShape) {
-// 			// Delete Selected Shape on delete key dowm
-// 			if (e.code == 'Delete') {
-// 				deleteShape(sv.sv, selectedShape);
-// 			}
-
-// 			let c = e.keyCode;
-// 			let ctrlDOwn = e.ctrlKey || e.metaKey; // Mac SUpport
-// 			// Copy Shape on CTRL + C
-// 			if (ctrlDOwn && c == 67) {
-// 				copyShape(sv.sv, selectedShape);
-// 				ctrlC = true;
-// 			}
-
-// 			// Paste Shape
-// 			if (ctrlDOwn && c == 86) {
-// 				pasteShape(sv.sv);
-// 				ctrlC = false;
-// 			}
-// 		}
-// 	});
-// }
-
-/**
- * Listen for click event to save progress
- */
-function saveProgressEventListener() {
-	let saveProgress = document.querySelector('.btn-save-progress');
-
-	// If save Progress is clicked
-	saveProgress.addEventListener('click', (e) => {
-		// Unselect if any shape is selected before saving the state
-		resetControls();
-		let currentTimeStamp = getCurrentTimeStamp();
-		let currentSignature = {};
-		// localStorage.clear();
-		currentSignature[currentTimeStamp] = sv.sv.innerHTML;
-		localStorage.setItem("draw-io-" + currentTimeStamp, JSON.stringify(currentSignature));
-	});
+	// Save and Export Event Handlers
+	saveEventHandler(sv);
 }

@@ -106,3 +106,8 @@ function getCurrentTimeStamp() {
 		currentdate.getSeconds()
 	);
 }
+
+
+function hasPreviousSavedState() {
+	return localStorage.length;
+}
