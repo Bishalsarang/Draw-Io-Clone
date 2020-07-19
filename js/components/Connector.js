@@ -1,87 +1,86 @@
 export class Connector {
-	constructor(props) {
-		const {
-			sv,
-			children,
-			stroke = '#000000',
-			strokeWidth = '2px',
-			strokeDashArray = '',
-			strokeDashOffset = '',
-			strokeOpacity = '100',
-			strokeLineCap = 'butt',
-			strokeLineJoin = 'miter',
-		} = props;
+    constructor(props) {
+        const {
+            sv,
+            children,
+            stroke = '#000000',
+            strokeWidth = '2px',
+            strokeDashArray = '',
+            strokeDashOffset = '',
+            strokeOpacity = '100',
+            strokeLineCap = 'butt',
+            strokeLineJoin = 'miter'
+        } = props;
 
-      this.sv = sv;
+        this.sv = sv;
 
-		/* Stroke Properties */
-		this.stroke = stroke;
-		this.strokeWidth = strokeWidth;
-		this.strokeLineCap = strokeLineCap;
-		this.strokeOpacity = strokeOpacity;
-		this.strokeLineJoin = strokeLineJoin;
-		this.strokeDashArray = strokeDashArray;
-		this.strokeDashOffset = strokeDashOffset;
+        /* Stroke Properties */
+        this.stroke = stroke;
+        this.strokeWidth = strokeWidth;
+        this.strokeLineCap = strokeLineCap;
+        this.strokeOpacity = strokeOpacity;
+        this.strokeLineJoin = strokeLineJoin;
+        this.strokeDashArray = strokeDashArray;
+        this.strokeDashOffset = strokeDashOffset;
 
-		
-		this.shapeElements = [];
-		this.g = document.createElementNS(SVGNS, 'g');
-      
-      children.forEach((child) => {
-			const key = Object.keys(child)[0];
-			this.createElement(key, child[key]);
-		});
+        this.shapeElements = [];
+        this.g = document.createElementNS(SVGNS, 'g');
 
-		this.setCursorAttributes();
-		this.setStrokeAttributes();
-	}
+        children.forEach((child) => {
+            const key = Object.keys(child)[0];
+            this.createElement(key, child[key]);
+        });
 
-	setCursorAttributes() {
-		setCSSAttributes(this.g, {
-			cursor: 'move',
-			'pointer-events': 'all',
-		});
+        this.setCursorAttributes();
+        this.setStrokeAttributes();
+    }
 
-		setSVGAttributes(this.g, {
-			class: 'draggable-group connector-group',
-		});
-	}
-	setStrokeAttributes() {
-		setSVGAttributes(this.g, {
-			stroke: this.stroke,
-			'stroke-width': this.strokeWidth,
-			'stroke-linecap': this.strokeLineCap,
-			'stroke-opacity': this.strokeOpacity,
-			'stroke-linejoin': this.strokeLineJoin,
-			'stroke-dasharray': this.strokeDashArray,
-			'stroke-dashoffset': this.strokeDashOffset,
-		});
-	}
-	createElement(key, props = {}) {
-		let path = document.createElementNS(SVGNS, key);
-		this.setProperties(path, props);
-	}
+    setCursorAttributes() {
+        setCSSAttributes(this.g, {
+            cursor: 'move',
+            'pointer-events': 'all'
+        });
 
-	setProperties(path, props) {
-		for (const [key, value] of Object.entries(props)) {
-			setSVGAttribute(path, key, value);
-		}
-		this.shapeElements.push(path);
-	}
+        setSVGAttributes(this.g, {
+            class: 'draggable-group connector-group'
+        });
+    }
+    setStrokeAttributes() {
+        setSVGAttributes(this.g, {
+            stroke: this.stroke,
+            'stroke-width': this.strokeWidth,
+            'stroke-linecap': this.strokeLineCap,
+            'stroke-opacity': this.strokeOpacity,
+            'stroke-linejoin': this.strokeLineJoin,
+            'stroke-dasharray': this.strokeDashArray,
+            'stroke-dashoffset': this.strokeDashOffset
+        });
+    }
+    createElement(key, props = {}) {
+        let path = document.createElementNS(SVGNS, key);
+        this.setProperties(path, props);
+    }
 
-	create() {
-		let that = this;
-		this.shapeElements.forEach((element, index) => {
-			that.g.appendChild(element);
-		});
-		this.addToDOM();
-	}
+    setProperties(path, props) {
+        for (const [key, value] of Object.entries(props)) {
+            setSVGAttribute(path, key, value);
+        }
+        this.shapeElements.push(path);
+    }
 
-	getElement() {
-		return this.g;
-	}
+    create() {
+        let that = this;
+        this.shapeElements.forEach((element, index) => {
+            that.g.appendChild(element);
+        });
+        this.addToDOM();
+    }
 
-	addToDOM() {
-		this.sv.append(this.getElement());
-	}
+    getElement() {
+        return this.g;
+    }
+
+    addToDOM() {
+        this.sv.append(this.getElement());
+    }
 }

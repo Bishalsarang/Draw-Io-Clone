@@ -15,7 +15,22 @@ let ShapeInfo = {
 				},
 			},
 		],
-	},
+   },
+   Text: {
+      children: [
+			{
+				rect: {
+					x: '10',
+					y: '10',
+					width: '80',
+					height: '50',
+				},
+			},
+      ],
+      stroke: 'none',
+      fill: 'none',
+      
+   },
 	RoundRectangle: {
 		children: [
 			{
