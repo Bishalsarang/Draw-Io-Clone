@@ -1,11 +1,18 @@
-function addEventListenerRightSideBar() {
-	let pickedColor = document.getElementById('color-picker');
-	pickedColor.addEventListener('change', (e) => {
-		if (selectedShape) {
-			selectedShape.setAttributeNS(null, 'fill', pickedColor.value);
+function changeEventListener(selector, attributeName){
+	let element = $(selector);
+	element.addEventListener('change', (e) => {
+		if(selectedShape){
+			setSVGAttribute(selectedShape, attributeName, element.value);
 		}
 	});
+}
 
+function pickedColorEventListener(){
+	changeEventListener('#color-picker', 'fill');
+}
+
+function filledCheckEventListener(){
+	let pickedColor = document.getElementById('color-picker');
 	let filledCheck = document.getElementById('fill-status');
 	filledCheck.addEventListener('change', (e) => {
 		// If selected shape xa vaney change the property
@@ -17,14 +24,17 @@ function addEventListenerRightSideBar() {
 			}
 		}
 	});
+}
 
-	let lineColor = document.getElementById('stroke-color-picker');
-	lineColor.addEventListener('change', (e) => {
-		if (selectedShape) {
-			selectedShape.setAttributeNS(null, 'stroke', lineColor.value);
-		}
-	});
+function lineColorEventListener(){
+	changeEventListener('#stroke-color-picker', 'stroke');
+}
 
+function lineWidthEventListener(){
+	changeEventListener('#line-width', 'stroke-width');
+}
+
+function lineCheckEventListener(){
 	let lineStatus = document.getElementById('line-status');
 	lineStatus.addEventListener('change', (e) => {
 		if (selectedShape) {
@@ -35,27 +45,21 @@ function addEventListenerRightSideBar() {
 			}
 		}
 	});
+}
 
-	let lineType = document.getElementById('line-type');
-	let lineWidth = document.getElementById('line-width');
+function fillColorEventListener(){
+	pickedColorEventListener();
+	filledCheckEventListener();
+}
 
-	lineWidth.addEventListener('change', (e) => {
-		if (selectedShape) {
-			selectedShape.setAttributeNS(null, 'stroke-width', lineWidth.value);
-		}
-	});
+function lineEventListener(){
+	lineColorEventListener();
+	lineCheckEventListener();
+	lineWidthEventListener();
 
-	let opacity = document.getElementById('opacity');
-	opacity.addEventListener('change', (e) => {
-		if (selectedShape) {
-			selectedShape.setAttributeNS(
-				null,
-				'fill-opacity',
-				parseInt(opacity.value) / 100
-			);
-		}
-	});
+}
 
+function rotateEventListener(){
 	let rotation = document.getElementById('rotate');
 	rotation.addEventListener('change', (e) => {
 		if (selectedShape) {
@@ -70,7 +74,9 @@ function addEventListenerRightSideBar() {
 			selectedShape.setAttributeNS(null, 'transform', newTransformation);
 		}
 	});
+}
 
+function widthEventListener(){
 	// Width Changed
 	let w = document.getElementById('width');
 	w.addEventListener('change', (e) => {
@@ -93,7 +99,9 @@ function addEventListenerRightSideBar() {
 			resetControls();
 		}
 	});
+}
 
+function heightEventListener(){
 	// Height Changed
 	let h = document.getElementById('height');
 	h.addEventListener('change', (e) => {
@@ -113,7 +121,11 @@ function addEventListenerRightSideBar() {
 			resetControls();
 		}
 	});
+}
 
+
+function leftEventListener(){
+	let rotation = document.getElementById('rotate');
 	// Left Changed
 	let left = document.getElementById('left');
 	left.addEventListener('change', (e) => {
@@ -134,8 +146,12 @@ function addEventListenerRightSideBar() {
 			selectedShape.setAttributeNS(null, 'transform', newTransformation);
 		}
 	});
+}
 
+function topEventListener(){
+	let rotation = document.getElementById('rotate');
 	// Top Changed
+
 	let top = document.getElementById('top');
 	top.addEventListener('change', (e) => {
 		if (selectedShape) {
@@ -153,8 +169,10 @@ function addEventListenerRightSideBar() {
 			selectedShape.setAttributeNS(null, 'transform', newTransformation);
 		}
 	});
+}
 
-
+function fontChangeEventListener(){
+	
 	// Font Changed
 	let font = document.getElementById('fonts');
 	font.addEventListener('change', (e) =>{
@@ -168,17 +186,20 @@ function addEventListenerRightSideBar() {
 			textArea.classList.add(selectedClass);
 		}
 	});
+}
 
+function boldButtonEventListener(){
 	let boldButton = document.getElementById('bold-btn');
 	boldButton.addEventListener('click', (e) => {
 		if(selectedShape){
 			let textArea = selectedShape.querySelector('.shape-text');
 			boldButton.classList.toggle('btn-active');
 			textArea.classList.toggle('text-bold');
-
 		}
 	});
+}
 
+function italicsButtonEventListener(){
 	let italicsButton = document.getElementById('italics-btn');
 	italicsButton.addEventListener('click', (e) => {
 		if(selectedShape){
@@ -188,17 +209,20 @@ function addEventListenerRightSideBar() {
 
 		}
 	});
+}
 
+function underLineButtonEventListener(){
 	let underlineButton = document.getElementById('underline-btn');
 	underlineButton.addEventListener('click', (e) => {
 		if(selectedShape){	
 			let textArea = selectedShape.querySelector('.shape-text');
 			underlineButton.classList.toggle('btn-active');
 			textArea.classList.toggle('text-underline');
-
 		}
 	});
+}
 
+function fontSizeEventListener(){
 	let fontSizeInput = document.getElementById('font-size');
 	fontSizeInput.addEventListener('change', (e) => {
 		if(selectedShape){	
@@ -207,7 +231,9 @@ function addEventListenerRightSideBar() {
 
 		}
 	});
+}
 
+function fontColorEventListener(){
 	let fontColorPick = document.getElementById('font-color');
 	fontColorPick.addEventListener('change', (e) => {
 		if(selectedShape){	
@@ -215,4 +241,36 @@ function addEventListenerRightSideBar() {
 			textArea.style.color = fontColorPick.value;
 		}
 	});
+}
+
+function fontEventListener(){
+	fontChangeEventListener();
+	boldButtonEventListener();
+	italicsButtonEventListener();
+	underLineButtonEventListener();
+	fontSizeEventListener();
+	fontColorEventListener();
+}
+
+function addEventListenerRightSideBar() {
+	fillColorEventListener(); // Fill color Event Listener
+	lineEventListener(); // Stroke EVent Listener
+
+	let opacity = document.getElementById('opacity');
+	opacity.addEventListener('change', (e) => {
+		if (selectedShape) {
+			selectedShape.setAttributeNS(
+				null,
+				'fill-opacity',
+				parseInt(opacity.value) / 100
+			);
+		}
+	});
+
+	rotateEventListener();
+	widthEventListener();
+	heightEventListener();
+	leftEventListener();
+	topEventListener();
+	fontEventListener();
 }

@@ -136,3 +136,39 @@ input[type='number'] {
 .shape-text:hover {
 	cursor: text;
 }
+
+.right-sidebar-item {
+	padding: 5px;
+}
+
+#btn-edit-draft,
+#btn-cancel-draft {
+	width: 60px;
+	padding: 2px;
+	border-radius: 12px;
+	outline: none;
+	border: none;
+	cursor: pointer;
+
+	background-color: #dc3545;
+	color: white;
+}
+
+#btn-edit-draft {
+	background-color: #28a745;
+}
+
+#btn-edit-draft:hover {
+}
+
+#btn-cancel-draft {
+	background-color: #dc3545;
+}
+
+.right-sidebar-item-header {
+	color: #707070;
+	font-size: 12px;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

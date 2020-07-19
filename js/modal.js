@@ -2,20 +2,21 @@
  * Display draft selector
  */
 function showDraftSelector(sv) {
-	let modal = document.querySelector('.modal');
-	modal.classList.remove('hide');
+	let modal = $('.modal');
+   modal.classList.remove('hide');
+   
 	populateDraftSelector();
 	draftSelectEventListener();
 	draftButtonsEventListener(sv);
 }
 
 function hideDraftSelector() {
-	let modal = document.querySelector('.modal');
+	let modal = $('.modal');
 	modal.classList.add('hide');
 }
 
 function populateDraftSelector() {
-	let draftSelector = document.getElementById('saved-draft-selector');
+	let draftSelector = $('#saved-draft-selector');
 
 	for (const key of Object.keys(localStorage)) {
 		if (key.startsWith('draw-io-')) {
@@ -27,20 +28,18 @@ function populateDraftSelector() {
 			let option = document.createElement('option');
 			option.value = timeStamp;
 			option.text = timeStamp;
-			option.name = timeStamp;
+         option.name = timeStamp;
+         
 			draftSelector.appendChild(option);
 		}
 	}
-	console.log(draftSelector.selectedIndex);
-	if (draftSelector.selectedIndex == 0) {
-		showPreview(0);
-		return;
-	}
+	showPreview();
 }
 
 function draftSelectEventListener() {
-	let draftSelector = document.querySelector('#saved-draft-selector');
-	draftSelector.addEventListener('change', (e) => {
+	let draftSelector = $('#saved-draft-selector');
+   
+   draftSelector.addEventListener('change', (e) => {
 		showPreview();
 	});
 }
@@ -62,6 +61,7 @@ function cancelEVentHandler(sv) {
 		hideDraftSelector();
 	});
 }
+
 function draftButtonsEventListener(sv) {
 	editEventHandler(sv);
 	cancelEVentHandler(sv);
@@ -99,7 +99,7 @@ function removeGrid(previewSVG) {
 	}
 }
 
-function showPreview(index) {
+function showPreview() {
 	let previewSVG = document.querySelector('.saved-draft-preview');
 
 	let selectedTimeStamp = getSelectedTimeStamp();
@@ -125,45 +125,64 @@ function loadPreviousState(sv, selectedDiagram) {
 	});
 }
 
-/**
- *
- */
-function addGrid(sv) {
-	let defElement = document.createElementNS(SVGNS, 'defs');
-	let patternSmallGrid = document.createElementNS(SVGNS, 'pattern');
-	setSVGAttributes(patternSmallGrid, {
+
+function drawSmallGrid(pattern){
+   setSVGAttributes(pattern, {
 		id: 'tenthGrid',
 		width: '10',
 		height: '10',
 		patternUnits: 'userSpaceOnUse',
 	});
+}
 
-	let pathSmallGrid = document.createElementNS(SVGNS, 'path');
-	setSVGAttributes(pathSmallGrid, {
-		d: 'M 10 0 L 0 0 0 10',
-		fill: 'none',
-		stroke: 'silver',
-		'stroke-width': '0.5',
-	});
-
-	patternSmallGrid.appendChild(pathSmallGrid);
-	defElement.appendChild(patternSmallGrid);
-
-	let patternLargeGrid = document.createElementNS(SVGNS, 'pattern');
-	setSVGAttributes(patternLargeGrid, {
+function drawLargeGrid(pattern){
+   setSVGAttributes(pattern, {
 		id: 'grid',
 		width: '100',
 		height: '100',
 		patternUnits: 'userSpaceOnUse',
 	});
+}
 
-	let pathLargeGrid = document.createElementNS(SVGNS, 'path');
-	setSVGAttributes(pathLargeGrid, {
+
+function drawPathSmallGrid(pattern){
+   setSVGAttributes(pattern, {
+		d: 'M 10 0 L 0 0 0 10',
+		fill: 'none',
+		stroke: 'silver',
+		'stroke-width': '0.5',
+	});
+}
+
+function drawPathLargeGrid(pattern){
+   setSVGAttributes(pattern, {
 		d: 'M 100 0 L 0 0 0 100',
 		fill: 'none',
 		stroke: 'gray',
 		'stroke-width': '1',
 	});
+}
+
+/**
+ *
+ */
+function addGrid(sv) {
+   let defElement = document.createElementNS(SVGNS, 'defs');
+   
+   let patternSmallGrid = document.createElementNS(SVGNS, 'pattern');
+   drawSmallGrid(patternSmallGrid);
+
+   let pathSmallGrid = document.createElementNS(SVGNS, 'path');
+   drawPathSmallGrid(pathSmallGrid);
+
+	patternSmallGrid.appendChild(pathSmallGrid);
+	defElement.appendChild(patternSmallGrid);
+
+   let patternLargeGrid = document.createElementNS(SVGNS, 'pattern');
+   drawLargeGrid(patternLargeGrid);
+
+	let pathLargeGrid = document.createElementNS(SVGNS, 'path');
+	drawPathLargeGrid(pathLargeGrid);
 
 	let rectLargeGrid = document.createElementNS(SVGNS, 'rect');
 	setSVGAttributes(rectLargeGrid, {
@@ -185,5 +204,4 @@ function addGrid(sv) {
    });
    sv.prepend(gridRect);
 	sv.prepend(defElement);
-
 }

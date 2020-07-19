@@ -1,3 +1,8 @@
+/**
+ * ShapeFile.js
+ * This file contains ShapeInfo Object 
+ */
+
 let ShapeInfo = {
 	Rectangle: {
 		children: [

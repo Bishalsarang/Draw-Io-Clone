@@ -49,8 +49,8 @@ function drawTextBox(textBoxParent, x, y, width, height) {
 }
 
 /**
- * 
- * @param {object} resizeButtons 
+ *
+ * @param {object} resizeButtons
  * @param {number} x boundingBox topLeft X
  * @param {number} y boundingBox topLeft Y
  * @param {number} width boundingBox Width
@@ -75,7 +75,7 @@ function drawResizeButtons(resizeButtons, x, y, width, height) {
 		let resizeButton = resizeButtons[i];
 		let [x, y] = points[i];
 		setSVGAttributes(resizeButton, {
-         style: 'visibility: visible',
+			style: 'visibility: visible',
 			cx: x,
 			cy: y,
 			rx: RESIZE_BUTTON_RADIUS,
@@ -111,7 +111,7 @@ function drawControls(x, y, width, height) {
 
 function resetControls() {
 	if (selectedShape) {
-      // Hide Rotate Button
+		// Hide Rotate Button
 		let rotateButton = selectedShape.querySelector('.rotate-button');
 		setSVGAttributes(rotateButton, {
 			style: 'visibility: hidden',
@@ -123,12 +123,12 @@ function resetControls() {
 		setSVGAttributes(boundingBox, {
 			style: 'visibility: hidden',
 		});
-		
+
 		// Hide Resize button
 		let resizeButtons = selectedShape.querySelectorAll('.resize-button');
-      resizeButtons.forEach((resizeButton) => {
-         setSVGAttribute(resizeButton, 'style', 'visibility: hidden');
-      });
+		resizeButtons.forEach((resizeButton) => {
+			setSVGAttribute(resizeButton, 'style', 'visibility: hidden');
+		});
 		// Unselect the selected shape
 		// selectedShape = null;
 	}

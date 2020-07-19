@@ -46,12 +46,15 @@
                     </div>
 
                     <div class="modal-body">
-                        <div class="draft-control-wrapper">
-                            <span>Select a draft to continue</span>
-                            <select id="saved-draft-selector">
+                        <div class="draft-control-wrapper clearfix">
+                            <div class="draft-select-wrapper left">
+                                <span>Select a draft to continue</span>
+                                <select id="saved-draft-selector">
 
-                            </select>
-                            <div class="draft-button-wrapper">
+                                </select>
+                            </div>
+
+                            <div class="draft-button-wrapper right">
                                 <button id="btn-edit-draft">Edit</button>
                                 <button id="btn-cancel-draft">Cancel</button>
                             </div>
@@ -674,34 +677,35 @@
 
 
                 <div class="sidebar-right left">
-                    <div class="fill-section">
-                        <h3>Fill Color</h3>
+                    <div class="fill-section right-sidebar-item">
+                        <h3 class="right-sidebar-item-header">Fill Color</h3>
                         <input type="checkbox" checked="false" style="margin: 0px 6px 0px 0px;" id="fill-status">
                         <input type="color" name="color-picker" id="color-picker">
                         <label for="opacity">Opacity</label>
                         <input type="number" id="opacity" name="opacity" min="0" max="100" value="100">
                     </div>
-                    <div class="stroke-section">
-                        <h3>Line</h3>
+                    <div class="stroke-section right-sidebar-item">
+                        <h3 class="right-sidebar-item-header">Line</h3>
                         <input type="checkbox" checked="false" style="margin: 0px 6px 0px 0px;" id="line-status">
                         <label for="gradient-direction">Line: </label>
                         <select name="line-type" id="line-type">
-                            <option value="north">-------</option>
-                            <option value="east">Continuos</option>
+                            <option value="dashed">Dashed</option>
+                            <option value="dotted">Dotted</option>
+                            <option value="dotted">Continuous</option>
                         </select>
                         <input type="number" id="line-width" name="line-width" min="1" value="1" step="0.2">
                         <input type="color" name="stroke-color-picker" id="stroke-color-picker">
                     </div>
-                    <div class="position-section">
-                        <h3>Position</h3>
+                    <div class="position-section right-sidebar-item">
+                        <h3 class="right-sidebar-item-header">Position</h3>
                         <label for="left">Left</label>
                         <input type="number" id="left" name="left" value="0" step="1">
                         <label for="top">Top</label>
                         <input type="number" id="top" name="top" value="0" step="1">
                     </div>
 
-                    <div class="size-section">
-                        <h3>Size</h3>
+                    <div class="size-section right-sidebar-item">
+                        <h3 class="right-sidebar-item-header">Size</h3>
 
                         <label for="width">ScaleX</label>
                         <input type="number" id="width" name="width" value="0" step="0.1">
@@ -710,13 +714,13 @@
                         <input type="number" id="height" name="height" value="0" step="0.1">
                     </div>
 
-                    <div class="rotation-section">
-                        <h3>Rotation</h3>
+                    <div class="rotation-section right-sidebar-item">
+                        <h3 class="right-sidebar-item-header">Rotation</h3>
                         <input type="number" id="rotate" name="rotate" value="0">
                     </div>
 
-                    <div class="font-section">
-                        <h3> Font</h3>
+                    <div class="font-section right-sidebar-item">
+                        <h3 class="right-sidebar-item-header"> Font</h3>
                         <select name="fonts" id="fonts">
                             <option value="default" class="font-default">Default</option>
                             <option value="open-sans" class="font-open-sans">Open Sans</option>
