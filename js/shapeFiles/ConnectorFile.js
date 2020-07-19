@@ -8,6 +8,7 @@ let ConnectorInfo = {
                y1: "10",
                x2: "10",
                y2: "80",
+               // points: "10,10 10,80 10, 100"
               
             }
          },
@@ -16,7 +17,7 @@ let ConnectorInfo = {
                class: "point1",
                cx: "10",
                cy: "10",
-               r: "5",
+               r: "3",
                "cursor": "pointer",
             }
          },
@@ -25,7 +26,7 @@ let ConnectorInfo = {
                class: "point2",
                cx: "10",
                cy: "80",
-               r: "5",
+               r: "3",
                "cursor": "pointer",
             } 
          }

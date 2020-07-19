@@ -27,12 +27,12 @@
                 <button class="btn-save-progress"> Save Progress </button>
 
                 <button class="btn-save">Export as </button>
+
                 <input type="radio" name="export-extension" value="svg" id="export-svg">
-                <label for="svg">SVG</label>
+                <span>SVG</span>
 
                 <input type="radio" name="export-extension" value="png" id="export-png">
-                <label for="svg">PNG</label>
-
+                <span>PNG</span>
                 <a class="download-link" href="#" download=""></a>
             </div>
 
@@ -683,7 +683,6 @@
 
                 </svg>
 
-
                 <div class="sidebar-right left">
                     <div class="fill-section right-sidebar-item">
                         <h3 class="right-sidebar-item-header">Fill Color</h3>
@@ -694,9 +693,9 @@
                     </div>
                     <div class="stroke-section right-sidebar-item">
                         <h3 class="right-sidebar-item-header">Line</h3>
-                        <input type="checkbox" checked="false" style="margin: 0px 6px 0px 0px;" id="line-status">
-                        <label for="gradient-direction">Line: </label>
-                        <select name="line-type" id="line-type">
+                        <input type="checkbox" style="margin: 0px 6px 0px 0px;" id="line-status">
+                        <span>Line: </span>
+                        <select name=" line-type" id="line-type">
                             <option value="dashed">Dashed</option>
                             <option value="dotted">Dotted</option>
                             <option value="dotted">Continuous</option>
@@ -759,21 +758,23 @@
                         <input type="color" name="font-color" id="font-color">
                     </div>
                 </div>
+            </div>
         </main>
     </div>
-    </main>
 
     <script src="js/constants.js"></script>
-    <script src="js/selectors.js"></script>
+    <script src="js/utils/selectors.js"></script>
     <script src="js/modal.js"></script>
-    <script src="js/ShapeFile.js"></script>
-    <script src="js/ConnectorFile.js"></script>
-    <script src="js/utils.js"></script>
+    <!-- Shape Related JS files -->
+    <script src="js/shapeFiles/ShapeFile.js"></script>
+    <script src="js/shapeFiles/ConnectorFile.js"></script>
+
+    <script src="js/utils/utils.js"></script>
     <script src="js/eventListener.js"></script>
-    <script src="js/debounce.js"></script>
     <script src="js/connectorEventListener.js"></script>
+    <script src="js/eventHandlers/keyboard.js"></script>
     <script src="js/resize.js"></script>
-    <script src="js/app.js" type="module" defer></script>
+    <script src="js/app.js" type="module"></script>
 
     <script src="js/leftSideBar.js"></script>
     <script src="js/shapeControls.js"></script>

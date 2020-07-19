@@ -14,7 +14,8 @@ function shapeEventListener(shape) {
 		}
 
 		// Set current shape as selected shape
-		selectedShape = shape;
+      selectedShape = shape;
+   
 		// Get bounding box  of the actual shape not the whole shape container
 		let { x, y, width, height } = selectedShape
 			.querySelector('.actual-shape')

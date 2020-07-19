@@ -81,6 +81,9 @@ export class Connector {
     }
 
     addToDOM() {
-        this.sv.append(this.getElement());
+       let el = $('.background-grid');
+       // Always add after the background-grid so that the connectors doesnt appear above shapes
+       el.parentNode.insertBefore(this.getElement(), el.nextSibling);
+      // this.sv.prepend(this.getElement());
     }
 }

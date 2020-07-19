@@ -58,6 +58,8 @@ class SV {
 }
 
 let sv;
+
+
 window.onload = function () {
 	sv = new SV('.drawing-area');
 
@@ -75,7 +77,7 @@ window.onload = function () {
 	makeDraggable(sv);
 
 	addEventListenerRightSideBar();
-	keyBoardEventListener();
+	keyBoardEventListener(sv);
 	outsideClickEventListener(sv);
 	saveProgressEventListener();
 	downloadEventListener();
@@ -109,38 +111,53 @@ function downloadEventListener() {
 	});
 }
 
-function deleteShape(sv, selectedShape) {
-	sv.removeChild(selectedShape);
-}
+// function deleteShape(sv, selectedShape) {
+// 	sv.removeChild(selectedShape);
+// }
 
-function copyShape(sv, selectedShape) {
-	
+// function copyShape(sv, selectedShape) {
+// 	copiedShape = selectedShape.cloneNode(true);
+// }
 
-	// CopiedShape = selectedShape.cloneNode(true);
-	// ssssv.append(CopiedShape);
-}
+// function pasteShape(sv){
+// 	sv.append(copiedShape);
+// 	shapeEventListener(copiedShape);
 
-/**
- * shapeDeleteEventListener
- * Listen if delete key is pressed and remove if any shape is deleted
- */
-function keyBoardEventListener() {
-	window.addEventListener('keydown', (e) => {
-		if (selectedShape) {
-			// Delete Selected Shape on delete key dowm
-			if (e.code == 'Delete') {
-				deleteShape(sv.sv, selectedShape);
-			}
+// 	// Since all the resize buttons are already drawn, add event handler to resize buttons
+// 	document.querySelectorAll('.resize-button').forEach((element) => {
+// 		let id = element.id;
+// 		handleResize(sv, element, id);
+// 	});
+// }
 
-			let c = e.keyCode;
-			let ctrlDOwn = e.ctrlKey || e.metaKey; // Mac SUpport
-			// Copy Shape on CTRL + C
-			if (ctrlDOwn && c == 67) {
-				copyShape(sv.sv, selectedShape);
-			}
-		}
-	});
-}
+// /**
+//  * shapeDeleteEventListener
+//  * Listen if delete key is pressed and remove if any shape is deleted
+//  */
+// function keyBoardEventListener() {
+// 	window.addEventListener('keydown', (e) => {
+// 		if (selectedShape) {
+// 			// Delete Selected Shape on delete key dowm
+// 			if (e.code == 'Delete') {
+// 				deleteShape(sv.sv, selectedShape);
+// 			}
+
+// 			let c = e.keyCode;
+// 			let ctrlDOwn = e.ctrlKey || e.metaKey; // Mac SUpport
+// 			// Copy Shape on CTRL + C
+// 			if (ctrlDOwn && c == 67) {
+// 				copyShape(sv.sv, selectedShape);
+// 				ctrlC = true;
+// 			}
+
+// 			// Paste Shape
+// 			if (ctrlDOwn && c == 86) {
+// 				pasteShape(sv.sv);
+// 				ctrlC = false;
+// 			}
+// 		}
+// 	});
+// }
 
 /**
  * Listen for click event to save progress

@@ -115,7 +115,8 @@ function loadPreviousState(sv, selectedDiagram) {
 	hideDraftSelector();
 	sv.innerHTML = selectedDiagram;
 	sv.querySelectorAll('.draggable-group').forEach((element) => {
-		// Enable EVents on click to draw boundary box, resizebuttons
+      // Enable EVents on click to draw boundary box, resizebuttons
+      
 		shapeEventListener(element);
 	});
 	// Since all the resize buttons are already drawn, add event handler to resize buttons
