@@ -6,7 +6,7 @@ let ConnectorInfo = {
                class: "connector",
                x1: "10",
                y1: "10",
-               x2: "80",
+               x2: "10",
                y2: "80",
               
             }
@@ -23,7 +23,7 @@ let ConnectorInfo = {
          {
             circle:{
                class: "point2",
-               cx: "80",
+               cx: "10",
                cy: "80",
                r: "5",
                "cursor": "pointer",

@@ -2,7 +2,7 @@ export class Connector{
    constructor(props) {
       const {
          stroke = '#000000',
-			strokeWidth = '3px',
+			strokeWidth = '2px',
 			strokeDashArray = '',
 			strokeDashOffset = '',
 			strokeOpacity = '100',

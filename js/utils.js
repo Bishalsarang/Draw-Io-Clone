@@ -40,32 +40,58 @@ function setCSSAttributes(element, props){
      }
 }
 
+/**
+ * 
+ * @param {*} element 
+ * @param {*} key 
+ */
 function getSVGAttribute(element, key){
     return element.getAttributeNS(null, key);
 }
 
+/**
+ * 
+ * @param {*} element 
+ * @param {*} key 
+ */
 function getCSSAttribute(element, key){
     return window.getComputedStyle(element).getPropertyValue(key);
 }
 
+/**
+ * 
+ * @param {*} element 
+ * @param {*} key 
+ */
 function getHTMLAttribute(element, key){
     return element.getAttribute(key);
 }
 
-
+/**
+ * 
+ * @param {*} element 
+ * @param {*} key 
+ */
 function removeSVGAttribute(element, key){
     element.removeAttributeNS(null, key);
 }
 
+/**
+ * 
+ * @param {*} element 
+ * @param {*} atributeList 
+ */
 function removeSVGAttributes(element, atributeList){
     for(const key of atributeList){
         removeSVGAttribute(element, key);
      }
 }
 
+/**
+ * 
+ */
 function getCurrentTimeStamp(){
-    let currentdate = new Date(); 
-    
+    let currentdate = new Date();
     return currentdate.getDate() + "/"
                 + (currentdate.getMonth()+1)  + "/" 
                 + currentdate.getFullYear() + " @ "  

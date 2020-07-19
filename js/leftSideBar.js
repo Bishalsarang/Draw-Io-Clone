@@ -1,82 +1,99 @@
+let selectedShape = null;
+
+/**
+ * Listen for hover events on sidebar shape by showing shape info
+ * @param {object} sv svg drawing area element
+ */
+function sideBarShapeHoverEventListener(sv) {
+	let leftSideBarShapes = document.querySelectorAll(
+		'.sidebar-shape, .sidebar-connector'
+	);
+
+	// div to show shape information
+	let showShapeInfo = document.querySelector('.show-shape-info');
+
+	let showShapeInfoShapeName = showShapeInfo.querySelector('.shape-name');
+	let showShapeInfoPreview = showShapeInfo.querySelector(
+		'.show-shape-info-preview'
+	);
+
+	// For each sidebar shapes display shape info on hover
+	leftSideBarShapes.forEach((sidebarShape) => {
+		// Show Shape Info on Hover and hide on mouseout and click
+		sidebarShape.addEventListener('mouseover', displayShapeInfo);
+		sidebarShape.addEventListener('mouseout', hideShapeInfo);
+		sidebarShape.addEventListener('click', hideShapeInfo);
+
+		function displayShapeInfo(event) {
+			let shapeGroup = sidebarShape.querySelector('g');
+
+			// Display shapeInfo
+			showShapeInfo.classList.remove('hide');
+			// Name of the shape
+			showShapeInfoShapeName.innerHTML = getHTMLAttribute(
+				sidebarShape,
+				'title'
+			);
+
+			// Display the shape on Shape Info preview by scaling
+			showShapeInfoPreview.innerHTML = sidebarShape.innerHTML;
+
+			shapeGroup = showShapeInfoPreview.querySelector('g');
+			setSVGAttributes(shapeGroup, {
+				transform: 'translate(180 10) scale(15 15)',
+			});
+		}
+
+		function hideShapeInfo(event) {
+			showShapeInfo.classList.add('hide');
+		}
+	});
+}
 
 /**
  * addEventListenerLeftSideBar
- * Add Event Lsitener to left sidebar buttons used to create shape
+ * Add Event Listener to left sidebar buttons used to create shape
+ * @param {object} svgObject svg object
  */
-function addEventListenerLeftSideBar(sv) {
-	let allShapesBtn = document.querySelectorAll('.sidebar-shape, .sidebar-connector');
+function addEventListenerLeftSideBar(svgObject) {
+	// Select all shapes and connectors on left side bar
+	let allShapesBtn = document.querySelectorAll(
+		'.sidebar-shape, .sidebar-connector'
+	);
+
 	// Add event handler for each button
 	allShapesBtn.forEach((button) => {
 		button.addEventListener('click', () => {
 			let clickedShape = button.getAttribute('title');
 			let elem;
-			if(getHTMLAttribute(button, 'class') === 'sidebar-shape'){
-				let elem = new sv.ShapesConstruct["CustomShape"]({ sv: sv.sv, ...ShapeInfo[clickedShape]});
+			// If it is a shape draw shape on svg
+			if (getHTMLAttribute(button, 'class') === 'sidebar-shape') {
+				let elem = new svgObject.ShapesConstruct['CustomShape']({
+					sv: svgObject.sv,
+					...ShapeInfo[clickedShape],
+				});
 				elem.create();
 				// Add event listener to shape to change property by and on right sidebar
-			shapeEventListener(elem.getElement());
-			}
-			else{
-				elem =  new sv.ShapesConstruct["Connector"]({ sv: sv.sv, ...ConnectorInfo[clickedShape]});
+				shapeEventListener(elem.getElement());
+			} else {
+				elem = new svgObject.ShapesConstruct['Connector']({
+					sv: svgObject.sv,
+					...ConnectorInfo[clickedShape],
+				});
 				elem.create();
-				connectorEventListener(sv.sv);
+				connectorEventListener(svgObject.sv);
 			}
 		});
 	});
 }
 
-
-function sideBarShapeHoverEventListener(sv) {
-	let leftSideBarShapes = document.querySelectorAll('.sidebar-shape, .sidebar-connector');
-	let showShapeInfo = document.querySelector('.show-shape-info');
-	let showShapeInfoShapeName = showShapeInfo.querySelector('.shape-name');
-	let showShapeInfoPreview = showShapeInfo.querySelector('.show-shape-info-preview');
-
-	leftSideBarShapes.forEach((sidebarShape) => {
-		// Show Shape Info on Hover
-		sidebarShape.addEventListener('mouseover', (e) => {
-			let shapeGroup = sidebarShape.querySelector('g');
-			// Display the element
-			showShapeInfo.classList.remove('hide');
-			showShapeInfoShapeName.innerHTML = getHTMLAttribute(sidebarShape, 'title');
-			
-			// Display the shape on Shape Info preview by scaling
-			showShapeInfoPreview.innerHTML = sidebarShape.innerHTML;
-			shapeGroup = showShapeInfoPreview.querySelector('g');
-			setSVGAttributes(shapeGroup, {
-				'transform': 'translate(180 10) scale(15 15)',
-			});
-		});
-
-		// Hide Shape info when out of hover
-		sidebarShape.addEventListener('mouseout', (e) => {
-			showShapeInfo.classList.add('hide');
-		});
-
-		// Hide shape when the shape is clicked
-		sidebarShape.addEventListener('click', (e) => {
-			showShapeInfo.classList.add('hide');
-		});
-	});
-}
-
-function outsideClickEventListener(sv){
-	sv.sv.addEventListener('click', (e) => {
-		let clickedElement = e.target;
-		
-		// Reset selected
-		if(clickedElement.classList.contains('background-grid') || clickedElement.classList.contains('drawing-area')){		
-			resetControls();
-		}
-	});
-}
-
-// Kunai shape select garey vaney RIGHT sidebar ma tesko property aunu paryo
+/**
+ * 
+ * @param {*} shape 
+ */
 function shapeEventListener(shape) {
-	// IF mouse is hovered on shape, connector button
-	shape.addEventListener('mouseover', () =>{
-		
-	})
+	// TODO: IF mouse is hovered on shape, connector button
+	shape.addEventListener('mouseover', () => {});
 
 	shape.addEventListener('click', () => {
 		// Uncheck if previously selected shapes if any
@@ -85,9 +102,11 @@ function shapeEventListener(shape) {
 		}
 
 		selectedShape = shape;
-		
+
 		// Get bounding box  of the actual shape not the whole shape container
-		let { x, y, width, height } = selectedShape.querySelector('.actual-shape').getBBox();
+		let { x, y, width, height } = selectedShape
+			.querySelector('.actual-shape')
+			.getBBox();
 
 		// Draw Bounding box
 		let boundingBox = selectedShape.firstChild;
@@ -96,11 +115,25 @@ function shapeEventListener(shape) {
 			y: y,
 			width: width,
 			height: height,
-			style: "visibility: visible"
+			style: 'visibility: visible',
 		});
 
 		drawControls(x, y, width, height);
 		populateRightSideBar(shape);
+	});
+}
+
+function outsideClickEventListener(sv) {
+	sv.sv.addEventListener('click', (e) => {
+		let clickedElement = e.target;
+
+		// Reset selected
+		if (
+			clickedElement.classList.contains('background-grid') ||
+			clickedElement.classList.contains('drawing-area')
+		) {
+			resetControls();
+		}
 	});
 }
 
@@ -121,7 +154,6 @@ function populateRightSideBar(shape) {
 	// Change fill check box and color picker color
 	filledCheck.checked = shape.getAttributeNS(null, 'fill');
 	pickedColor.value = shape.getAttributeNS(null, 'fill');
-	
 
 	let path = shape.querySelector('.svg-shape');
 	let [w, h] = path.getAttributeNS(null, 'scale').split(' ');
@@ -133,47 +165,50 @@ function populateRightSideBar(shape) {
 	top.value = parseFloat(y).toFixed(2);
 	rotation.value = shape.getAttributeNS(null, 'rotate');
 
-	// Selected Font 
+	// Selected Font
 	let selectedFont = document.getElementById('fonts');
 
 	let textArea = shape.querySelector('.shape-text');
-	let currentFont = [... textArea.classList].filter((class_) => {
+	let currentFont = [...textArea.classList].filter((class_) => {
 		return class_.includes('font');
 	});
 	// font class is in the form font-default
 	currentFont = currentFont[0].split('-').slice(-1)[0];
 	let fontIndex = 0;
 
-	for(let i = 0; i < selectedFont.length; i++){
-		if(selectedFont.options[i].value == currentFont){
+	for (let i = 0; i < selectedFont.length; i++) {
+		if (selectedFont.options[i].value == currentFont) {
 			fontIndex = i;
 			break;
-		};
+		}
 	}
 	// Change selected index in right side bar
 	selectedFont.selectedIndex = fontIndex;
 
-	
-
 	// Bold Italics Underline
 	let isBold = textArea.classList.contains('text-bold');
 	let boldButton = document.getElementById('bold-btn');
-	isBold ? boldButton.classList.add('btn-active'): 	boldButton.classList.remove('btn-active');
-	
+	isBold
+		? boldButton.classList.add('btn-active')
+		: boldButton.classList.remove('btn-active');
+
 	let isItalics = textArea.classList.contains('text-italics');
 	let italicsButton = document.getElementById('italics-btn');
-	isItalics ? italicsButton.classList.add('btn-active'): 	italicsButton.classList.remove('btn-active');
+	isItalics
+		? italicsButton.classList.add('btn-active')
+		: italicsButton.classList.remove('btn-active');
 
 	let isUnderline = textArea.classList.contains('text-underline');
-	
+
 	let underlineButton = document.getElementById('underline-btn');
-	
-	isUnderline ? underlineButton.classList.add('btn-active'): 	underlineButton.classList.remove('btn-active');
-	
+
+	isUnderline
+		? underlineButton.classList.add('btn-active')
+		: underlineButton.classList.remove('btn-active');
+
 	// FOnt Size Inputbox
 	let fontSizeInput = document.getElementById('font-size');
 	fontSizeInput.value = parseInt(getComputedStyle(textArea).fontSize);
-
 }
 
 function drawControls(x, y, width, height) {
@@ -191,17 +226,21 @@ function drawControls(x, y, width, height) {
 	];
 	// Draw controls
 
-	 let rotateButton = selectedShape.querySelector('.rotate-button');
-	// 
+	let rotateButton = selectedShape.querySelector('.rotate-button');
+	//
 	rotateButton.setAttributeNS(null, 'style', 'visibility: visible;');
-	rotateButton.setAttributeNS(null, 'transform', `translate(${x-40} ${y-40})`)
+	rotateButton.setAttributeNS(
+		null,
+		'transform',
+		`translate(${x - 40} ${y - 40})`
+	);
 
 	// Position Text
 	let textBoxParent = selectedShape.querySelector('.text-box-parent');
 	textBoxParent.setAttributeNS(null, 'width', width);
-	textBoxParent.setAttributeNS(null, 'height', height / 2 + 10 )
+	textBoxParent.setAttributeNS(null, 'height', height / 2 + 10);
 	textBoxParent.setAttributeNS(null, 'x', x - 10 + 8);
-	textBoxParent.setAttributeNS(null, 'y', y + height / 2 - 10 );
+	textBoxParent.setAttributeNS(null, 'y', y + height / 2 - 10);
 
 	let controlButtons = selectedShape.querySelectorAll('.resize-button');
 	for (let i = 0; i < 8; i++) {
@@ -215,35 +254,28 @@ function drawControls(x, y, width, height) {
 }
 
 function resetControls() {
-	if(selectedShape){
+	if (selectedShape) {
 		let rotateButton = selectedShape.querySelector('.rotate-button');
 		setSVGAttributes(rotateButton, {
-			style: 'visibility: hidden'
+			style: 'visibility: hidden',
 		});
 		removeSVGAttributes(rotateButton, ['transform']);
 
 		// Hide Bounding box
 		let boundingBox = selectedShape.firstChild;
 		setSVGAttributes(boundingBox, {
-			style: 'visibility: hidden'
+			style: 'visibility: hidden',
 		});
 		// removeSVGAttributes(boundingBox, ['x', 'y', 'width', 'height']);
-		
+
 		// Reset controls
 		let resizeButtons = selectedShape.querySelectorAll('.resize-button');
 		for (let i = 0; i < resizeButtons.length; i++) {
 			let resizeButton = resizeButtons[i];
-			removeSVGAttributes(resizeButton, [
-				'cx',
-				'cy',
-				'rx',
-				'ry',
-			])
+			removeSVGAttributes(resizeButton, ['cx', 'cy', 'rx', 'ry']);
 		}
 		// Unselect the selected shape
 		// selectedShape = null;
 	}
-	
 }
 
-let selectedShape = null;

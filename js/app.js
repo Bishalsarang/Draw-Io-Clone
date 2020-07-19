@@ -1,67 +1,81 @@
 import { CustomShape } from './components/CustomShape.js';
-import {  Connector} from './components/Connector.js';
+import { Connector } from './components/Connector.js';
 
 class SV {
 	constructor(selector) {
 		this.sv = document.querySelector(selector);
-		setSVGAttribute(this.sv, 'viewBox', '0 0 ' + SVG_WIDTH + ' ' + SVG_HEIGHT);
-		this.shapeList = [];
+		setSVGAttribute(
+			this.sv,
+			'viewBox',
+			'0 0 ' + SVG_WIDTH + ' ' + SVG_HEIGHT
+		);
+
+		// Shape and COnnector Constructors
 		this.ShapesConstruct = {
 			CustomShape: CustomShape,
 			Connector: Connector,
 		};
 	}
 
-	svg2img(el, type) {
-		var svg = document.getElementById('drawing-area');
-		var xml = new XMLSerializer().serializeToString(svg);
-		var svg64 = btoa(xml); //for utf8: btoa(unescape(encodeURIComponent(xml)))
+	/**
+	 * Convert content of svg tag to .png or .svg
+	 * @param {*} downloadLink
+	 * @param {*} type
+	 */
+	svg2img(downloadLink, type) {
+		let xml = new XMLSerializer().serializeToString(this.sv);
+		let svg64 = btoa(xml); //for utf8: btoa(unescape(encodeURIComponent(xml)))
 
-		var b64start = 'data:image/svg+xml;base64,';
-		var image64 = b64start + svg64;
+		let b64start = 'data:image/svg+xml;base64,';
+		let image64 = b64start + svg64;
 
 		// Create temporary img tag
-		var img = document.createElement('img');
+		let img = document.createElement('img');
 		img.setAttribute('src', image64);
 
 		// Convert to canvas and draw image on canvas
-		var canvas = document.createElement('canvas');
+		let canvas = document.createElement('canvas');
 		canvas.width = SVG_WIDTH;
 		canvas.height = SVG_HEIGHT;
-		var ctx = canvas.getContext('2d');
 
-		var imgsrc = image64.replace('image/svg', 'image/octet-stream');
-		el.setAttribute('download', 'image.svg');
+		let ctx = canvas.getContext('2d');
+
+		let imgsrc = image64.replace('image/svg', 'image/octet-stream');
+		downloadLink.setAttribute('download', 'image.svg');
+		
 		img.onload = function () {
 			ctx.drawImage(img, 0, 0);
 			if (type == 'png') {
 				imgsrc = canvas
 					.toDataURL('image/png', 1)
 					.replace('image/png', 'image/octet-stream');
-				el.setAttribute('download', 'image.png');
+					downloadLink.setAttribute('download', 'image.png');
 			}
-			el.href = imgsrc;
-			el.click();
+			downloadLink.href = imgsrc;
+			downloadLink.click();
 		};
 	}
 }
 
 let sv;
+
 window.onload = function () {
 	sv = new SV('.drawing-area');
+
 	if (hasPreviousSavedState()) {
-			// SHow Draft Selector
-			showDraftSelector(sv.sv);
-	}
-	else{
-		addGrid(sv.sv)
+		// SHow Draft Selector
+		showDraftSelector(sv.sv);
+	} else {
+		addGrid(sv.sv);
 	}
 
+	// Show shape info on hovering shape on left sidebar
 	sideBarShapeHoverEventListener(sv);
 	addEventListenerLeftSideBar(sv);
 	makeDraggable(sv);
+
 	addEventListenerRightSideBar();
-	shapeDeleteEventListener();
+	keyBoardEventListener();
 	outsideClickEventListener(sv);
 	saveProgressEventListener();
 	downloadEventListener();
@@ -70,7 +84,6 @@ window.onload = function () {
 function hasPreviousSavedState() {
 	return localStorage.length;
 }
-
 
 /**
  * downloadButton onClick
@@ -92,15 +105,34 @@ function downloadEventListener() {
 	});
 }
 
+function deleteShape(sv, selectedShape) {
+	sv.removeChild(selectedShape);
+}
+
+function copyShape(sv, selectedShape) {
+	console.log('Copied');
+
+	// CopiedShape = selectedShape.cloneNode(true);
+	// ssssv.append(CopiedShape);
+}
+
 /**
  * shapeDeleteEventListener
  * Listen if delete key is pressed and remove if any shape is deleted
  */
-function shapeDeleteEventListener() {
+function keyBoardEventListener() {
 	window.addEventListener('keydown', (e) => {
 		if (selectedShape) {
+			// Delete Selected Shape on delete key dowm
 			if (e.code == 'Delete') {
-				sv.sv.removeChild(selectedShape);
+				deleteShape(sv.sv, selectedShape);
+			}
+
+			let c = e.keyCode;
+			let ctrlDOwn = e.ctrlKey || e.metaKey; // Mac SUpport
+			// Copy Shape on CTRL + C
+			if (ctrlDOwn && c == 67) {
+				copyShape(sv.sv, selectedShape);
 			}
 		}
 	});
