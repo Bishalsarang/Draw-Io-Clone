@@ -20,7 +20,7 @@ export class Shape {
 
 			/* Fill Properties */
 			fill = '#ffffff',
-			fillOpacity = '100',
+			fillOpacity = '1',
 			fillRule = 'nonzero', // Value: nonzero: eveonodd
 
 			//* Transformation Properties */

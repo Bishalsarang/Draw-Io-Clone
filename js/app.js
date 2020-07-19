@@ -58,10 +58,10 @@ class SV {
 }
 
 let sv;
-
 window.onload = function () {
 	sv = new SV('.drawing-area');
 
+	// If some drafts has been saved
 	if (hasPreviousSavedState()) {
 		// SHow Draft Selector
 		showDraftSelector(sv.sv);
@@ -95,6 +95,8 @@ function downloadEventListener() {
 	downloadButton.addEventListener('click', (e) => {
 		// Unselect if any shape is selected
 		resetControls();
+		// Remove grid from output
+		removeGrid(sv.sv);
 		let exportFileType = '';
 		document.getElementsByName('export-extension').forEach((option) => {
 			if (option.checked) {
@@ -102,6 +104,8 @@ function downloadEventListener() {
 			}
 		});
 		sv.svg2img(downloadLink, exportFileType);
+		// Add grid back after export
+		addGrid(sv.sv);
 	});
 }
 
@@ -143,6 +147,7 @@ function keyBoardEventListener() {
  */
 function saveProgressEventListener() {
 	let saveProgress = document.querySelector('.btn-save-progress');
+
 	// If save Progress is clicked
 	saveProgress.addEventListener('click', (e) => {
 		// Unselect if any shape is selected before saving the state

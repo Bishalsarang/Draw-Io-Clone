@@ -90,7 +90,6 @@ function getSelectedDiagram(timeStamp) {
 function removeGrid(previewSVG) {
 	let defElement = previewSVG.querySelector('defs');
 	let backgroundGrid = previewSVG.querySelector('.background-grid');
-	console.log(previewSVG.innerHTML);
 	// Remove defs and background-grid from preview
 	if (defElement) {
 		previewSVG.removeChild(defElement);
@@ -183,7 +182,8 @@ function addGrid(sv) {
 		height: '100%',
 		fill: 'url(#grid)',
 		class: 'background-grid',
-	});
-	sv.appendChild(defElement);
-	sv.appendChild(gridRect);
+   });
+   sv.prepend(gridRect);
+	sv.prepend(defElement);
+
 }

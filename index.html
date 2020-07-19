@@ -674,12 +674,15 @@
 
 
                 <div class="sidebar-right left">
-                    <div>
+                    <div class="fill-section">
+                        <h3>Fill Color</h3>
                         <input type="checkbox" checked="false" style="margin: 0px 6px 0px 0px;" id="fill-status">
-                        <span>Fill</span>
                         <input type="color" name="color-picker" id="color-picker">
+                        <label for="opacity">Opacity</label>
+                        <input type="number" id="opacity" name="opacity" min="0" max="100" value="100">
                     </div>
-                    <div>
+                    <div class="stroke-section">
+                        <h3>Line</h3>
                         <input type="checkbox" checked="false" style="margin: 0px 6px 0px 0px;" id="line-status">
                         <label for="gradient-direction">Line: </label>
                         <select name="line-type" id="line-type">
@@ -689,31 +692,31 @@
                         <input type="number" id="line-width" name="line-width" min="1" value="1" step="0.2">
                         <input type="color" name="stroke-color-picker" id="stroke-color-picker">
                     </div>
-                    <div>
-                        <label for="opacity">Opacity</label>
-                        <input type="number" id="opacity" name="opacity" min="0" max="100" value="100">
-                    </div>
-                    <div>
-                        <span>Position</span>
+                    <div class="position-section">
+                        <h3>Position</h3>
                         <label for="left">Left</label>
                         <input type="number" id="left" name="left" value="0" step="1">
                         <label for="top">Top</label>
                         <input type="number" id="top" name="top" value="0" step="1">
+                    </div>
 
-                        <span>Size</span>
+                    <div class="size-section">
+                        <h3>Size</h3>
 
                         <label for="width">ScaleX</label>
                         <input type="number" id="width" name="width" value="0" step="0.1">
 
                         <label for="height">ScaleY</label>
                         <input type="number" id="height" name="height" value="0" step="0.1">
+                    </div>
 
-                        <label for="rotate">Angle</label>
+                    <div class="rotation-section">
+                        <h3>Rotation</h3>
                         <input type="number" id="rotate" name="rotate" value="0">
                     </div>
 
-                    <div>
-                        <span> Font</span>
+                    <div class="font-section">
+                        <h3> Font</h3>
                         <select name="fonts" id="fonts">
                             <option value="default" class="font-default">Default</option>
                             <option value="open-sans" class="font-open-sans">Open Sans</option>
@@ -737,10 +740,10 @@
                             <span class="text-underline">U</span>
                         </button>
 
-                        <span>Font Size</span>
+                        <span>Size</span>
                         <input type="number" name="font-size" id="font-size">
 
-                        <span>Font Color</span>
+                        <span>Color</span>
                         <input type="color" name="font-color" id="font-color">
                     </div>
                 </div>
@@ -749,6 +752,7 @@
     </main>
 
     <script src="js/constants.js"></script>
+    <script src="js/selectors.js"></script>
     <script src="js/modal.js"></script>
     <script src="js/ShapeFile.js"></script>
     <script src="js/ConnectorFile.js"></script>
