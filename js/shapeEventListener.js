@@ -1,6 +1,6 @@
 /**
  * 
- * @param {*} shape 
+ * @param {object} shape 
  */
 function shapeEventListener(shape) {
 	// TODO: IF mouse is hovered on shape, connector button
@@ -8,22 +8,29 @@ function shapeEventListener(shape) {
    shape.addEventListener('click', selectShape);
 
    function selectShape(event){
-      // Uncheck if previously selected shapes if any
+      // Unselect if shape is selected
 		if (selectedShape) {
 			resetControls();
 		}
 
-		selectedShape = shape;
+      // Set current shape as selected shape
+		selectedShape = shape;  
 		// Get bounding box  of the actual shape not the whole shape container
 		let { x, y, width, height } = selectedShape
 			.querySelector('.actual-shape')
 			.getBBox();
 
+      // Draw Controls
 		drawControls(x, y, width, height);
 		populateRightSideBar(shape);
    }
 }
 
+
+/**
+ * 
+ * @param {*} sv 
+ */
 function outsideClickEventListener(sv) {
 	sv.sv.addEventListener('click', (e) => {
 		let clickedElement = e.target;
@@ -38,6 +45,11 @@ function outsideClickEventListener(sv) {
 	});
 }
 
+
+/**
+ * 
+ * @param {*} shape 
+ */
 function populateRightSideBar(shape) {
 	// Populate RIGHT ko sidebar
 	let filledCheck = document.getElementById('fill-status');

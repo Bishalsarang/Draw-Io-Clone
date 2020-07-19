@@ -17,16 +17,19 @@ function hideDraftSelector() {
 function populateDraftSelector() {
 	let draftSelector = document.getElementById('saved-draft-selector');
 
-	for (const value of Object.values(localStorage)) {
-		// Get TimeStamp and DOM state
-		const state = Object.values(JSON.parse(value))[0];
-		const timeStamp = Object.keys(JSON.parse(value))[0];
+	for (const key of Object.keys(localStorage)) {
+		if (key.startsWith('draw-io-')) {
+			const value = localStorage.getItem(key);
+			// Get TimeStamp and DOM state
+			const state = Object.values(JSON.parse(value))[0];
+			const timeStamp = Object.keys(JSON.parse(value))[0];
 
-		let option = document.createElement('option');
-		option.value = timeStamp;
-		option.text = timeStamp;
-		option.name = timeStamp;
-		draftSelector.appendChild(option);
+			let option = document.createElement('option');
+			option.value = timeStamp;
+			option.text = timeStamp;
+			option.name = timeStamp;
+			draftSelector.appendChild(option);
+		}
 	}
 	console.log(draftSelector.selectedIndex);
 	if (draftSelector.selectedIndex == 0) {
@@ -42,27 +45,26 @@ function draftSelectEventListener() {
 	});
 }
 
-function editEventHandler(sv){
-   let editButton = document.getElementById('btn-edit-draft');
-   editButton.addEventListener('click', (e) => {
-      console.log("edit");
-      let selectedTimeStamp = getSelectedTimeStamp();
+function editEventHandler(sv) {
+	let editButton = document.getElementById('btn-edit-draft');
+	editButton.addEventListener('click', (e) => {
+		let selectedTimeStamp = getSelectedTimeStamp();
 		let selectedDiagram = getSelectedDiagram(selectedTimeStamp);
 		loadPreviousState(sv, selectedDiagram);
-   });
+	});
 }
 
-function cancelEVentHandler(sv){
-   let cancelButton = document.getElementById('btn-cancel-draft');
+function cancelEVentHandler(sv) {
+	let cancelButton = document.getElementById('btn-cancel-draft');
 
-   cancelButton.addEventListener('click', (e) => {
-      addGrid(sv);
-      hideDraftSelector();
-   });
+	cancelButton.addEventListener('click', (e) => {
+		addGrid(sv);
+		hideDraftSelector();
+	});
 }
 function draftButtonsEventListener(sv) {
-   editEventHandler(sv);
-   cancelEVentHandler(sv);	
+	editEventHandler(sv);
+	cancelEVentHandler(sv);
 }
 
 function getSelectedTimeStamp() {
@@ -85,18 +87,17 @@ function getSelectedDiagram(timeStamp) {
 	}
 }
 
-function removeGrid(previewSVG){
-   let defElement = previewSVG.querySelector('defs');
-   let backgroundGrid = previewSVG.querySelector('.background-grid');
-   console.log(previewSVG.innerHTML);
-   // Remove defs and background-grid from preview
-   if(defElement){
-      previewSVG.removeChild(defElement);
-   }
-   if(backgroundGrid){
-      previewSVG.removeChild(backgroundGrid);
-   }
-    
+function removeGrid(previewSVG) {
+	let defElement = previewSVG.querySelector('defs');
+	let backgroundGrid = previewSVG.querySelector('.background-grid');
+	console.log(previewSVG.innerHTML);
+	// Remove defs and background-grid from preview
+	if (defElement) {
+		previewSVG.removeChild(defElement);
+	}
+	if (backgroundGrid) {
+		previewSVG.removeChild(backgroundGrid);
+	}
 }
 
 function showPreview(index) {
@@ -104,11 +105,11 @@ function showPreview(index) {
 
 	let selectedTimeStamp = getSelectedTimeStamp();
 	let selectedDiagram = getSelectedDiagram(selectedTimeStamp);
-   previewSVG.innerHTML = selectedDiagram;
-   
-   // remove grid from DOM of preview to prevent conflicts of grid with same ID
-   removeGrid(previewSVG);
-   console.log(previewSVG.childNodes);
+	previewSVG.innerHTML = selectedDiagram;
+
+	// remove grid from DOM of preview to prevent conflicts of grid with same ID
+	removeGrid(previewSVG);
+	console.log(previewSVG.childNodes);
 }
 
 function loadPreviousState(sv, selectedDiagram) {
@@ -124,7 +125,6 @@ function loadPreviousState(sv, selectedDiagram) {
 		handleResize(sv, element, id);
 	});
 }
-
 
 /**
  *
@@ -182,7 +182,7 @@ function addGrid(sv) {
 		width: '100%',
 		height: '100%',
 		fill: 'url(#grid)',
-		class: 'background-grid'
+		class: 'background-grid',
 	});
 	sv.appendChild(defElement);
 	sv.appendChild(gridRect);

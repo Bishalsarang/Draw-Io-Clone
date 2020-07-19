@@ -151,6 +151,6 @@ function saveProgressEventListener() {
 		let currentSignature = {};
 		// localStorage.clear();
 		currentSignature[currentTimeStamp] = sv.sv.innerHTML;
-		localStorage.setItem(currentTimeStamp, JSON.stringify(currentSignature));
+		localStorage.setItem("draw-io-" + currentTimeStamp, JSON.stringify(currentSignature));
 	});
 }
