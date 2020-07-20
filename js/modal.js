@@ -17,7 +17,7 @@ function hideDraftSelector() {
 
 function populateDraftSelector() {
   let draftSelector = $('#saved-draft-selector');
-
+  let found = false;
   for (const key of Object.keys(localStorage)) {
     if (key.startsWith('draw-io-')) {
       const value = localStorage.getItem(key);
@@ -29,11 +29,15 @@ function populateDraftSelector() {
       option.value = timeStamp;
       option.text = timeStamp;
       option.name = timeStamp;
-
+      found = true;
       draftSelector.appendChild(option);
     }
   }
-  showPreview();
+  if (found) {
+    showPreview();
+  } else {
+    hideDraftSelector();
+  }
 }
 
 function draftSelectEventListener() {
