@@ -68,7 +68,7 @@ function draftButtonsEventListener(sv) {
 }
 
 function getSelectedTimeStamp() {
-  let draftSelector = document.querySelector('#saved-draft-selector');
+  let draftSelector = $('#saved-draft-selector');
 
   const selected = [...draftSelector.options].filter((e) => {
     return e.selected;
@@ -100,7 +100,7 @@ function removeGrid(previewSVG) {
 }
 
 function showPreview() {
-  let previewSVG = document.querySelector('.saved-draft-preview');
+  let previewSVG = $('.saved-draft-preview');
 
   let selectedTimeStamp = getSelectedTimeStamp();
   let selectedDiagram = getSelectedDiagram(selectedTimeStamp);

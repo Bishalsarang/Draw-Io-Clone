@@ -4,7 +4,7 @@ import { Connector } from './components/Connector.js';
 class SVG {
   constructor(selector) {
 	//   SVG Selector
-    this.sv = document.querySelector(selector);
+    this.sv = $(selector);
     setSVGAttribute(this.sv, 'viewBox', '0 0 ' + SVG_WIDTH + ' ' + SVG_HEIGHT);
 
     // Shape and COnnector Constructors
