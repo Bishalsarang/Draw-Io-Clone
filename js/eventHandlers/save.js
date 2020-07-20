@@ -16,8 +16,8 @@
  * downloadButton onClick
  */
 function downloadEventListener(svgObject) {
-	let downloadButton = document.querySelector('.btn-save');
-	let downloadLink = document.querySelector('.download-link');
+	let downloadButton = $('.btn-save');
+	let downloadLink = $('.download-link');
 
 	downloadButton.addEventListener('click', (e) => {
 		// Unselect if any shape is selected
@@ -41,7 +41,7 @@ function downloadEventListener(svgObject) {
  * Listen for click event to save progress
  */
 function saveProgressEventListener(svgObject) {
-	let saveProgress = document.querySelector('.btn-save-progress');
+	let saveProgress = $('.btn-save-progress');
 
 	// If save Progress is clicked
 	saveProgress.addEventListener('click', (e) => {

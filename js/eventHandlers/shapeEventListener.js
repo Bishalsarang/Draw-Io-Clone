@@ -1,4 +1,12 @@
 /**
+ * 
+ * shapeEventListener.js
+ * This file contains event handler when the shape is selected on drawing area
+ * The events to populate right sidebar depending upon the selected shape in drawing area
+ */
+
+
+/**
  *
  * @param {object} shape
  */
@@ -30,7 +38,7 @@ function shapeEventListener(shape) {
 
 /**
  *
- * @param {*} svgObject
+ * @param {object} svgObject
  */
 function outsideClickEventListener(svgObject) {
 	svgObject.sv.addEventListener('click', (e) => {
@@ -78,7 +86,7 @@ function updateLineProperties(shape) {
 
 /**
  *
- * @param {*} shape
+ * @param {object} shape
  */
 function updatePositionProperties(shape) {
 	// Translate Value
@@ -92,7 +100,7 @@ function updatePositionProperties(shape) {
 
 /**
  *
- * @param {*} shape
+ * @param {object} shape
  */
 function updateScaleProperties(shape) {
 	let actualShape = shape.querySelector('.svg-shape');
@@ -108,7 +116,7 @@ function updateScaleProperties(shape) {
 
 /**
  *
- * @param {*} shape
+ * @param {object} shape
  */
 function updateRotationProperties(shape) {
 	// Rotate Value
@@ -118,7 +126,7 @@ function updateRotationProperties(shape) {
 
 /**
  *
- * @param {*} textArea
+ * @param {object} textArea
  */
 function updateCurrentFont(textArea) {
 	// Selected Font
@@ -144,9 +152,9 @@ function updateCurrentFont(textArea) {
 
 /**
  *
- * @param {*} textArea
- * @param {*} fontStyleClass
- * @param {*} fontStyleButtonSelector
+ * @param {object} textArea Container that holds shape text
+ * @param {string} fontStyleClass Class to use to enable the font style eg: text-bold
+ * @param {string} fontStyleButtonSelector CSS selectpr for the button
  */
 function updateFontStyle(textArea, fontStyleClass, fontStyleButtonSelector) {
 	let isFontStyleApplied = textArea.classList.contains(fontStyleClass);
@@ -173,8 +181,8 @@ function updateFontColor(textArea) {
 }
 
 /**
- *
- * @param {*} shape
+ *	Update all the properties related to font on right side bar based on shape
+ * @param {object} shape Selected shape on drawing area
  */
 function updateFontProperties(shape) {
 	let textArea = shape.querySelector('.shape-text');
@@ -195,8 +203,8 @@ function updateFontProperties(shape) {
 }
 
 /**
- *
- * @param {*} shape
+ * Populates all the properties on right sidebar based on ths shape
+ * @param {object} shape Selected shape on drawing area
  */
 function populateRightSideBar(shape) {
 	updateFontProperties(shape); // Change Font Properties
