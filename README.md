@@ -43,7 +43,7 @@ You can view the preview here: [http://bishalsarang.github.io/Draw-Io-Clone](htt
 
 #### Main Drawing Area
 
-![Main Drawing Area(./screenshots/example.png)
+![Main Drawing Area](./screenshots/example.png)
 
 #### Exported PNG diagram
 
