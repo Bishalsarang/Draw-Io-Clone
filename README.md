@@ -34,3 +34,7 @@ You can view the preview here: [http://bishalsarang.github.io/Draw-Io-Clone](htt
    assuming you have python already installed
 
 3. Open the served URL
+
+### Screenshots
+
+![image info](./screenshots/image.png)
