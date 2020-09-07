@@ -37,4 +37,14 @@ You can view the preview here: [http://bishalsarang.github.io/Draw-Io-Clone](htt
 
 ### Screenshots
 
-![image info](./screenshots/image.png)
+#### Continue with previously saved progress
+
+![Select Previous progress](./screenshots/draftSelect.png)
+
+#### Main Drawing Area
+
+![Main Drawing Area(./screenshots/example.png)
+
+#### Exported PNG diagram
+
+![Exported diagram example](./screenshots/image.png)
